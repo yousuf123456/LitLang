@@ -64,23 +64,23 @@ export const UserMenu = () => {
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem>
           <Link
             href={"/pricing"}
             className={buttonVariants({
               variant: "ghost",
-              className: "w-full font-normal focus-visible:ring-0",
+              className: "w-full font-normal ",
             })}
           >
             Pricing
           </Link>
         </DropdownMenuItem>
 
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem>
           <Button
             onClick={() => openUserProfile()}
             variant={"ghost"}
-            className="w-full font-normal focus-visible:ring-0"
+            className="w-full font-normal"
           >
             Manage Account
           </Button>
@@ -88,11 +88,11 @@ export const UserMenu = () => {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem>
           <Button
             onClick={() => signOut(() => router.push("/"))}
             variant={"ghost"}
-            className="w-full font-normal focus-visible:ring-0"
+            className="w-full font-normal"
           >
             Sign Out
           </Button>
