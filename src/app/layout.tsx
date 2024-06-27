@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, B612_Mono, Cousine } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+import { Navbar } from "./(landingPage)/_components/Navbar";
 
 const inter = Inter({
   weight: "variable",
@@ -22,7 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-white`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

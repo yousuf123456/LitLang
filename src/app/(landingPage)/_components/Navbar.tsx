@@ -2,7 +2,6 @@ import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
 import Image from "next/image";
 import React from "react";
 import { Search } from "./Search";
-import { Button } from "@/components/ui/button";
 import { UserAccount } from "./UserAccount";
 
 export const Navbar = () => {
