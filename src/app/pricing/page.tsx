@@ -67,17 +67,24 @@ export default function PricingPage() {
   ];
 
   return (
-    <MaxWidthWrapper className="mt-20">
-      <div className="flex flex-col gap-24 items-center">
-        <div className="w-full flex justify-center">
-          <Underline width={300} height={8} className="-bottom-0 sm:-bottom-0">
-            <h1 className="text-center text-2xl font-semibold text-gray-800">
-              Transparent Pricing
+    <MaxWidthWrapper className="mt-12 md:mt-20 p-1">
+      <div className="flex flex-col gap-16 md:gap-24 items-center">
+        <div className="w-full flex flex-col items-center gap-0 px-4">
+          <div className="flex gap-3 items-center max-w-fit border-[1px] rounded-full px-3 py-1 transition-all border-gray-300 bg-white/50">
+            <p className="text-xs text-zinc-900">Become a Pro</p>
+          </div>
+
+          <div className="w-full flex justify-center">
+            <h1 className="text-center text-3xl sm:text-4xl font-bold text-gray-800 max-w-[360px] leading-10 sm:leading-[48px]">
+              Harness the Power of{" "}
+              <span className="text-white bg-gradient-to-br from-gray-900 to-primary rounded-lg px-2 py-1">
+                LitLang
+              </span>{" "}
             </h1>
-          </Underline>
+          </div>
         </div>
 
-        <div className="flex gap-0 w-full justify-center">
+        <div className="flex max-sm:flex-col gap-12 sm:gap-0 w-full justify-center items-center">
           <div className="flex flex-col gap-4 w-full max-w-sm">
             <div className="flex flex-col gap-2 px-4 py-2 ">
               <p className="text-base text-zinc-800 font-medium">Standard</p>
@@ -90,7 +97,7 @@ export default function PricingPage() {
               </p>
             </div>
 
-            <div className="border border-zinc-400 border-r-0 grid grid-cols-1 auto-rows-[3rem]">
+            <div className="border border-zinc-400 sm:border-r-0 grid grid-cols-1 auto-rows-[3rem]">
               {features.map((feature, i) => (
                 <div
                   key={i}
@@ -118,7 +125,7 @@ export default function PricingPage() {
           </div>
 
           <div className="flex flex-col gap-4 w-full max-w-sm">
-            <div className="flex flex-col gap-2 bg-gray-900 px-4 py-2">
+            <div className="flex flex-col gap-2 to-primary from-gray-900 bg-gradient-to-br px-4 py-2">
               <p className="text-base text-gray-200 font-medium">Pro</p>
               <div className="flex items-end gap-1">
                 <p className="font-bold text-5xl text-gray-200">$5</p>
@@ -150,7 +157,7 @@ export default function PricingPage() {
             </div>
 
             <div className="px-4 w-full">
-              <Button className="bg-gray-900 hover:bg-gray-900/90 w-full">
+              <Button className="from-gray-900 bg-gradient-to-br to-primary hover:bg-gray-900/90 w-full">
                 Subsribe
               </Button>
             </div>
