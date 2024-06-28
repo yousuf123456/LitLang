@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, B612_Mono, Cousine } from "next/font/google";
+import { Inter_Tight, Diplomata_SC } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { Navbar } from "./(landingPage)/_components/Navbar";
 
-const inter = Inter({
+const inter = Inter_Tight({
   weight: "variable",
   variable: "--font-inter",
   subsets: ["latin"],

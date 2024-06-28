@@ -1,5 +1,5 @@
 import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
-import { Underline } from "@/components/Underline";
+import { Highlight } from "@/components/Highlight";
 import { Verified, X } from "lucide-react";
 import React from "react";
 import { Footer } from "../(landingPage)/_components/Footer";
@@ -76,10 +76,7 @@ export default function PricingPage() {
 
           <div className="w-full flex justify-center">
             <h1 className="text-center text-3xl sm:text-4xl font-bold text-gray-800 max-w-[360px] leading-10 sm:leading-[48px]">
-              Harness the Power of{" "}
-              <span className="text-white bg-gradient-to-br from-gray-900 to-primary rounded-lg px-2 py-1">
-                LitLang
-              </span>{" "}
+              Harness the Power of <Highlight>LitLang</Highlight>
             </h1>
           </div>
         </div>
