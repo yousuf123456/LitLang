@@ -64,7 +64,7 @@ export const UserMenu = () => {
         <DropdownMenuSeparator />
 
         <Link href={"/blogs"}>
-          <DropdownMenuItem onClick={() => openUserProfile()}>
+          <DropdownMenuItem>
             <Newspaper className="mr-4 h-4 w-4 text-zinc-700" />
             <span>Blogs</span>
           </DropdownMenuItem>
