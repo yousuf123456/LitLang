@@ -10,7 +10,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 
 export const HamburgerMenu = () => {
   const [open, setOpen] = useState(false);
@@ -36,8 +37,15 @@ export const HamburgerMenu = () => {
           </SheetHeader>
 
           <div className="h-full flex flex-col justify-end gap-4 pb-12">
-            <Button variant={"secondary"}>Sign In</Button>
-            <Button>Become a Publisher</Button>
+            <Link
+              href="/sign-in"
+              className={buttonVariants({ variant: "secondary" })}
+            >
+              Sign In
+            </Link>
+            <Link href="/sign-up" className={buttonVariants()}>
+              Become a Publisher
+            </Link>
           </div>
         </SheetContent>
       </Sheet>

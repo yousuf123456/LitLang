@@ -1,10 +1,17 @@
+"use client";
+
 import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
 import Image from "next/image";
 import React from "react";
 import { Search } from "./Search";
 import { UserAccount } from "./UserAccount";
+import { usePathname } from "next/navigation";
 
 export const Navbar = () => {
+  const pathname = usePathname();
+
+  if (pathname === "/blogEditor") return;
+
   return (
     <MaxWidthWrapper className="md:py-6 py-4 lg:px-16 xl:px-20 md:px-8 px-3 border-b border-zinc-300 sticky top-0 left-0 bg-white z-50">
       <div className="flex justify-between items-center w-full gap-3 sm:gap-8">

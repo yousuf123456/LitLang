@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
-import { Inter_Tight, Diplomata_SC } from "next/font/google";
 import "./globals.css";
+
+import type { Metadata } from "next";
+import { Inter_Tight } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import { Navbar } from "./(landingPage)/_components/Navbar";
 

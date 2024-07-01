@@ -13,15 +13,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { Button, buttonVariants } from "./ui/button";
 import Link from "next/link";
+import { Edit, Gem, LogOutIcon, User, Newspaper } from "lucide-react";
 
 export const UserMenu = () => {
   const { isLoaded, user } = useUser();
   // Grab the signOut and openUserProfile methods
   const { signOut, openUserProfile } = useClerk();
-  // Get access to the Next.js router
-  const router = useRouter();
 
   if (!isLoaded) return null;
   if (!user?.id) return null;
@@ -64,38 +62,40 @@ export const UserMenu = () => {
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Link
-            href={"/pricing"}
-            className={buttonVariants({
-              variant: "ghost",
-              className: "w-full font-normal ",
-            })}
-          >
-            Pricing
-          </Link>
-        </DropdownMenuItem>
 
-        <DropdownMenuItem>
-          <Button
-            onClick={() => openUserProfile()}
-            variant={"ghost"}
-            className="w-full font-normal"
-          >
-            Manage Account
-          </Button>
+        <Link href={"/blogs"}>
+          <DropdownMenuItem onClick={() => openUserProfile()}>
+            <Newspaper className="mr-4 h-4 w-4 text-zinc-700" />
+            <span>Blogs</span>
+          </DropdownMenuItem>
+        </Link>
+
+        <DropdownMenuSeparator />
+
+        <Link href={"/pricing"}>
+          <DropdownMenuItem>
+            <Gem className="mr-4 h-4 w-4 text-zinc-700" />
+            <span>Pricing</span>
+          </DropdownMenuItem>
+        </Link>
+
+        <Link href={"/blogEditor"}>
+          <DropdownMenuItem>
+            <Edit className="mr-4 h-4 w-4 text-zinc-700" />
+            <span>Write Blog</span>
+          </DropdownMenuItem>
+        </Link>
+
+        <DropdownMenuItem onClick={() => openUserProfile()}>
+          <User className="mr-4 h-4 w-4 text-zinc-700" />
+          <span>Manage Account</span>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem>
-          <Button
-            onClick={() => signOut(() => router.push("/"))}
-            variant={"ghost"}
-            className="w-full font-normal"
-          >
-            Sign Out
-          </Button>
+        <DropdownMenuItem onClick={() => signOut()}>
+          <LogOutIcon className="mr-4 h-4 w-4 text-zinc-700" />
+          <span>Logout</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

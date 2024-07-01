@@ -39,7 +39,7 @@ export const Universities = () => {
             {universitiesData.map((uni, i) => (
               <div
                 key={i}
-                className="w-full min-w-72 h-auto aspect-video rounded-xl overflow-hidden relative flex justify-center items-center px-5 py-3 cursor-pointer group"
+                className="w-full min-w-72 h-auto aspect-2 rounded-xl overflow-hidden relative flex justify-center items-center px-5 py-3 cursor-pointer group"
               >
                 <Image alt="University Image" src={uni.image} fill />
 
