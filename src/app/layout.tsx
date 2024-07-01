@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter_Tight } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import { Navbar } from "./(landingPage)/_components/Navbar";
+import { Footer } from "./(landingPage)/_components/Footer";
 
 const inter = Inter_Tight({
   weight: "variable",
@@ -25,8 +26,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} bg-white`}>
         <Providers>
-          <Navbar />
-          {children}
+          <div className="min-h-screen flex flex-col">
+            <Navbar />
+            <div className="flex-1">{children}</div>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>
