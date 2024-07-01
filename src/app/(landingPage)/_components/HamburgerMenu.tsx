@@ -39,11 +39,16 @@ export const HamburgerMenu = () => {
           <div className="h-full flex flex-col justify-end gap-4 pb-12">
             <Link
               href="/sign-in"
+              onClick={() => setOpen(false)}
               className={buttonVariants({ variant: "secondary" })}
             >
               Sign In
             </Link>
-            <Link href="/sign-up" className={buttonVariants()}>
+            <Link
+              href="/sign-up"
+              onClick={() => setOpen(false)}
+              className={buttonVariants()}
+            >
               Become a Publisher
             </Link>
           </div>
