@@ -4,6 +4,7 @@ const nextConfig = {
     remotePatterns: [
       { hostname: "encrypted-tbn0.gstatic.com" },
       { hostname: "img.clerk.com" },
+      { hostname: "utfs.io" },
     ],
   },
 };

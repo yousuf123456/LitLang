@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
-
-const defaultTheme = require("tailwindcss/defaultTheme");
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 const svgToDataUri = require("mini-svg-data-uri");
 
@@ -28,6 +27,7 @@ const config = {
     },
     extend: {
       fontFamily: {
+        //@ts
         primary: "var(--font-inter)",
       },
       colors: {
@@ -88,6 +88,8 @@ const config = {
   },
   plugins: [
     require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/aspect-ratio"),
     addVariablesForColors,
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
