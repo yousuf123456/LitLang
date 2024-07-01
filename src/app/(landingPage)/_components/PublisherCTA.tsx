@@ -9,11 +9,11 @@ export const PublisherCTA = () => {
       <Boxes />
       <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
 
-      <div className="lg:w-[380px] lg:h-[256px] w-[220px] h-[216px] sm:w-[300px] sm:h-[236px] z-20 bg-slate-900 bg-opacity-40 relative flex-shrink-0">
+      <div className="lg:w-[380px] lg:h-[256px] w-[220px] h-[216px] sm:w-[300px] sm:h-[236px] z-20 bg-slate-900 bg-opacity-70 relative flex-shrink-0">
         <Image alt="Illustration" src={"/blogging.svg"} fill />
       </div>
 
-      <div className="flex flex-col gap-8 sm:gap-12 max-w-lg items-center z-20 bg-slate-900 bg-opacity-60 rounded-2xl p-3">
+      <div className="flex flex-col gap-8 sm:gap-12 max-w-lg items-center z-20 bg-slate-900 bg-opacity-70 rounded-2xl p-3">
         <p className="text-3xl sm:text-4xl lg:text-[42px] leading-10 font-bold text-center text-slate-300">
           Share Your Voice, Publish Your Own Blog Today!
         </p>
