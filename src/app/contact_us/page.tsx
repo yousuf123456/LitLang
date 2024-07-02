@@ -26,9 +26,10 @@ export default function ContactUsPage() {
   const ref = useRef(null);
   const inView = useInView(ref, {
     once: true,
-    margin: "0px 0px -150px 0px",
+    margin: "0px 0px -400px 0px",
   });
 
+  // #change
   const variants = {
     slideIn: {
       opacity: [0, 0.2, 0.3, 1],
