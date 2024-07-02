@@ -18,7 +18,7 @@ export const Hero = () => {
             </h1>
           </div>
 
-          <p className="mt-3 text-zinc-900 text-sm md:text-base lg:text-lg max-w-3xl font-medium text-center">
+          <p className="mt-3 text-zinc-900 text-sm md:text-base lg:text-lg max-w-3xl font-primary font-medium text-center">
             Discover, Learn, and Excel with Our Educational Notes.
           </p>
         </div>

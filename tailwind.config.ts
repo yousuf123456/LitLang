@@ -29,6 +29,7 @@ const config = {
       fontFamily: {
         //@ts
         primary: "var(--font-inter)",
+        brand: "var(--font-space_grotesk)",
       },
       colors: {
         border: "hsl(var(--border))",

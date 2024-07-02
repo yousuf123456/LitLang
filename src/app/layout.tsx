@@ -1,7 +1,7 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import { Inter_Tight } from "next/font/google";
+import { Inter_Tight, Space_Grotesk } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import { Navbar } from "./(landingPage)/_components/Navbar";
 import { Footer } from "./(landingPage)/_components/Footer";
@@ -9,6 +9,11 @@ import { Footer } from "./(landingPage)/_components/Footer";
 const inter = Inter_Tight({
   weight: "variable",
   variable: "--font-inter",
+  subsets: ["latin"],
+});
+const space_grotesk = Space_Grotesk({
+  weight: "variable",
+  variable: "--font-space_grotesk",
   subsets: ["latin"],
 });
 
@@ -24,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-white`}>
+      <body className={`${inter.className} ${space_grotesk.variable} bg-white`}>
         <Providers>
           <div className="min-h-screen flex flex-col">
             <Navbar />
