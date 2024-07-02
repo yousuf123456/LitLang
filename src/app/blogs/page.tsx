@@ -1,13 +1,14 @@
 import React from "react";
 import { Blogs } from "./_components/Blogs";
-import { Footer } from "../(landingPage)/_components/Footer";
 
-export default function BlogsPage() {
+export default function BlogsPage({
+  searchParams,
+}: {
+  searchParams: { userId: string | null };
+}) {
   return (
     <div className="w-full">
-      <Blogs />
-
-      <Footer />
+      <Blogs isUserSpecificBlogs={!!searchParams.userId} />
     </div>
   );
 }
