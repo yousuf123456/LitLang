@@ -29,7 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${space_grotesk.variable} bg-white`}>
+      <body
+        className={`${space_grotesk.className} ${space_grotesk.variable} bg-white`}
+      >
         <Providers>
           <div className="min-h-screen flex flex-col">
             <Navbar />
