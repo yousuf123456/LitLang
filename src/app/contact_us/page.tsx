@@ -39,7 +39,7 @@ export default function ContactUsPage() {
             left: 0,
           }}
           initial={{ left: 220, opacity: 0 }}
-          transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="flex flex-col gap-8 max-w-2xl lg:max-w-xl z-50 relative"
         >
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
