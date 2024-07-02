@@ -23,29 +23,10 @@ import { sampleArcs } from "@/data/globe/arcs";
 import { globeConfig } from "@/data/globe/config";
 
 export default function ContactUsPage() {
-  const ref = useRef(null);
-  const inView = useInView(ref, {
-    once: true,
-    margin: "0px 0px -100px 0px",
-  });
-
-  const variants = {
-    slideIn: {
-      opacity: [0, 0.2, 0.3, 1],
-      left: 0,
-    },
-  };
-
-  const controls = useAnimation();
-
-  useEffect(() => {
-    if (inView) controls.start("slideIn");
-  }, [controls, inView]);
-
   return (
     <MaxWidthWrapper className="lg:mt-28 px-8">
       <div className="flex lg:flex-row flex-col justify-center items-center lg:gap-16">
-        <div className="relative h-full max-sm:min-h-screen max-lg:bg-dot-black/[0.5] z-10 flex items-center max-sm:pt-16 max-sm:pb-16 max-lg:pb-16">
+        <div className="relative h-full max-lg:bg-dot-black/[0.5] z-10 flex items-center max-sm:pt-16 max-sm:pb-6 max-lg:pb-16">
           <div className="absolute pointer-events-none inset-0 -bottom-12 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_5%,black)]"></div>
           <div className="relative w-[350px] h-[350px] sm:w-[440px] sm:h-[440px] xl:w-[520px] xl:h-[520px]">
             <World data={sampleArcs} globeConfig={globeConfig} />
@@ -53,9 +34,10 @@ export default function ContactUsPage() {
         </div>
 
         <motion.div
-          ref={ref}
-          animate={controls}
-          variants={variants}
+          animate={{
+            opacity: [0, 0.2, 0.3, 1],
+            left: 0,
+          }}
           initial={{ left: 220, opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="flex flex-col gap-8 max-w-2xl lg:max-w-xl z-50 relative"
