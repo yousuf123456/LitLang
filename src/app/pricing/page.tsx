@@ -164,8 +164,6 @@ export default function PricingPage() {
           </LampContainer>
         </div>
       </MaxWidthWrapper>
-
-      <Footer />
     </div>
   );
 }

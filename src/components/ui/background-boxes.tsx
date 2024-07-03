@@ -3,12 +3,28 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
+export const BoxesCore = ({
+  boxesClassName,
+  staticColor,
+  className,
+  tileColor,
+  noOfrows,
+  noOfcols,
+  ...rest
+}: {
+  boxesClassName?: string;
+  staticColor?: boolean;
+  tileColor?: string;
+  className?: string;
+  noOfrows?: number;
+  noOfcols?: number;
+}) => {
   const [clickedColIndex, setClickedColIndex] = useState<number | null>(null);
   const [clickedRowIndex, setClickedRowIndex] = useState<number | null>(null);
 
-  const rows = new Array(35).fill(1);
-  const cols = new Array(32).fill(1);
+  const rows = new Array(noOfrows || 35).fill(1);
+  const cols = new Array(noOfcols || 32).fill(1);
+
   let colors = [
     "--sky-300",
     "--pink-300",
@@ -24,6 +40,13 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
     return colors[Math.floor(Math.random() * colors.length)];
   };
 
+  function generateRandomBoolean() {
+    // Adjust the probability here: trueProbability should be less than 0.5
+    const trueProbability = 0.05; // Example: 20% chance of true
+
+    return Math.random() < trueProbability;
+  }
+
   return (
     <div
       style={{
@@ -36,22 +59,33 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
       {...rest}
     >
       {rows.map((_, i) => (
-        <motion.div
+        <div
           key={`row` + i}
-          className="w-20 h-10  border-l  border-slate-500 relative"
+          className={cn(
+            "w-20 h-10  border-l  border-[#FFECD1]/50 relative",
+            boxesClassName
+          )}
         >
           {cols.map((_, j) => (
             <motion.div
               whileHover={{
-                backgroundColor: `var(${getRandomColor()})`,
+                ...(!staticColor
+                  ? { backgroundColor: `var(${getRandomColor()})` }
+                  : {}),
                 transition: { duration: 0 },
               }}
               style={{
-                ...(j === clickedColIndex && i === clickedRowIndex
-                  ? { backgroundColor: `var(${getRandomColor()})` }
+                ...(!staticColor
+                  ? j === clickedColIndex && i === clickedRowIndex
+                    ? { backgroundColor: `var(${getRandomColor()})` }
+                    : {}
+                  : generateRandomBoolean()
+                  ? { backgroundColor: tileColor }
                   : {}),
               }}
               onClick={() => {
+                if (staticColor) return;
+
                 setClickedColIndex(j);
                 setClickedRowIndex(i);
               }}
@@ -59,7 +93,10 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
                 transition: { duration: 2 },
               }}
               key={`col` + j}
-              className="w-20 h-10  border-r border-t border-slate-500 relative"
+              className={cn(
+                "w-20 h-10  border-r border-t border-[#FFECD1]/50 relative",
+                boxesClassName
+              )}
             >
               {j % 2 === 0 && i % 2 === 0 ? (
                 <svg
@@ -68,7 +105,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="absolute h-6 w-10 -top-[14px] -left-[22px] text-slate-500 stroke-[1px] pointer-events-none"
+                  className="absolute h-6 w-10 -top-[14px] -left-[22px] text-[#FFECD1]/50 stroke-[1px] pointer-events-none"
                 >
                   <path
                     strokeLinecap="round"
@@ -79,7 +116,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
               ) : null}
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       ))}
     </div>
   );

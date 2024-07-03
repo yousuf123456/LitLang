@@ -15,12 +15,20 @@ const World = dynamic<any>(
   {
     ssr: false,
     suspense: true,
-    loading: () => <p>Loading...</p>,
+    loading: () => (
+      <div className="flex items-center justify-center w-full h-full">
+        <p className="max-w-md text-lg font-medium text-zinc-700">
+          World is Waiting For You...
+        </p>
+        <Smile className="w-5 h-5 text-zinc-600" />
+      </div>
+    ),
   }
 );
 
 import { sampleArcs } from "@/data/globe/arcs";
 import { globeConfig } from "@/data/globe/config";
+import { Smile } from "lucide-react";
 
 export default function ContactUsPage() {
   return (
