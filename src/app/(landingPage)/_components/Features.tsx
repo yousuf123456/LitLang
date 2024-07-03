@@ -92,8 +92,8 @@ const FeatureCard = ({
       }
       animate={controls}
       transition={{
-        delay: isMiddleFeatureInRow ? 1 : 0,
-        duration: isMiddleFeatureInRow ? 0.5 : 1,
+        delay: isMiddleFeatureInRow ? 1.2 : 0,
+        duration: isMiddleFeatureInRow ? 0.8 : 1,
         ease: "easeOut",
       }}
       variants={animateVariants}
