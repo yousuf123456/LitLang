@@ -29,17 +29,23 @@ export const UserAccount = () => {
         </div>
       </SignedOut>
 
-      <SignedIn>
+      {user ? (
         <div
           className={cn(
-            "flex items-center justify-start flex-shrink-0",
-            !user && "lg:hidden",
-            user && "lg:w-32"
+            "flex items-center lg:w-32 justify-center flex-shrink-0"
           )}
         >
           <UserMenu />
         </div>
-      </SignedIn>
+      ) : (
+        <div
+          className={cn(
+            "flex items-center lg:hidden justify-start flex-shrink-0"
+          )}
+        >
+          <UserMenu />
+        </div>
+      )}
     </>
   );
 };
