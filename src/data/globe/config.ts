@@ -13,7 +13,7 @@ export const globeConfig = {
   directionalTopLight: "#ffffff",
   pointLight: "#ffffff",
   arcTime: 1000,
-  arcLength: 1.5,
+  arcLength: 0.5,
   rings: 1,
   maxRings: 3,
   initialPosition: { lat: 22.3193, lng: 114.1694 },

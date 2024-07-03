@@ -42,7 +42,7 @@ export const Search_NavMenu = () => {
             ease: "easeInOut",
           }}
           key={"nav_menu"}
-          className="flex items-center justify-center gap-6 relative"
+          className="flex items-center justify-center gap-3 md:gap-6 relative"
         >
           <NavigationMenu className="hidden sm:block">
             <NavigationMenuList>
@@ -97,7 +97,7 @@ export const Search_NavMenu = () => {
       ) : (
         <motion.div
           onClick={() => setIsSearching(false)}
-          className="relative w-full"
+          className="relative flex-1"
           initial={{
             top: -48,
             opacity: 0,

@@ -1,125 +1,175 @@
-import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
-import { Underline } from "@/components/Underline";
-import Image from "next/image";
-import React from "react";
+"use client";
+import React, { useEffect, useRef } from "react";
 
-export const Features = () => {
-  const featuresData = [
-    {
-      title: "Books",
-      image: "/Books.jfif",
+import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
+import { BsBook, BsNewspaper } from "react-icons/bs";
+import { Notebook, Pen, Star, Text } from "lucide-react";
+import { Boxes } from "@/components/ui/background-boxes";
+import { motion, useAnimation, useInView } from "framer-motion";
+
+import { useBreakpoint } from "use-breakpoint";
+
+const FeatureCard = ({
+  Icon,
+  title,
+  description,
+  featureNumber,
+}: {
+  Icon: any;
+  title: string;
+  description: string;
+  featureNumber: number;
+}) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { margin: "0px 0px -68px 0px", once: true });
+
+  const initialVariants = {
+    left: {
+      left: "-100%",
+      opacity: 0,
     },
-    {
-      title: "Book Reviews",
-      image: "",
+    right: {
+      right: "-100%",
+      opacity: 0,
     },
-    {
-      title: "Blogs",
-      image: "",
+    faded: {
+      opacity: 0,
     },
-    {
-      title: "Articles",
-      image: "",
+  };
+
+  const animateVariants = {
+    slideFromLeft: {
+      left: 0,
+      opacity: 1,
     },
-    {
-      title: "Notes",
-      image: "",
+    slideFromRight: {
+      right: 0,
+      opacity: 1,
     },
-  ];
+    fadeIn: {
+      opacity: 1,
+    },
+  };
+
+  const { breakpoint } = useBreakpoint(
+    { smallScreens: 0, largeScreens: 1024 },
+    "smallScreens"
+  );
+
+  const isFirstFeatureInRow =
+    breakpoint === "largeScreens"
+      ? featureNumber === 1 || featureNumber === 4
+      : featureNumber === 1 || featureNumber === 3 || featureNumber === 5;
+
+  const isLastFeatureInRow =
+    breakpoint === "largeScreens"
+      ? featureNumber === 3 || featureNumber === 6
+      : featureNumber === 2 || featureNumber === 4 || featureNumber === 6;
+
+  const isMiddleFeatureInRow = !isFirstFeatureInRow && !isLastFeatureInRow;
+
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (inView) {
+      if (isFirstFeatureInRow) {
+        controls.start("slideFromLeft");
+      } else if (isLastFeatureInRow) {
+        controls.start("slideFromRight");
+      } else controls.start("fadeIn");
+    }
+  }, [inView, controls]);
 
   return (
-    <MaxWidthWrapper className="mt-24 md:mt-36 lg:px-24 md:px-16 sm:px-8 px-6">
-      <div className="flex flex-col gap-10 w-full">
-        <div className="flex justify-center w-full">
-          <Underline>
-            <h2 className="text-2xl md:text-3xl font-semibold text-black">
-              Features
-            </h2>
-          </Underline>
-        </div>
+    <motion.div
+      ref={ref}
+      initial={
+        isFirstFeatureInRow
+          ? initialVariants.left
+          : isLastFeatureInRow
+          ? initialVariants.right
+          : initialVariants.faded
+      }
+      animate={controls}
+      transition={{
+        delay: isMiddleFeatureInRow ? 1 : 0,
+        duration: isMiddleFeatureInRow ? 0.5 : 1,
+        ease: "easeOut",
+      }}
+      variants={animateVariants}
+      className="p-7 rounded-xl border border-zinc-200 flex flex-col gap-4 relative overflow-hidden group cursor-pointer"
+    >
+      <div className=" pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 bg-gradient-to-r from-[#FFECD1]/10 via-[#FFECD1]/10 to-teal-200/10 z-20 transition-colors" />
 
-        <div className="max-w-5xl mx-auto w-full">
-          <div className="grid grid-cols-1 sm:grid-cols-3 auto-rows-[9rem] sm:auto-rows-[24rem] gap-3 w-full">
-            <div className="grid grid-cols-2 sm:grid-cols-1 gap-3">
-              <div className="w-full h-full rounded-xl overflow-hidden relative group px-4 py-2 cursor-pointer flex items-center justify-center">
-                <Image
-                  alt="Books Image"
-                  src={"/Books.jfif"}
-                  className=" object-cover"
-                  fill
-                />
+      <Boxes
+        noOfcols={8}
+        noOfrows={7}
+        staticColor
+        tileColor="#fafafa"
+        className="-translate-y-0 top-0"
+        boxesClassName="w-28 h-14 border-slate-200/60"
+      />
 
-                <div className="absolute inset-0 bg-black z-10 opacity-40 group-hover:opacity-50 transition-opacity" />
+      <Icon className="w-7 h-7 text-primary/70 z-20" />
+      <p className="font-bold text-primary/90 text-lg mt-2 z-20">
+        {title}
+        {breakpoint}
+      </p>
+      <p className="text-zinc-500 tracking-tight z-20">{description}</p>
+    </motion.div>
+  );
+};
 
-                <p className="text-lg md:text-xl font-semibold text-white text-center z-20">
-                  {featuresData[0].title}
-                </p>
-              </div>
+export const Features = () => {
+  return (
+    <MaxWidthWrapper className="mt-28 md:mt-36 flex flex-col gap-12 overflow-x-hidden px-6 xl:px-0">
+      <h3 className="text-3xl font-semibold text-gray-800 text-center">
+        Literature at Your Fingertips
+      </h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-7 sm:gap-y-10">
+        <FeatureCard
+          Icon={BsBook}
+          featureNumber={1}
+          title="Featured Books"
+          description="Explore worlds within pages. Dive into our captivating collection of
+            books today!"
+        />
 
-              <div className="w-full h-full rounded-xl overflow-hidden relative group px-4 py-2 cursor-pointer flex items-center justify-center">
-                <Image
-                  alt="Books Image"
-                  src={"/Books.jfif"}
-                  className=" object-cover"
-                  fill
-                />
-
-                <div className="absolute inset-0 bg-black z-10 opacity-40 group-hover:opacity-50 transition-opacity" />
-
-                <p className="text-lg md:text-xl font-semibold text-white text-center z-20">
-                  {featuresData[1].title}
-                </p>
-              </div>
-            </div>
-
-            <div className="w-full h-full rounded-xl overflow-hidden relative group px-4 py-2 cursor-pointer flex items-center justify-center">
-              <Image
-                alt="Books Image"
-                src={"/Books.jfif"}
-                className=" object-cover"
-                fill
-              />
-
-              <div className="absolute inset-0 bg-black z-10 opacity-40 group-hover:opacity-50 transition-opacity" />
-
-              <p className="text-lg md:text-xl font-semibold text-white text-center z-20">
-                {featuresData[2].title}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-1 gap-3">
-              <div className="w-full h-full rounded-xl overflow-hidden relative group px-4 py-2 cursor-pointer flex items-center justify-center">
-                <Image
-                  alt="Books Image"
-                  src={"/Books.jfif"}
-                  className=" object-cover"
-                  fill
-                />
-
-                <div className="absolute inset-0 bg-black z-10 opacity-40 group-hover:opacity-50 transition-opacity" />
-
-                <p className="text-lg md:text-xl font-semibold text-white text-center z-20">
-                  {featuresData[3].title}
-                </p>
-              </div>
-
-              <div className="w-full h-full rounded-xl overflow-hidden relative group px-4 py-2 cursor-pointer flex items-center justify-center">
-                <Image
-                  alt="Books Image"
-                  src={"/Books.jfif"}
-                  className=" object-cover"
-                  fill
-                />
-
-                <div className="absolute inset-0 bg-black z-10 opacity-40 group-hover:opacity-50 transition-opacity" />
-
-                <p className="text-lg md:text-xl font-semibold text-white text-center z-20">
-                  {featuresData[4].title}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <FeatureCard
+          Icon={Star}
+          featureNumber={2}
+          title="Book Reviews"
+          description="Explore worlds within pages. Dive into our captivating collection of
+            books today!"
+        />
+        <FeatureCard
+          Icon={Notebook}
+          featureNumber={3}
+          title="Featured Notes"
+          description="Explore worlds within pages. Dive into our captivating collection of
+            books today!"
+        />
+        <FeatureCard
+          Icon={BsNewspaper}
+          featureNumber={4}
+          title="Featured Blogs"
+          description="Explore worlds within pages. Dive into our captivating collection of
+            books today!"
+        />
+        <FeatureCard
+          Icon={Pen}
+          featureNumber={5}
+          title="Featured Articles"
+          description="Explore worlds within pages. Dive into our captivating collection of
+            books today!"
+        />
+        <FeatureCard
+          Icon={Text}
+          featureNumber={6}
+          title="Featured Texts"
+          description="Explore worlds within pages. Dive into our captivating collection of
+            books today!"
+        />
       </div>
     </MaxWidthWrapper>
   );

@@ -60,13 +60,13 @@ export const BlogEditor = () => {
         <div className="w-full flex flex-col gap-5 items-center">
           <div
             className={cn(
-              "w-full h-64 md:border border-zinc-200 md:rounded-lg justify-center items-center flex gap-12 relative overflow-hidden",
+              "w-full h-64 md:border max-md:border-b border-zinc-200 md:rounded-lg justify-center items-center flex max-sm:flex-col gap-12 relative overflow-hidden",
               coverImage && "group md:border-0"
             )}
           >
             {!coverImage ? (
               <>
-                <div className="w-[180px] h-[128px] relative">
+                <div className="sm:w-[180px] sm:h-[128px] w-[150px] h-[106px] relative">
                   <Image alt="Upload Illustration" src={"/upload.svg"} fill />
                 </div>
 
@@ -100,12 +100,12 @@ export const BlogEditor = () => {
               ref={inputRef}
               onBlur={onBlur}
               onKeyDown={onKeyDown}
-              className="resize-none text-start focus-within:outline-none text-2xl sm:text-3xl font-bold font-primary text-gray-700 w-full max-md:px-5"
+              className="resize-none text-start focus-within:outline-none text-2xl sm:text-3xl font-bold font-primary text-gray-700 w-full max-md:px-5 mt-6"
               onChange={(e) => setTitle(e.target.value)}
             />
           ) : (
             <p
-              className="text-2xl sm:text-3xl font-bold text-start font-primary text-gray-700 w-full max-md:px-5"
+              className="text-2xl sm:text-3xl font-bold text-start font-primary text-gray-700 w-full max-md:px-5 mt-6"
               onClick={onEdit}
             >
               {title}
