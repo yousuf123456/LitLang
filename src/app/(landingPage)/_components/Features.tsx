@@ -99,22 +99,87 @@ const FeatureCard = ({
       variants={animateVariants}
       className="p-7 rounded-xl border border-zinc-200 flex flex-col gap-4 relative overflow-hidden group cursor-pointer"
     >
+      <div className="pointer-events-none">
+        <div className="absolute inset-0 rounded-2xl">
+          <svg
+            aria-hidden="true"
+            className="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/[0.02] stroke-black/5 dark:fill-white/1 dark:stroke-white/2.5"
+          >
+            <defs>
+              <pattern
+                id=":Rkqpuja:"
+                width="72"
+                height="56"
+                patternUnits="userSpaceOnUse"
+                x="50%"
+                y="16"
+              >
+                <path d="M.5 56V.5H72" fill="none"></path>
+              </pattern>
+            </defs>
+            <rect
+              width="100%"
+              height="100%"
+              stroke-width="0"
+              fill="url(#:Rkqpuja:)"
+            ></rect>
+            <svg x="50%" y="16" className="overflow-visible">
+              <rect stroke-width="0" width="73" height="57" x="0" y="56"></rect>
+              <rect
+                stroke-width="0"
+                width="73"
+                height="57"
+                x="72"
+                y="168"
+              ></rect>
+            </svg>
+          </svg>
+        </div>
+
+        <div
+          className="absolute inset-0 rounded-2xl opacity-0 mix-blend-overlay transition duration-300 group-hover:opacity-100"
+          // style="mask-image: radial-gradient(300px at 433px 6px, white, transparent);"
+        >
+          <svg
+            aria-hidden="true"
+            className="absolute inset-x-0 inset-y-[-30%] h-[160%] w-full skew-y-[-18deg] fill-black/50 stroke-black/70 "
+          >
+            <defs>
+              <pattern
+                id=":R5kqpuja:"
+                width="72"
+                height="56"
+                patternUnits="userSpaceOnUse"
+                x="50%"
+                y="16"
+              >
+                <path d="M.5 56V.5H72" fill="none"></path>
+              </pattern>
+            </defs>
+            <rect
+              width="100%"
+              height="100%"
+              stroke-width="0"
+              fill="url(#:R5kqpuja:)"
+            ></rect>
+            <svg x="50%" y="16" className="overflow-visible">
+              <rect stroke-width="0" width="73" height="57" x="0" y="56"></rect>
+              <rect
+                stroke-width="0"
+                width="73"
+                height="57"
+                x="72"
+                y="168"
+              ></rect>
+            </svg>
+          </svg>
+        </div>
+      </div>
+
       <div className=" pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 bg-gradient-to-r from-[#FFECD1]/10 via-[#FFECD1]/10 to-teal-200/10 z-20 transition-colors" />
 
-      {/* <Boxes
-        noOfcols={8}
-        noOfrows={7}
-        staticColor
-        tileColor="#fafafa"
-        className="-translate-y-0 top-0"
-        boxesClassName="w-28 h-14 border-slate-200/60"
-      /> */}
-
       <Icon className="w-7 h-7 text-primary/70 z-20" />
-      <p className="font-bold text-primary/90 text-lg mt-2 z-20">
-        {title}
-        {breakpoint}
-      </p>
+      <p className="font-bold text-primary/90 text-lg mt-2 z-20">{title}</p>
       <p className="text-zinc-500 tracking-tight z-20">{description}</p>
     </motion.div>
   );
