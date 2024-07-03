@@ -101,14 +101,14 @@ const FeatureCard = ({
     >
       <div className=" pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 bg-gradient-to-r from-[#FFECD1]/10 via-[#FFECD1]/10 to-teal-200/10 z-20 transition-colors" />
 
-      <Boxes
+      {/* <Boxes
         noOfcols={8}
         noOfrows={7}
         staticColor
         tileColor="#fafafa"
         className="-translate-y-0 top-0"
         boxesClassName="w-28 h-14 border-slate-200/60"
-      />
+      /> */}
 
       <Icon className="w-7 h-7 text-primary/70 z-20" />
       <p className="font-bold text-primary/90 text-lg mt-2 z-20">
