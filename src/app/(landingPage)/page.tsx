@@ -8,7 +8,7 @@ export default function Home() {
     <main className="flex flex-col w-full gap-28 md:gap-44">
       <Hero />
       <Universities />
-      {/* <PublisherCTA /> */}
+      <PublisherCTA />
       <Features />
     </main>
   );
