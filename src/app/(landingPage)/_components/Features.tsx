@@ -122,7 +122,7 @@ const FeatureCard = ({
 
 export const Features = () => {
   return (
-    <MaxWidthWrapper className="mt-28 md:mt-36 flex flex-col gap-12 overflow-x-hidden px-6 xl:px-0">
+    <MaxWidthWrapper className="flex flex-col gap-12 overflow-x-hidden px-6 xl:px-0">
       <h3 className="text-3xl font-semibold text-gray-800 text-center">
         Literature at Your Fingertips
       </h3>
