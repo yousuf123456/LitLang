@@ -24,7 +24,7 @@ export const Universities = () => {
   ];
 
   return (
-    <MaxWidthWrapper className="mt-8 md:mt-20 lg:px-24 md:px-16 sm:px-8 px-6">
+    <MaxWidthWrapper className="lg:px-24 md:px-16 sm:px-8 px-6">
       <div className="flex flex-col gap-10 w-full">
         <div className="flex justify-center w-full">
           <Underline>
