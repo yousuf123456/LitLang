@@ -5,11 +5,11 @@ import { Universities } from "./_components/Universities";
 
 export default function Home() {
   return (
-    <main className="flex flex-col w-full gap-28 md:gap-44">
+    <div className="flex flex-col w-full gap-28 md:gap-44">
       <Hero />
       <Universities />
       <PublisherCTA />
       <Features />
-    </main>
+    </div>
   );
 }

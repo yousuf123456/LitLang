@@ -6,9 +6,5 @@ export default function BlogsPage({
 }: {
   searchParams: { userId: string | null };
 }) {
-  return (
-    <div className="w-full">
-      <Blogs isUserSpecificBlogs={!!searchParams.userId} />
-    </div>
-  );
+  return <Blogs isUserSpecificBlogs={!!searchParams.userId} />;
 }

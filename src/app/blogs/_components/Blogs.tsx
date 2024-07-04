@@ -22,26 +22,24 @@ export const Blogs = ({
   return (
     <MaxWidthWrapper className="mt-14 md:mt-20 flex flex-col gap-8 px-3 sm:px-8 lg:px-16">
       <div className="w-full flex flex-col items-center gap-2 md:gap-3">
-        <div className="w-full">
-          {isUserSpecificBlogs && (
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/blogs" className="sm:text-base">
-                    Blogs
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
+        {isUserSpecificBlogs && (
+          <Breadcrumb className="w-full">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/blogs" className="sm:text-base">
+                  Blogs
+                </BreadcrumbLink>
+              </BreadcrumbItem>
 
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage className="max-w-56 sm:max-w-80 line-clamp-1 sm:text-base">
-                    My Blogs
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          )}
-        </div>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage className="max-w-56 sm:max-w-80 line-clamp-1 sm:text-base">
+                  My Blogs
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        )}
 
         <Heading>{isUserSpecificBlogs ? "My Blogs" : "Our Blogs"}</Heading>
 

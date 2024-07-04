@@ -44,9 +44,9 @@ export const DraftActions = ({
   }, [unsavedChanged, updateOrCreateDraft]);
 
   return (
-    <div className="md:py-6 py-4 lg:px-16 xl:px-20 md:px-8 px-3 border-b border-zinc-300 sticky top-0 left-0 bg-white z-50">
+    <header className="md:py-6 py-4 lg:px-16 xl:px-20 md:px-8 px-3 border-b border-zinc-300 sticky top-0 left-0 bg-white z-50">
       <div className="flex justify-between items-center w-full gap-3 sm:gap-8">
-        <Link href={"/"}>
+        <Link href={"/"} aria-label="Home">
           <div className="w-full flex items-center gap-3 sm:gap-6 lg:gap-8">
             <div className="relative w-7 h-7 sm:w-9 sm:h-9">
               <Image
@@ -89,6 +89,6 @@ export const DraftActions = ({
           </Button>
         </div>
       </div>
-    </div>
+    </header>
   );
 };

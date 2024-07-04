@@ -2,7 +2,12 @@ import prisma from "@/app/utils/prismadb";
 
 import { z } from "zod";
 import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
-import { createCallerFactory, protectedProcedure, router } from "./trpc";
+import {
+  createCallerFactory,
+  protectedProcedure,
+  publicProcedure,
+  router,
+} from "./trpc";
 import { getSortbyDirection, transformRawResultsToPrisma } from "@/utils/utils";
 import { blogs } from "@prisma/client";
 import { BlogsListPageSize } from "@/pagination";
@@ -64,7 +69,7 @@ export const appRouter = router({
       return updatedDraft.id;
     }),
 
-  getBlogs: protectedProcedure
+  getBlogs: publicProcedure
     .input(
       z.object({
         paginationToken: z.union([z.string(), z.null()]),
