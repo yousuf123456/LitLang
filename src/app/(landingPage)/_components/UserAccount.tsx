@@ -19,14 +19,23 @@ export const UserAccount = () => {
   return (
     <>
       <SignedOut>
-        <div className="lg:flex items-center gap-3 hidden">
-          <SignInButton>
-            <Button variant={"secondary"}>Login</Button>
-          </SignInButton>
-          <SignUpButton>
-            <Button>Be a Publisher</Button>
-          </SignUpButton>
-        </div>
+        <nav
+          className="lg:block hidden"
+          aria-label="Desktop User Authentication"
+        >
+          <ul className="flex items-center gap-3">
+            <li>
+              <SignInButton>
+                <Button variant={"secondary"}>Login</Button>
+              </SignInButton>
+            </li>
+            <li>
+              <SignUpButton>
+                <Button>Be a Publisher</Button>
+              </SignUpButton>
+            </li>
+          </ul>
+        </nav>
       </SignedOut>
 
       {user ? (

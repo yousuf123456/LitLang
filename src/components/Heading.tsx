@@ -9,13 +9,13 @@ export const Heading = ({
   className?: string;
 }) => {
   return (
-    <p
+    <h1
       className={cn(
         "text-3xl md:text-4xl font-semibold text-gray-800",
         className
       )}
     >
       {children}
-    </p>
+    </h1>
   );
 };

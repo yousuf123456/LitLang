@@ -6,25 +6,30 @@ import { SignUpButton } from "@clerk/nextjs";
 
 export const Hero = () => {
   return (
-    <div className="w-full h-full bg-grid-black/[0.1] relative pb-16">
-      <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_60%,black)]"></div>
+    <section className="w-full h-full bg-grid-black/[0.1] relative pb-16">
+      <div
+        aria-hidden
+        className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_60%,black)]"
+      ></div>
+
       <MaxWidthWrapper className="mt-4 pt-12 lg:pt-20 px-5 z-50">
         <div className="flex flex-col gap-3 w-full items-center">
-          <div className="flex flex-col w-full items-center gap-1">
-            <span className="text-3xl min-[420px]:text-4xl md:text-5xl lg:text-6xl font-bold text-center font-primary text-transparent bg-gradient-to-b from-gray-400 via-gray-700 to-gray-900 bg-clip-text">
+          <h1 className="text-3xl min-[420px]:text-4xl md:text-5xl lg:text-6xl font-bold text-center font-primary">
+            <span className="text-transparent bg-gradient-to-b from-gray-400 via-gray-700 to-gray-900 bg-clip-text">
               Your Gateway
             </span>
-            <h1 className="text-3xl min-[420px]:text-4xl md:text-5xl lg:text-6xl font-bold max-w-lg md:max-w-3xl lg:max-w-4xl text-center font-primary capitalize text-gray-900">
+            <span className="sr-only"> - </span>
+            <span className="mt-1 block max-w-lg md:max-w-3xl lg:max-w-4xl capitalize text-gray-900">
               to Literature and Linguistic Excellence
-            </h1>
-          </div>
+            </span>
+          </h1>
 
           <p className="mt-3 text-zinc-900 text-sm md:text-base lg:text-lg max-w-3xl font-primary font-medium text-center">
             Discover, Learn, and Excel with Our Educational Notes.
           </p>
 
           <SignUpButton>
-            <Button size={"lg"} className="mt-4">
+            <Button size={"lg"} className="mt-4 bg-brown-800">
               Become a Publisher
             </Button>
           </SignUpButton>
@@ -49,6 +54,6 @@ export const Hero = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };

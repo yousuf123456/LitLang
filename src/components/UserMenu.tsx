@@ -146,14 +146,22 @@ export const UserMenu = () => {
           </DropdownMenuItem>
         </SignedIn>
         <SignedOut>
-          <div className="w-full flex flex-col p-1 gap-2">
-            <SignInButton>
-              <Button variant={"secondary"}>Login</Button>
-            </SignInButton>
-            <SignUpButton>
-              <Button>Be a Publisher</Button>
-            </SignUpButton>
-          </div>
+          <nav aria-label="Mobile User Authentication">
+            <ul className="w-full flex flex-col p-1 gap-2">
+              <li>
+                <SignInButton>
+                  <Button variant={"secondary"} className="w-full">
+                    Login
+                  </Button>
+                </SignInButton>
+              </li>
+              <li>
+                <SignUpButton>
+                  <Button className="w-full">Be a Publisher</Button>
+                </SignUpButton>
+              </li>
+            </ul>
+          </nav>
         </SignedOut>
       </DropdownMenuContent>
     </DropdownMenu>

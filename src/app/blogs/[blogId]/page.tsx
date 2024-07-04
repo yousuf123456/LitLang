@@ -23,10 +23,5 @@ export default async function BlogPage({
 
   if (!blogData) return <p>Invalid Blog Id</p>;
 
-  return (
-    <div>
-      <Blog {...blogData} />
-      <Footer />
-    </div>
-  );
+  return <Blog {...blogData} />;
 }

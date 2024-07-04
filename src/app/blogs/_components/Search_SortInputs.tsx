@@ -39,7 +39,9 @@ export const Search_SortInputs = () => {
     router.push(`/blogs?${searchParamsArray.join("&")}`);
   };
 
-  const onSearch = () => {
+  const onSearch = (e?: any) => {
+    if (e) e.preventDefault();
+
     const searchParamsArray = getSearchParamsArray(
       searchParams,
       query ? [`query=${query}`] : [],
@@ -59,21 +61,31 @@ export const Search_SortInputs = () => {
   return (
     <>
       <div className="w-full max-[480px]:order-2 relative">
-        <Input
-          value={query}
-          className="w-full"
-          onKeyDown={onKeyDown}
-          placeholder="Search for blogs here"
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <Button
-          size={"icon"}
-          variant={"ghost"}
-          onClick={onSearch}
-          className="absolute top-1/2 -translate-y-1/2 right-4 p-2"
-        >
-          <Search className="w-5 h-5 text-zinc-400" />
-        </Button>
+        <form className="w-full">
+          <label className=" sr-only" htmlFor="search-input">
+            Search
+          </label>
+
+          <Input
+            value={query}
+            id="search-input"
+            className="w-full"
+            onKeyDown={onKeyDown}
+            placeholder="Search for blogs here"
+            onChange={(e) => setQuery(e.target.value)}
+          />
+
+          <Button
+            size={"icon"}
+            type="submit"
+            variant={"ghost"}
+            onClick={onSearch}
+            className="absolute top-1/2 -translate-y-1/2 right-4 p-2"
+          >
+            <span className="sr-only">Submit search</span>
+            <Search className="w-5 h-5 text-zinc-400" />
+          </Button>
+        </form>
       </div>
 
       <Select

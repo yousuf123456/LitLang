@@ -33,11 +33,9 @@ export default function RootLayout({
         className={`${space_grotesk.className} ${space_grotesk.variable} bg-white`}
       >
         <Providers>
-          <div className="min-h-screen flex flex-col">
-            <Navbar />
-            <div className="flex-1">{children}</div>
-            <Footer />
-          </div>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
         </Providers>
       </body>
     </html>

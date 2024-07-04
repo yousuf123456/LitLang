@@ -23,7 +23,7 @@ export const Blog = ({ blog, writer }: { blog: blogs; writer: User }) => {
   const formattedDate = format(date, "EEE MMM yyyy 'at' hh:mm a");
 
   return (
-    <MaxWidthWrapper className="flex flex-col gap-10 mt-12 sm:mt-20 px-4 sm:px-8 lg:px-16 pb-12">
+    <MaxWidthWrapper className="mt-12 sm:mt-20 px-4 sm:px-8 lg:px-16 pb-12">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -41,41 +41,51 @@ export const Blog = ({ blog, writer }: { blog: blogs; writer: User }) => {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="flex flex-col gap-4">
-        <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800">
-          {blog.title}
-        </h1>
-        <div className="flex justify-between items-center">
-          <div className="flex gap-4 items-start">
-            <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden">
-              <Image
-                fill
-                alt="Writer Picture"
-                src={writer.imageUrl}
-                className="object-cover"
-              />
-            </div>
+      <article className="flex flex-col gap-10 mt-10">
+        <div className="flex flex-col gap-4">
+          <header className="flex flex-col gap-4">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800">
+              {blog.title}
+            </h1>
 
-            <div className="flex flex-col">
-              <p className="text-sm sm:text-base font-medium text-gray-800 leading-5">
-                {writer.firstName}
+            <div className="flex justify-between items-center">
+              <div className="flex gap-4 items-start">
+                <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden">
+                  <Image
+                    fill
+                    alt="Writer Picture"
+                    src={writer.imageUrl}
+                    className="object-cover"
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <p className="text-sm sm:text-base font-medium text-gray-800 leading-5">
+                    {writer.firstName}
+                  </p>
+                  <p className="text-xs sm:text-sm text-zinc-500">Publisher</p>
+                </div>
+              </div>
+              <p className="text-xs sm:text-sm text-zinc-600">
+                {formattedDate}
               </p>
-              <p className="text-xs sm:text-sm text-zinc-500">Publisher</p>
             </div>
-          </div>
-          <p className="text-xs sm:text-sm text-zinc-600">{formattedDate}</p>
-        </div>
-        <div className="w-full aspect-w-16 aspect-h-8 relative mt-4">
-          <Image
-            fill
-            alt="Blog Cover Image"
-            src={blog.coverImage!}
-            className="object-cover"
-          />
-        </div>
-      </div>
+          </header>
 
-      <BlogContent content={blog.content!} />
+          <figure className="w-full aspect-w-16 aspect-h-8 relative mt-4">
+            <Image
+              fill
+              alt="Blog Cover Image"
+              src={blog.coverImage!}
+              className="object-cover"
+            />
+          </figure>
+        </div>
+
+        <section className="mt-10">
+          <BlogContent content={blog.content!} />
+        </section>
+      </article>
     </MaxWidthWrapper>
   );
 };

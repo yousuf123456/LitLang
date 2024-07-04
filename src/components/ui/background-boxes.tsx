@@ -19,22 +19,17 @@ export const BoxesCore = ({
   noOfrows?: number;
   noOfcols?: number;
 }) => {
-  const [clickedColIndex, setClickedColIndex] = useState<number | null>(null);
-  const [clickedRowIndex, setClickedRowIndex] = useState<number | null>(null);
-
   const rows = new Array(noOfrows || 35).fill(1);
   const cols = new Array(noOfcols || 32).fill(1);
 
   let colors = [
-    "--sky-300",
-    "--pink-300",
-    "--green-300",
-    "--yellow-300",
-    "--red-300",
-    "--purple-300",
-    "--blue-300",
-    "--indigo-300",
-    "--violet-300",
+    "--brown-100",
+    "--brown-300",
+    "--red-900",
+    "--purple-700",
+    "--yellow-600",
+    "--orange-600",
+    "--orange-400",
   ];
   const getRandomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)];
@@ -74,21 +69,16 @@ export const BoxesCore = ({
                   : {}),
                 transition: { duration: 0 },
               }}
-              style={{
-                ...(!staticColor
-                  ? j === clickedColIndex && i === clickedRowIndex
-                    ? { backgroundColor: `var(${getRandomColor()})` }
-                    : {}
-                  : generateRandomBoolean()
-                  ? { backgroundColor: tileColor }
-                  : {}),
-              }}
-              onClick={() => {
-                if (staticColor) return;
+              // style={{
+              //   ...(!staticColor
+              //     ? j === clickedColIndex && i === clickedRowIndex
+              //       ? { backgroundColor: `var(${getRandomColor()})` }
+              //       : {}
+              //     : generateRandomBoolean()
+              //     ? { backgroundColor: tileColor }
+              //     : {}),
+              // }}
 
-                setClickedColIndex(j);
-                setClickedRowIndex(i);
-              }}
               animate={{
                 transition: { duration: 2 },
               }}

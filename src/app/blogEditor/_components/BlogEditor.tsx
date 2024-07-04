@@ -56,7 +56,7 @@ export const BlogEditor = () => {
 
   return (
     <>
-      <div className="w-full mx-auto max-w-screen-xl flex-1 flex flex-col gap-10 md:gap-16 md:px-8">
+      <form className="w-full mx-auto max-w-screen-xl flex-1 flex flex-col gap-10 md:gap-16 md:px-8">
         <div className="w-full flex flex-col gap-5 items-center">
           <div
             className={cn(
@@ -66,11 +66,15 @@ export const BlogEditor = () => {
           >
             {!coverImage ? (
               <>
-                <div className="sm:w-[180px] sm:h-[128px] w-[150px] h-[106px] relative">
+                <figure className="sm:w-[180px] sm:h-[128px] w-[150px] h-[106px] relative">
                   <Image alt="Upload Illustration" src={"/upload.svg"} fill />
-                </div>
+                </figure>
 
-                <Button variant={"secondary"} onClick={() => setOpen(true)}>
+                <Button
+                  variant={"secondary"}
+                  onClick={() => setOpen(true)}
+                  aria-label="Upload Cover Image"
+                >
                   Upload Cover Image
                 </Button>
               </>
@@ -82,10 +86,14 @@ export const BlogEditor = () => {
                   alt="Blog Cover Image"
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity" />
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity"
+                />
                 <Button
                   variant={"secondary"}
                   onClick={() => setOpen(true)}
+                  aria-label="Change Cover Image"
                   className="opacity-0 absolute bottom-6 right-6 group-hover:opacity-100 transition-opacity w-fit"
                 >
                   Change Cover Image
@@ -95,28 +103,34 @@ export const BlogEditor = () => {
           </div>
 
           {isEditing ? (
-            <TextArea
-              value={title}
-              ref={inputRef}
-              onBlur={onBlur}
-              onKeyDown={onKeyDown}
-              className="resize-none text-start focus-within:outline-none text-2xl sm:text-3xl font-bold font-primary text-gray-700 w-full max-md:px-5 mt-6"
-              onChange={(e) => setTitle(e.target.value)}
-            />
+            <>
+              <label className="sr-only" htmlFor="Title Textarea">
+                Change Title
+              </label>
+              <TextArea
+                value={title}
+                ref={inputRef}
+                onBlur={onBlur}
+                id="Title Textarea"
+                onKeyDown={onKeyDown}
+                className="resize-none text-start focus-within:outline-none text-2xl sm:text-3xl font-bold font-primary text-gray-700 w-full max-md:px-5 mt-6"
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </>
           ) : (
-            <p
+            <h1
               className="text-2xl sm:text-3xl font-bold text-start font-primary text-gray-700 w-full max-md:px-5 mt-6"
               onClick={onEdit}
             >
               {title}
-            </p>
+            </h1>
           )}
         </div>
 
-        <div className="max-md:px-2 h-full flex-1 flex-grow">
+        <section className="max-md:px-2 h-full flex-1 flex-grow">
           <ContentEditor />
-        </div>
-      </div>
+        </section>
+      </form>
 
       <UploadFile
         open={open}

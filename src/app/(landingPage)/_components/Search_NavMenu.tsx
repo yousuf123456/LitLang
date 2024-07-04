@@ -11,7 +11,10 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, LazyMotion, m } from "framer-motion";
+
+const loadFeatures = () =>
+  import("@/app/utils/features").then((res) => res.default);
 
 import Link from "next/link";
 import { cn } from "@/utils/utils";
@@ -23,107 +26,127 @@ export const Search_NavMenu = () => {
 
   return (
     <AnimatePresence mode="wait">
-      {!isSearching ? (
-        <motion.div
-          initial={{
-            top: 48,
-            opacity: 0,
-          }}
-          animate={{
-            top: 0,
-            opacity: [0, 0, 1],
-          }}
-          exit={{
-            top: 48,
-            opacity: [1, 0, 0],
-          }}
-          transition={{
-            duration: 0.2,
-            ease: "easeInOut",
-          }}
-          key={"nav_menu"}
-          className="flex items-center justify-center gap-3 md:gap-6 relative"
-        >
-          <NavigationMenu className="hidden sm:block">
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="flex flex-col p-4 gap-3 w-[150px] ">
-                    <ListItem href="/">Blogs</ListItem>
-                    <ListItem href="/">Articles</ListItem>
-                    <ListItem href="/">Books</ListItem>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Link href="/pricing" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Pricing
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-
-          <div
-            onClick={() => setIsSearching(true)}
-            className="p-2 rounded-full bg-white border border-zinc-200 cursor-pointer hover:bg-zinc-50 transition-colors hover:top-0.5 relative"
+      <LazyMotion strict features={loadFeatures}>
+        {!isSearching ? (
+          <m.div
+            initial={{
+              top: 48,
+              opacity: 0,
+            }}
+            animate={{
+              top: 0,
+              opacity: [0, 0, 1],
+            }}
+            exit={{
+              top: 48,
+              opacity: [1, 0, 0],
+            }}
+            transition={{
+              duration: 0.2,
+              ease: "easeInOut",
+            }}
+            key={"nav_menu"}
+            className="flex items-center justify-center gap-3 md:gap-6 relative"
           >
-            <Search className="text-zinc-400 w-5 h-5" />
-          </div>
+            <NavigationMenu
+              className="hidden sm:block"
+              aria-label="Desktop Primary Navigation 1"
+            >
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="flex flex-col p-4 gap-3 w-[150px] ">
+                      <ListItem href="/">Blogs</ListItem>
+                      <ListItem href="/">Articles</ListItem>
+                      <ListItem href="/">Books</ListItem>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
 
-          <NavigationMenu className="hidden sm:block">
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <Link href="/contact_us" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Contact Us
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link href="/pricing" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Pricing
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
 
-              <NavigationMenuItem>
-                <Link href="/about_us" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    About Us
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        </motion.div>
-      ) : (
-        <motion.div
-          onClick={() => setIsSearching(false)}
-          className="relative flex-1"
-          initial={{
-            top: -48,
-            opacity: 0,
-          }}
-          animate={{
-            top: 0,
-            opacity: [0, 0, 1],
-          }}
-          exit={{
-            top: -48,
-            opacity: [1, 0, 0],
-          }}
-          transition={{
-            duration: 0.2,
-            ease: "easeInOut",
-          }}
-          key={"search_bar"}
-        >
-          <Input
-            placeholder="Search for subjects"
-            className="w-full"
-            onBlur={() => setIsSearching(false)}
-            autoFocus
-          />
-        </motion.div>
-      )}
+            <div
+              role="search"
+              onClick={() => setIsSearching(true)}
+              className="p-2 rounded-full bg-white border border-zinc-200 cursor-pointer hover:bg-zinc-50 transition-colors hover:top-0.5 relative"
+            >
+              <Search
+                aria-expanded="false"
+                aria-controls="searchbar"
+                className="text-zinc-400 w-5 h-5"
+              />
+              <span className="sr-only">Toggle Search Bar</span>
+            </div>
+
+            <NavigationMenu
+              className="hidden sm:block"
+              aria-label="Desktop Primary Navigation 2"
+            >
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <Link href="/contact_us" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Contact Us
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <Link href="/about_us" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      About Us
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          </m.div>
+        ) : (
+          <m.div
+            onClick={() => setIsSearching(false)}
+            className="relative flex-1"
+            initial={{
+              top: -48,
+              opacity: 0,
+            }}
+            animate={{
+              top: 0,
+              opacity: [0, 0, 1],
+            }}
+            exit={{
+              top: -48,
+              opacity: [1, 0, 0],
+            }}
+            transition={{
+              duration: 0.2,
+              ease: "easeInOut",
+            }}
+            key={"search_bar"}
+          >
+            <Input
+              placeholder="Search for subjects"
+              className="w-full"
+              onBlur={() => setIsSearching(false)}
+              autoFocus
+            />
+          </m.div>
+        )}
+      </LazyMotion>
     </AnimatePresence>
   );
 };
