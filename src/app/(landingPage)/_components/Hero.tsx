@@ -3,6 +3,7 @@ import Image from "next/image";
 import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
 import { Button } from "@/components/ui/button";
 import { SignUpButton } from "@clerk/nextjs";
+import { AnimatedLetters } from "@/components/ui/animated-letters";
 
 export const Hero = () => {
   return (
@@ -14,14 +15,9 @@ export const Hero = () => {
 
       <MaxWidthWrapper className="mt-4 pt-12 lg:pt-20 px-5 z-50">
         <div className="flex flex-col gap-3 w-full items-center">
-          <h1 className="text-3xl min-[420px]:text-4xl md:text-5xl lg:text-6xl font-bold text-center font-primary">
-            <span className="text-transparent bg-gradient-to-b from-gray-400 via-gray-700 to-gray-900 bg-clip-text">
-              Your Gateway
-            </span>
-            <span className="sr-only"> - </span>
-            <span className="mt-1 block max-w-lg md:max-w-3xl lg:max-w-4xl capitalize text-gray-900">
-              to Literature and Linguistic Excellence
-            </span>
+          <h1 className="text-3xl min-[420px]:text-4xl md:text-5xl lg:text-6xl font-bold text-center font-primary max-w-lg md:max-w-3xl lg:max-w-4xl capitalize text-gray-800">
+            {/* Your Gateway to Literature and Linguistic Excellence */}
+            <AnimatedLetters text="Your Gateway to Literature and Linguistic Excellence" />
           </h1>
 
           <p className="mt-3 text-zinc-900 text-sm md:text-base lg:text-lg max-w-3xl font-primary font-medium text-center">

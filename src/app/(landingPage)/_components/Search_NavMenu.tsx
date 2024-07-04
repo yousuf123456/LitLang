@@ -57,7 +57,7 @@ export const Search_NavMenu = () => {
                   <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="flex flex-col p-4 gap-3 w-[150px] ">
-                      <ListItem href="/">Blogs</ListItem>
+                      <ListItem href="/blogs">Blogs</ListItem>
                       <ListItem href="/">Articles</ListItem>
                       <ListItem href="/">Books</ListItem>
                     </ul>
