@@ -33,8 +33,8 @@ export const AnimatedLetters = ({ text }: { text: string }) => (
       animate="animate"
       className="row-title"
     >
-      {text.split("").map((letter) => (
-        <m.span className="relative" variants={letterAni}>
+      {text.split("").map((letter, i) => (
+        <m.span key={i} className="relative" variants={letterAni}>
           {letter}
         </m.span>
       ))}
