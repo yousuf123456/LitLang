@@ -38,6 +38,7 @@ export const Hero = () => {
         <div className="max-w-5xl mx-auto px-4 sm:px-8">
           <div className=" bg-gray-400/10 p-1 md:p-2 rounded-lg border-[1px] border-slate-950/5">
             <Image
+              priority
               width={1364}
               height={866}
               src={"/dashboard-preview.jpg"}
