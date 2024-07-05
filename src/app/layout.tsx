@@ -6,6 +6,8 @@ import { Providers } from "@/components/Providers";
 import { Navbar } from "./(landingPage)/_components/Navbar";
 import { Footer } from "./(landingPage)/_components/Footer";
 
+import NextTopLoader from "nextjs-toploader";
+
 const inter = Inter_Tight({
   weight: "variable",
   variable: "--font-inter",
@@ -32,9 +34,10 @@ export default function RootLayout({
       <body
         className={`${space_grotesk.className} ${space_grotesk.variable} bg-white`}
       >
+        <NextTopLoader color="#4e342e" showSpinner={false} shadow={false} />
         <Providers>
           <Navbar />
-          <main className="min-h-screen">{children}</main>
+          <main>{children}</main>
           <Footer />
         </Providers>
       </body>
