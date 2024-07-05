@@ -83,45 +83,6 @@ export default function PricingPage() {
             </div>
           </div>
 
-          {/* <div className="flex flex-col gap-4 w-full max-w-sm">
-            <div className="flex flex-col gap-2 px-4 py-2 ">
-              <p className="text-base text-zinc-800 font-medium">Standard</p>
-              <div className="flex items-end gap-1">
-                <p className="font-bold text-5xl text-gray-800">$0</p>
-                <p className="text-zinc-500 text-sm">\ month</p>
-              </div>
-              <p className="text-zinc-500 text-sm max-w-xs">
-                All the basic material to boost your educational career
-              </p>
-            </div>
-
-            <div className="border border-zinc-400 sm:border-r-0 grid grid-cols-1 auto-rows-[3rem]">
-              {features.map((feature, i) => (
-                <div
-                  key={i}
-                  className={cn(
-                    "border-b border-b-zinc-400 flex justify-between items-center px-4 py-2",
-                    i === features.length - 1 && "border-b-0"
-                  )}
-                >
-                  <p className="text-zinc-700 text-sm">{feature.text}</p>
-
-                  {feature.availability.standard ? (
-                    <Verified className="w-6 h-6 fill-gray-900 text-white" />
-                  ) : (
-                    <X className="text-red-400 w-5 h-5" />
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div className="px-4 w-full">
-              <Button variant={"secondary"} className="w-full">
-                Subsribed
-              </Button>
-            </div>
-          </div> */}
-
           <LampContainer>
             <div className="flex flex-col gap-4 w-full max-w-md">
               <div className="flex flex-col gap-2 to-primary from-gray-900 bg-gradient-to-br px-4 py-2">

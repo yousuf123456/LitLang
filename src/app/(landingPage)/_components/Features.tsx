@@ -27,11 +27,11 @@ const FeatureCard = ({
 
   const initialVariants = {
     left: {
-      left: "-100%",
+      x: "-100%",
       opacity: 0,
     },
     right: {
-      right: "-100%",
+      x: "100%",
       opacity: 0,
     },
     faded: {
@@ -41,11 +41,11 @@ const FeatureCard = ({
 
   const animateVariants = {
     slideFromLeft: {
-      left: 0,
+      x: 0,
       opacity: 1,
     },
     slideFromRight: {
-      right: 0,
+      x: 0,
       opacity: 1,
     },
     fadeIn: {
