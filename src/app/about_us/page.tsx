@@ -129,7 +129,7 @@ export default function AboutUsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
             <LazyMotion features={loadFeatures} strict>
-              <m.div style={{ left: x, opacity: scrollYProgress }}>
+              <m.div style={{ x: x, opacity: scrollYProgress }}>
                 <FounderCard
                   image="https://images.unsplash.com/photo-1475669913832-fd187510b578?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWVufGVufDB8fDB8fHww"
                   name="Syed Yaseen"
@@ -137,7 +137,7 @@ export default function AboutUsPage() {
                 />
               </m.div>
 
-              <m.div style={{ right: -x, opacity: scrollYProgress }}>
+              <m.div style={{ x: -x, opacity: scrollYProgress }}>
                 <FounderCard
                   image="https://images.unsplash.com/photo-1496346236646-50e985b31ea4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bWVufGVufDB8fDB8fHww"
                   name="Mujtaba"
