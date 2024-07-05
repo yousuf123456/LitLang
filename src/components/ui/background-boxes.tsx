@@ -24,23 +24,19 @@ export const BoxesCore = ({
 
   let colors = [
     "--brown-100",
+    "--brown-200",
+    "--brown-500",
+    "--brown-700",
     "--brown-300",
-    "--red-900",
-    "--purple-700",
-    "--yellow-600",
-    "--orange-600",
-    "--orange-400",
+    "--amber-200",
+    "--amber-300",
+    "--amber-100",
+    "--amber-400",
   ];
+
   const getRandomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)];
   };
-
-  function generateRandomBoolean() {
-    // Adjust the probability here: trueProbability should be less than 0.5
-    const trueProbability = 0.05; // Example: 20% chance of true
-
-    return Math.random() < trueProbability;
-  }
 
   return (
     <div
@@ -69,16 +65,6 @@ export const BoxesCore = ({
                   : {}),
                 transition: { duration: 0 },
               }}
-              // style={{
-              //   ...(!staticColor
-              //     ? j === clickedColIndex && i === clickedRowIndex
-              //       ? { backgroundColor: `var(${getRandomColor()})` }
-              //       : {}
-              //     : generateRandomBoolean()
-              //     ? { backgroundColor: tileColor }
-              //     : {}),
-              // }}
-
               animate={{
                 transition: { duration: 2 },
               }}

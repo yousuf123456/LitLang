@@ -1,5 +1,6 @@
 import { Features } from "./_components/Features";
 import { Hero } from "./_components/Hero";
+import { Pricing } from "./_components/Pricing";
 import { PublisherCTA } from "./_components/PublisherCTA";
 import { Universities } from "./_components/Universities";
 
@@ -10,6 +11,7 @@ export default function Home() {
       <Universities />
       <PublisherCTA />
       <Features />
+      <Pricing />
     </div>
   );
 }

@@ -18,8 +18,12 @@ export const PublisherCTA = () => {
 
   const variants = {
     animate: {
-      top: 0,
+      y: 0,
       opacity: 1,
+      transition: {
+        type: "spring",
+        delay: 0.3,
+      },
     },
   };
 
@@ -51,12 +55,11 @@ export const PublisherCTA = () => {
           <m.div
             ref={ref}
             initial={{
-              top: 64,
+              y: 64,
               opacity: 0,
             }}
             animate={controls}
             variants={variants}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
             className="relative flex flex-col justify-center gap-8 sm:gap-12 max-w-lg items-center z-20 bg-brown-800/60 rounded-2xl p-3"
           >
             <h2 className="text-3xl sm:text-4xl lg:text-4xl leading-10 font-bold text-center text-white">
