@@ -58,7 +58,7 @@ export default function AboutUsPage() {
   });
 
   const top = useSpring(useTransform(scrollYProgress, [0, 1], [180, 0]), {
-    stiffness: 150,
+    stiffness: 80,
   });
 
   const left_right = useTransform(scrollYProgress, [0, 1], [-320, 0]);
