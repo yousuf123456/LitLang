@@ -12,7 +12,7 @@ export const AnimatedHeading = ({ text }: { text: string }) => {
         animate={{
           top: 0,
           opacity: 1,
-          transition: { type: "spring", stiffness: 120, delay: 0.35 },
+          transition: { type: "spring", stiffness: 100, delay: 0.35 },
         }}
         className="relative text-3xl min-[420px]:text-4xl md:text-5xl lg:text-6xl font-bold text-center font-primary max-w-lg md:max-w-3xl lg:max-w-4xl capitalize text-gray-800"
       >

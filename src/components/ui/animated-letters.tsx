@@ -4,31 +4,35 @@ import { m, LazyMotion } from "framer-motion";
 const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
 
-const banner = {
-  animate: {
-    transition: {
-      delayChildren: 0.1,
-      staggerChildren: 0.02,
-    },
-  },
-};
-
 const letterAni = {
-  initial: { left: -48, opacity: 0 },
+  initial: { left: -16, opacity: 0 },
   animate: {
     left: 0,
     opacity: 1,
     transition: {
       ease: "easeInOut",
-      duration: 0.35,
+      duration: 0.5,
     },
   },
 };
 
-export const AnimatedLetters = ({ text }: { text: string }) => (
-  <LazyMotion features={loadFeatures} strict>
+export const AnimatedLetters = ({
+  text,
+  delayChildren,
+}: {
+  text: string;
+  delayChildren?: number;
+}) => (
+  <LazyMotion features={loadFeatures}>
     <m.span
-      variants={banner}
+      variants={{
+        animate: {
+          transition: {
+            delayChildren: delayChildren || 0.1,
+            staggerChildren: 0.02,
+          },
+        },
+      }}
       initial="initial"
       animate="animate"
       className="row-title"

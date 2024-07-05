@@ -5,6 +5,7 @@ const nextConfig = {
       { hostname: "encrypted-tbn0.gstatic.com" },
       { hostname: "img.clerk.com" },
       { hostname: "utfs.io" },
+      { hostname: "images.unsplash.com" },
     ],
   },
 };
