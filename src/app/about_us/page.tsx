@@ -57,11 +57,11 @@ export default function AboutUsPage() {
     offset: ["0.05 end", "0 0.2"],
   });
 
-  const top = useSpring(useTransform(scrollYProgress, [0, 1], [180, 0]), {
+  const y = useSpring(useTransform(scrollYProgress, [0, 1], [180, 0]), {
     stiffness: 80,
   });
 
-  const left_right = useTransform(scrollYProgress, [0, 1], [-320, 0]);
+  const x = useTransform(scrollYProgress, [0, 1], [-320, 0]);
 
   return (
     <MaxWidthWrapper className="mt-20 md:mt-28 px-6 relative">
@@ -118,10 +118,10 @@ export default function AboutUsPage() {
           <LazyMotion features={loadFeatures} strict>
             <m.h1
               style={{
-                top,
+                y,
                 opacity: scrollYProgress,
               }}
-              className="text-center tracking-tight text-3xl sm:text-4xl font-bold text-zinc-800 relative"
+              className="text-center tracking-tight text-3xl sm:text-4xl font-bold text-zinc-800"
             >
               Meet the founders
             </m.h1>
@@ -129,10 +129,7 @@ export default function AboutUsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
             <LazyMotion features={loadFeatures} strict>
-              <m.div
-                style={{ left: left_right, opacity: scrollYProgress }}
-                className="relative"
-              >
+              <m.div style={{ left: x, opacity: scrollYProgress }}>
                 <FounderCard
                   image="https://images.unsplash.com/photo-1475669913832-fd187510b578?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWVufGVufDB8fDB8fHww"
                   name="Syed Yaseen"
@@ -140,10 +137,7 @@ export default function AboutUsPage() {
                 />
               </m.div>
 
-              <m.div
-                style={{ right: left_right, opacity: scrollYProgress }}
-                className="relative"
-              >
+              <m.div style={{ right: -x, opacity: scrollYProgress }}>
                 <FounderCard
                   image="https://images.unsplash.com/photo-1496346236646-50e985b31ea4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bWVufGVufDB8fDB8fHww"
                   name="Mujtaba"
