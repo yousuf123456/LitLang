@@ -14,11 +14,13 @@ import { useBreakpoint } from "use-breakpoint";
 const FeatureCard = ({
   Icon,
   title,
+  iconLabel,
   description,
   featureNumber,
 }: {
   Icon: any;
   title: string;
+  iconLabel: string;
   description: string;
   featureNumber: number;
 }) => {
@@ -147,9 +149,15 @@ const FeatureCard = ({
             </div>
           </div>
 
-          <div className=" pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 bg-gradient-to-r from-brown-100/10 via-[#FFECD1]/10 to-brown-400/10 z-20 transition-colors" />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 bg-gradient-to-r from-brown-100/10 via-[#FFECD1]/10 to-brown-400/10 z-20 transition-colors"
+          />
 
-          <Icon className="w-7 h-7 text-primary/70 z-20" aria-hidden />
+          <Icon
+            className="w-7 h-7 text-primary/70 z-20"
+            aria-label={iconLabel}
+          />
 
           <p className="font-bold text-primary/90 text-lg mt-2 z-20">{title}</p>
 
@@ -173,6 +181,7 @@ export const Features = () => {
             <FeatureCard
               Icon={BsBook}
               featureNumber={1}
+              iconLabel={"Books"}
               title="Featured Books"
               description="Explore worlds within pages. Dive into our captivating collection of
             books today!"
@@ -184,6 +193,7 @@ export const Features = () => {
               Icon={Star}
               featureNumber={2}
               title="Book Reviews"
+              iconLabel={"Books Reviews"}
               description="Explore worlds within pages. Dive into our captivating collection of
             books today!"
             />
@@ -193,6 +203,7 @@ export const Features = () => {
             <FeatureCard
               Icon={Notebook}
               featureNumber={3}
+              iconLabel={"Notes"}
               title="Featured Notes"
               description="Explore worlds within pages. Dive into our captivating collection of
             books today!"
@@ -201,8 +212,9 @@ export const Features = () => {
 
           <li>
             <FeatureCard
-              Icon={BsNewspaper}
               featureNumber={4}
+              Icon={BsNewspaper}
+              iconLabel={"Blogs"}
               title="Featured Blogs"
               description="Explore worlds within pages. Dive into our captivating collection of
             books today!"
@@ -213,6 +225,7 @@ export const Features = () => {
             <FeatureCard
               Icon={Pen}
               featureNumber={5}
+              iconLabel={"Articles"}
               title="Featured Articles"
               description="Explore worlds within pages. Dive into our captivating collection of
             books today!"
@@ -223,6 +236,7 @@ export const Features = () => {
             <FeatureCard
               Icon={Text}
               featureNumber={6}
+              iconLabel={"Texts"}
               title="Featured Texts"
               description="Explore worlds within pages. Dive into our captivating collection of
             books today!"

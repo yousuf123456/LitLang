@@ -45,7 +45,7 @@ export const PublisherCTA = () => {
         )}
 
         <figure
-          aria-hidden
+          aria-label="Blogging Illustration"
           className="w-[220px] h-[216px] sm:w-[260px] sm:h-[226px] z-20 relative bg-brown-800/60 flex-shrink-0"
         >
           <Image alt="Illustration" src={"/blogging.svg"} fill />
