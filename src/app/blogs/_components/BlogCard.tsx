@@ -13,6 +13,7 @@ export const BlogCard = ({ blog }: { blog: blogs }) => {
             alt="Blog Cover Image"
             src={blog.coverImage!}
             className="object-cover"
+            priority
             fill
           />
         </div>
