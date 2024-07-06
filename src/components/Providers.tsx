@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { trpc } from "@/app/_trpc/client";
 import { absoluteUrl } from "@/utils/utils";
 
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, ClerkLoading, ClerkLoaded } from "@clerk/nextjs";
 
 import { Toaster } from "./ui/sonner";
 
@@ -26,17 +26,17 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ClerkProvider>
-      {/* <ClerkLoading>
+      <ClerkLoading>
         <p>Loading Session</p>
-      </ClerkLoading> */}
-      {/* <ClerkLoaded> */}
-      <trpc.Provider client={trpcClient} queryClient={queryClient}>
-        <QueryClientProvider client={queryClient}>
-          <Toaster />
-          {children}
-        </QueryClientProvider>
-      </trpc.Provider>
-      {/* </ClerkLoaded> */}
+      </ClerkLoading>
+      <ClerkLoaded>
+        <trpc.Provider client={trpcClient} queryClient={queryClient}>
+          <QueryClientProvider client={queryClient}>
+            <Toaster />
+            {children}
+          </QueryClientProvider>
+        </trpc.Provider>
+      </ClerkLoaded>
     </ClerkProvider>
   );
 };
