@@ -35,12 +35,13 @@ export const Hero = () => {
           className="w-full max-w-xs md:max-w-md lg:max-w-2xl pointer-events-none h-[320px] md:h-[448px] lg:h-[672px] bg-primary rounded-full blur-3xl opacity-5 -translate-y-[30%] -z-50 absolute left-6 top-0"
         />
 
-        <div className="max-w-5xl mx-auto px-4 sm:px-8">
-          <div className=" bg-gray-400/10 p-1 md:p-2 rounded-lg border-[1px] border-slate-950/5">
+        <div className="max-w-5xl w-full mx-auto px-4 sm:px-8">
+          <div className=" bg-gray-400/10 rounded-lg border-[1px] border-slate-950/5 relative w-full aspect-w-16 aspect-h-10 h-auto">
             <Image
               priority
-              width={1364}
-              height={866}
+              // width={1364}
+              // height={866}
+              fill
               src={"/dashboard-preview.jpg"}
               alt="Dashboard Preview Picture"
               className="object-cover object-center rounded-lg border-[1px] border-gray-900/10 shadow-xl"
