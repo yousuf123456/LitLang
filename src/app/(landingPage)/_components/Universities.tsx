@@ -103,6 +103,7 @@ const UniversityCard = ({ name, image }: { name: string; image: string }) => {
         <Image
           fill
           src={image}
+          loading="lazy"
           alt="University Image"
           className="object-cover"
         />
