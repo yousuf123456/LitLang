@@ -93,7 +93,10 @@ export const Search_SortInputs = () => {
         onValueChange={setSortBy}
         defaultValue={"_id-desc-default"}
       >
-        <SelectTrigger className="min-[480px]:w-32 md:w-48 ">
+        <SelectTrigger
+          className="min-[480px]:w-32 md:w-48"
+          aria-label="Sort By Select Button"
+        >
           <SelectValue placeholder="Sort By" />
         </SelectTrigger>
         <SelectContent>
