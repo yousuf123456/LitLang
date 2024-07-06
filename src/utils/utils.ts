@@ -41,7 +41,7 @@ export function transformRawResultsToPrisma(results: any[]) {
 export const scrollToElement = (elementId: string) => {
   const element = document.getElementById(elementId);
   if (element) {
-    const topOffset = 52; // Adjust this value for your desired top margin
+    const topOffset = 0; // Adjust this value for your desired top margin
     const elementPosition = element.getBoundingClientRect().top;
     const offsetPosition = elementPosition + window.screenY - topOffset;
 

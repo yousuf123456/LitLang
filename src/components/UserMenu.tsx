@@ -94,9 +94,7 @@ export const UserMenu = () => {
 
         <DropdownMenuItem
           className="sm:hidden"
-          onClick={() => {
-            setTimeout(() => scrollToElement("pricing-section"), 170);
-          }}
+          onClick={() => setTimeout(() => scrollToElement("pricing"), 170)}
         >
           <Gem className="mr-4 h-4 w-4 text-zinc-700" />
           <span>Pricing</span>
