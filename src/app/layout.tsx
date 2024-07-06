@@ -6,8 +6,6 @@ import { Providers } from "@/components/Providers";
 import { Navbar } from "./(landingPage)/_components/Navbar";
 import { Footer } from "./(landingPage)/_components/Footer";
 
-import { SpeedInsights } from "@vercel/speed-insights/next";
-
 import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter_Tight({
@@ -37,7 +35,6 @@ export default function RootLayout({
       <body
         className={`${space_grotesk.className} ${space_grotesk.variable} bg-white`}
       >
-        <SpeedInsights />
         <NextTopLoader color="#4e342e" showSpinner={false} shadow={false} />
         <Providers>
           <Navbar />
