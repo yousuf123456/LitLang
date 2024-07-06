@@ -38,10 +38,8 @@ export const Hero = () => {
         <div className="max-w-5xl w-full mx-auto px-4 sm:px-8">
           <div className=" bg-gray-400/10 rounded-lg border-[1px] border-slate-950/5 relative w-full aspect-w-16 aspect-h-10 h-auto">
             <Image
-              priority
-              // width={1364}
-              // height={866}
               fill
+              priority
               src={"/dashboard-preview.jpg"}
               alt="Dashboard Preview Picture"
               className="object-cover object-center rounded-lg border-[1px] border-gray-900/10 shadow-xl"
