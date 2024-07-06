@@ -24,6 +24,13 @@ import { Input } from "@/components/ui/input";
 export const Search_NavMenu = () => {
   const [isSearching, setIsSearching] = useState(false);
 
+  const onPricingNavClick = () => {
+    const element = document.getElementById("pricing-section");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <AnimatePresence mode="wait">
       <LazyMotion strict features={loadFeatures}>
@@ -65,13 +72,12 @@ export const Search_NavMenu = () => {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href="/pricing" legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
-                    >
-                      Pricing
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink
+                    className={navigationMenuTriggerStyle()}
+                    onClick={onPricingNavClick}
+                  >
+                    Pricing
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>

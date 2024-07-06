@@ -53,10 +53,6 @@ export const Universities = () => {
     });
   }, [api]);
 
-  useEffect(() => {
-    console.log(current);
-  }, [current]);
-
   return (
     <section>
       <MaxWidthWrapper className="px-6 sm:px-16">

@@ -6,7 +6,10 @@ import { PricingPlanFeatures } from "./PricingPlanFeatures";
 
 export const Pricing = () => {
   return (
-    <section className="w-full flex flex-col gap-16 md:gap-24 items-center px-4">
+    <section
+      id="pricing-section"
+      className="w-full flex flex-col gap-16 md:gap-24 items-center px-4"
+    >
       <div className="w-full flex flex-col items-center gap-2 px-4 z-40">
         <div className="flex gap-3 items-center max-w-fit border-[1px] rounded-full px-3 py-1 transition-all border-gray-300 bg-white/50">
           <p className="text-xs text-zinc-900">Become a Pro</p>

@@ -12,9 +12,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { UserMenu } from "@/components/UserMenu";
 import { cn } from "@/utils/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const UserAccount = () => {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
+
+  if (!isLoaded)
+    return (
+      <div className="flex items-center lg:w-32 justify-center flex-shrink-0">
+        <Skeleton className="w-9 h-9 rounded-full" />
+      </div>
+    );
 
   return (
     <>
