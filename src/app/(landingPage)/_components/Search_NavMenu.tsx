@@ -83,7 +83,7 @@ export const Search_NavMenu = () => {
             >
               <Search
                 aria-expanded="false"
-                aria-controls="searchbar"
+                aria-controls="search"
                 className="text-zinc-400 w-5 h-5"
               />
               <span className="sr-only">Toggle Search Bar</span>
