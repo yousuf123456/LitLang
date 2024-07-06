@@ -31,6 +31,7 @@ import {
   PersonStanding,
 } from "lucide-react";
 import { Button } from "./ui/button";
+import { scrollToElement } from "@/utils/utils";
 
 export const UserMenu = () => {
   const { isLoaded, user } = useUser();
@@ -91,18 +92,23 @@ export const UserMenu = () => {
           </DropdownMenuItem>
         </Link>
 
-        <Link href={"/pricing"} className="sm:hidden">
-          <DropdownMenuItem>
-            <Gem className="mr-4 h-4 w-4 text-zinc-700" />
-            <span>Pricing</span>
-          </DropdownMenuItem>
-        </Link>
+        <DropdownMenuItem
+          className="sm:hidden"
+          onClick={() => {
+            setTimeout(() => scrollToElement("pricing-section"), 170);
+          }}
+        >
+          <Gem className="mr-4 h-4 w-4 text-zinc-700" />
+          <span>Pricing</span>
+        </DropdownMenuItem>
+
         <Link href={"/contact_us"} className="sm:hidden">
           <DropdownMenuItem>
             <Contact className="mr-4 h-4 w-4 text-zinc-700" />
             <span>Contact Us</span>
           </DropdownMenuItem>
         </Link>
+
         <Link href={"/about_us"} className="sm:hidden">
           <DropdownMenuItem>
             <PersonStanding className="mr-4 h-4 w-4 text-zinc-700" />

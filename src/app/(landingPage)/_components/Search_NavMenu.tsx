@@ -17,19 +17,12 @@ const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
 
 import Link from "next/link";
-import { cn } from "@/utils/utils";
+import { cn, scrollToElement } from "@/utils/utils";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 export const Search_NavMenu = () => {
   const [isSearching, setIsSearching] = useState(false);
-
-  const onPricingNavClick = () => {
-    const element = document.getElementById("pricing-section");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   return (
     <AnimatePresence mode="wait">
@@ -71,10 +64,10 @@ export const Search_NavMenu = () => {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
-                <NavigationMenuItem>
+                <NavigationMenuItem className="cursor-pointer">
                   <NavigationMenuLink
                     className={navigationMenuTriggerStyle()}
-                    onClick={onPricingNavClick}
+                    onClick={() => scrollToElement("pricing-section")}
                   >
                     Pricing
                   </NavigationMenuLink>

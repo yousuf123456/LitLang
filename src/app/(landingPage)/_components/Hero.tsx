@@ -21,11 +21,13 @@ export const Hero = () => {
             Discover, Learn, and Excel with Our Educational Notes.
           </p>
 
-          <SignUpButton>
-            <Button size={"lg"} className="mt-4 bg-brown-800">
-              Become a Publisher
-            </Button>
-          </SignUpButton>
+          <div className="w-[196px] h-[44px]">
+            <SignUpButton>
+              <Button size={"lg"} className="mt-4 bg-brown-800">
+                Become a Publisher
+              </Button>
+            </SignUpButton>
+          </div>
         </div>
       </MaxWidthWrapper>
 
