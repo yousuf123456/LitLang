@@ -77,12 +77,11 @@ export const Search_NavMenu = () => {
             </NavigationMenu>
 
             <div
-              role="search"
               onClick={() => setIsSearching(true)}
               className="p-2 rounded-full bg-white border border-zinc-200 cursor-pointer hover:bg-zinc-50 transition-colors hover:top-0.5 relative"
             >
               <Search
-                aria-controls="search"
+                aria-label="Open Search Bar"
                 className="text-zinc-400 w-5 h-5"
               />
               <span className="sr-only">Toggle Search Bar</span>
