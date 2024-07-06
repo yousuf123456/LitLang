@@ -37,3 +37,17 @@ export function getSortbyDirection(sortByDirStr: string) {
 export function transformRawResultsToPrisma(results: any[]) {
   return results.map((result) => ({ ...result, id: result._id.$oid }));
 }
+
+export const scrollToElement = (elementId: string) => {
+  const element = document.getElementById(elementId);
+  if (element) {
+    const topOffset = 52; // Adjust this value for your desired top margin
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.screenY - topOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  }
+};
