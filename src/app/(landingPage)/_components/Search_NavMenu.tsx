@@ -82,7 +82,6 @@ export const Search_NavMenu = () => {
               className="p-2 rounded-full bg-white border border-zinc-200 cursor-pointer hover:bg-zinc-50 transition-colors hover:top-0.5 relative"
             >
               <Search
-                aria-expanded="false"
                 aria-controls="search"
                 className="text-zinc-400 w-5 h-5"
               />
