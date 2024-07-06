@@ -34,9 +34,9 @@ const FounderCard = ({
       </div>
 
       <div className="flex flex-col gap-1">
-        <h3 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-800">
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-800">
           {name}
-        </h3>
+        </h2>
         <p className="text-base sm:text-lg text-zinc-600 font-medium mt-4">
           {post}
         </p>
