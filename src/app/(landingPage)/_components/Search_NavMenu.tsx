@@ -64,13 +64,14 @@ export const Search_NavMenu = () => {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
-                <NavigationMenuItem className="cursor-pointer">
-                  <NavigationMenuLink
-                    className={navigationMenuTriggerStyle()}
-                    onClick={() => scrollToElement("pricing-section")}
-                  >
-                    Pricing
-                  </NavigationMenuLink>
+                <NavigationMenuItem>
+                  <Link href={"#pricing"} legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Pricing
+                    </NavigationMenuLink>
+                  </Link>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>

@@ -31,9 +31,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
-        className={`${space_grotesk.className} ${space_grotesk.variable} bg-white`}
+        className={`${space_grotesk.className} ${space_grotesk.variable} bg-white `}
       >
         <NextTopLoader color="#4e342e" showSpinner={false} shadow={false} />
         <Providers>
