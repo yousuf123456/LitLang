@@ -43,9 +43,9 @@ export default function ContactUsPage() {
         >
           <div className="absolute pointer-events-none inset-0 -bottom-12 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_5%,black)]"></div>
 
-          {/* <div className="relative w-[350px] h-[350px] sm:w-[440px] sm:h-[440px] xl:w-[520px] xl:h-[520px]">
+          <div className="relative w-[350px] h-[350px] sm:w-[440px] sm:h-[440px] xl:w-[520px] xl:h-[520px]">
             <World data={sampleArcs} globeConfig={globeConfig} />
-          </div> */}
+          </div>
         </div>
 
         <LazyMotion features={loadFeatures} strict>
