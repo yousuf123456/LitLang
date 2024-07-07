@@ -14,7 +14,7 @@ declare module "@react-three/fiber" {
 extend({ ThreeGlobe });
 
 const RING_PROPAGATION_SPEED = 3;
-const aspect = 1.2;
+const aspect = 1;
 const cameraZ = 300;
 
 type Position = {
@@ -269,7 +269,7 @@ export function World(props: WorldProps) {
         enableZoom={false}
         minDistance={cameraZ}
         maxDistance={cameraZ}
-        autoRotateSpeed={1}
+        autoRotateSpeed={1.5}
         autoRotate={true}
         minPolarAngle={Math.PI / 3.5}
         maxPolarAngle={Math.PI - Math.PI / 3}
