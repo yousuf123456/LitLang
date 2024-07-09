@@ -10,6 +10,7 @@ import { isDesktop, isMobile, isTablet } from "react-device-detect";
 import { useInView, m, useAnimation, LazyMotion } from "framer-motion";
 import { SignedIn, SignedOut, SignUpButton } from "@clerk/nextjs";
 import Link from "next/link";
+import { absoluteUrl } from "@/utils/utils";
 
 const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
@@ -34,6 +35,10 @@ export const PublisherCTA = () => {
   useEffect(() => {
     if (inView) controls.start("animate");
   }, [inView]);
+
+  const request = () => {
+    fetch(absoluteUrl("/api/drive"), { method: "POST" });
+  };
 
   return (
     <section>

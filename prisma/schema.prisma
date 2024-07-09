@@ -35,3 +35,28 @@ model blogs {
   title String?
   userId String
 }
+
+model subject {
+  id String   @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  semester Int
+  imageUrl String
+  university String
+  universityShort String?
+
+  resources Resource[]
+}
+
+enum ResourceType {
+  Folder
+  PDF
+}
+
+type Resource {
+  resources Resource[]
+  webViewLink String?
+  isPremium Boolean?
+  type ResourceType
+  name String
+  id String
+}

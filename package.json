@@ -11,6 +11,7 @@
   "dependencies": {
     "@clerk/nextjs": "^5.1.6",
     "@getbrevo/brevo": "^2.2.0",
+    "@googleapis/drive": "^8.11.0",
     "@prisma/client": "^5.16.1",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-dropdown-menu": "^2.1.1",
@@ -44,6 +45,7 @@
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^1.6.12",
     "novel": "^0.4.3",
+    "prisma": "^5.16.1",
     "react": "^18",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18",
@@ -69,7 +71,6 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "postcss": "^8",
-    "prisma": "^5.16.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
