@@ -13,6 +13,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+type PlanInfo {
+  client_secret String
+  subscriptionPlanId String
+}
+
+model user {
+  id String   @id @default(auto()) @map("_id") @db.ObjectId
+  clerkId String @unique
+  email String @unique
+
+  planInfo PlanInfo?
+}
+
 model blogs {
   id String   @id @default(auto()) @map("_id") @db.ObjectId
   asAUncompletedDraft Boolean

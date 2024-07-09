@@ -15,7 +15,7 @@ export const DraftActions = ({
   initialDraft: blogs | null;
 }) => {
   const draftId = useSearchParams().get("draftId");
-  const { content, title, coverImage, updateOrCreateDraft, isSavingDraft } =
+  const { content, title, coverImage, updateOrCreateDraft } =
     useContext(BlogContext);
 
   const unsavedChanged = useMemo(

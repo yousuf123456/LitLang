@@ -3,6 +3,7 @@ import React from "react";
 import { Highlight } from "@/components/Highlight";
 import { Button } from "@/components/ui/button";
 import { PricingPlanFeatures } from "./PricingPlanFeatures";
+import { Subscribe } from "./Subscribe";
 
 export const Pricing = () => {
   return (
@@ -33,17 +34,14 @@ export const Pricing = () => {
             <p className="text-slate-300 text-sm max-w-xs sm:text-center lg:text-start">
               Empower your educational journey with our premium resources
             </p>
-            <Button className="bg-white text-primary hover:bg-white max-lg:hidden max-w-96 w-full">
-              Subsribe
-            </Button>
+
+            <Subscribe btnClassName="bg-white text-primary hover:bg-white max-lg:hidden max-w-96 w-full" />
           </div>
         </div>
 
         <PricingPlanFeatures />
 
-        <Button className="from-gray-900 bg-gradient-to-br to-primary hover:bg-gray-900/90 w-full lg:hidden">
-          Subsribe
-        </Button>
+        <Subscribe btnClassName="from-gray-900 bg-gradient-to-br to-primary hover:bg-gray-900/90 w-full lg:hidden" />
       </div>
     </section>
   );

@@ -18,24 +18,27 @@ export const Footer = () => {
           <nav aria-label="Secondary Navigation">
             <ul className="max-sm:mt-4 flex flex-wrap items-center text-sm font-medium text-[#FFECD1]">
               <li>
-                <a href="#" className="hover:underline me-4 md:me-6">
+                <Link
+                  href={"/about_us"}
+                  className="hover:underline me-4 md:me-6"
+                >
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:underline me-4 md:me-6">
+                <Link href="#" className="hover:underline me-4 md:me-6">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:underline me-4 md:me-6">
+                <Link href="#" className="hover:underline me-4 md:me-6">
                   Licensing
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:underline">
+                <Link href="/contact_us" className="hover:underline">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>

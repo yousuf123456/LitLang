@@ -2,8 +2,9 @@ import React from "react";
 import Image from "next/image";
 import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
 import { Button } from "@/components/ui/button";
-import { SignUpButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignUpButton } from "@clerk/nextjs";
 import { AnimatedHeading } from "./AnimatedHeading";
+import Link from "next/link";
 
 export const Hero = () => {
   return (
@@ -22,11 +23,20 @@ export const Hero = () => {
           </p>
 
           <div className="w-[196px] h-[44px]">
-            <SignUpButton>
-              <Button size={"lg"} className="mt-4 bg-brown-800">
-                Become a Publisher
-              </Button>
-            </SignUpButton>
+            <SignedOut>
+              <SignUpButton>
+                <Button size={"lg"} className="mt-4 bg-brown-800">
+                  Become a Publisher
+                </Button>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              <Link href="/blogEditor">
+                <Button size={"lg"} className="mt-4 bg-brown-800">
+                  Publish a Blog
+                </Button>
+              </Link>
+            </SignedIn>
           </div>
         </div>
       </MaxWidthWrapper>
