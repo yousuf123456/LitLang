@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 
-import { HamburgerMenu } from "./HamburgerMenu";
 import {
   SignInButton,
   SignUpButton,
@@ -13,9 +12,14 @@ import { Button } from "@/components/ui/button";
 import { UserMenu } from "@/components/UserMenu";
 import { cn } from "@/utils/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { syncUpWithDrive } from "@/actions/syncUpWithDrive";
 
 export const UserAccount = () => {
   const { user, isLoaded } = useUser();
+
+  const syncUp = () => {
+    syncUpWithDrive();
+  };
 
   if (!isLoaded)
     return (
@@ -52,6 +56,9 @@ export const UserAccount = () => {
             "flex items-center lg:w-32 justify-center flex-shrink-0"
           )}
         >
+          <Button className="mr-3" variant={"secondary"} onClick={syncUp}>
+            Sync Up
+          </Button>
           <UserMenu />
         </div>
       ) : (
