@@ -1,19 +1,50 @@
 import prisma from "@/app/utils/prismadb";
 
 import { z } from "zod";
-import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
+import { inferRouterInputs, inferRouterOutputs, TRPCError } from "@trpc/server";
 import {
   createCallerFactory,
   protectedProcedure,
   publicProcedure,
   router,
 } from "./trpc";
-import { getSortbyDirection, transformRawResultsToPrisma } from "@/utils/utils";
-import { blogs } from "@prisma/client";
+import {
+  getSortbyDirection,
+  paymobApiUrl,
+  transformRawResultsToPrisma,
+} from "@/utils/utils";
 import { BlogsListPageSize } from "@/pagination";
 import { blogType } from "@/types";
+import { currentUser, User } from "@clerk/nextjs/server";
+import {
+  authenticate,
+  createPaymobSubscription,
+  createSubscriptionPlan,
+} from "@/utils/paymob";
 
 export const appRouter = router({
+  authCallback: publicProcedure.query(async () => {
+    const user = await currentUser();
+
+    if (!user) return { success: false };
+
+    const dbUser = await prisma.user.findUnique({
+      where: {
+        clerkId: user.id,
+      },
+    });
+
+    if (!dbUser) {
+      await prisma.user.create({
+        data: {
+          clerkId: user.id,
+          email: user.primaryEmailAddress?.emailAddress || "",
+        },
+      });
+    }
+
+    return { success: true };
+  }),
   updateOrCreateDraft: protectedProcedure
     .input(
       z.object({
@@ -203,6 +234,96 @@ export const appRouter = router({
         totalCount,
       };
     }),
+  createSubscription: protectedProcedure.mutation(async ({ ctx }) => {
+    try {
+      const dbUser = await prisma.user.findUnique({
+        where: { clerkId: ctx.userId },
+      });
+
+      if (!dbUser) {
+        const user = (await currentUser()) as User;
+        await prisma.user.create({
+          data: {
+            clerkId: ctx.userId,
+            email: user.primaryEmailAddress?.emailAddress || "",
+          },
+        });
+      }
+
+      if (dbUser?.planInfo?.client_secret) return dbUser.planInfo.client_secret;
+
+      const user = (await currentUser()) as User;
+      const authToken = await authenticate();
+
+      const subscriptionPlan = await createSubscriptionPlan(authToken, {
+        frequency: 7,
+        name: "Pro",
+        reminder_days: 3,
+        retrial_days: null,
+        plan_type: "rent",
+        number_of_deductions: null,
+        amount_cents: 21127,
+        use_transaction_amount: true,
+        is_active: true,
+        integration: 175418,
+        fee: null,
+      });
+
+      const subscription = await createPaymobSubscription({
+        amount: 1000,
+        currency: "PKR",
+        integrations: [{}],
+        payment_methods: ["card"],
+        subscription_plan_id: subscriptionPlan.id,
+        items: [
+          {
+            name: "Litlang Premium Notes Access",
+            amount: 1000,
+            description: "Premium hand written notes with voice explainations",
+            quantity: 1,
+          },
+        ],
+        billing_data: {
+          apartment: "demo",
+          first_name: user.firstName,
+          last_name: user.lastName,
+          street: "demo",
+          building: "demo",
+          phone_number: "demo",
+          country: "demo",
+          email: user.primaryEmailAddress?.emailAddress,
+          floor: "demo",
+          state: "demo",
+        },
+        customer: {
+          first_name: user.firstName,
+          last_name: user.lastName,
+          email: user.primaryEmailAddress?.emailAddress,
+        },
+      });
+
+      console.log(subscription);
+
+      if (subscription?.client_secret) {
+        await prisma.user.update({
+          where: {
+            clerkId: ctx.userId,
+          },
+          data: {
+            planInfo: {
+              client_secret: subscription.client_secret,
+              subscriptionPlanId: subscriptionPlan.id,
+            },
+          },
+        });
+      }
+
+      return "";
+    } catch (e) {
+      console.log(e);
+      return "";
+    }
+  }),
 });
 
 const createCaller = createCallerFactory(appRouter);

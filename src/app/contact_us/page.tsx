@@ -1,12 +1,7 @@
 "use client";
 import React from "react";
 
-import { m, LazyMotion } from "framer-motion";
-import { Highlight } from "@/components/Highlight";
 import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 
 const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
@@ -30,8 +25,9 @@ const World = dynamic<any>(
 );
 
 import { Smile } from "lucide-react";
-import { sampleArcs } from "@/data/globe/arcs";
 import { globeConfig } from "@/data/globe/config";
+import { sampleArcs } from "@/data/globe/arcs";
+import { Form } from "./form";
 
 export default function ContactUsPage() {
   return (
@@ -48,38 +44,7 @@ export default function ContactUsPage() {
           </div>
         </div>
 
-        <LazyMotion features={loadFeatures} strict>
-          <m.article
-            // animate={{
-            //   opacity: [0, 0.2, 0.3, 1],
-            //   left: 0,
-            // }}
-            // initial={{ left: 220, opacity: 0 }}
-            // transition={{ duration: 0.3, ease: "easeOut" }}
-            className="flex flex-col gap-8 max-w-2xl lg:max-w-xl z-50 relative"
-          >
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
-              <Highlight className="min-w-64">Anytime, Anywhere</Highlight>{" "}
-              —your support team.
-            </h1>
-
-            <form className="flex flex-col gap-4 lg:pr-12">
-              <Input placeholder="Your Name" />
-              <Input placeholder="Your Email" />
-              <Textarea
-                placeholder="Your Message For Us"
-                className=" resize-none h-36"
-              />
-
-              <Button
-                type="submit"
-                className="mt-4 from-gray-900 bg-gradient-to-br to-primary hover:bg-gray-900/90 w-fit"
-              >
-                Send Message
-              </Button>
-            </form>
-          </m.article>
-        </LazyMotion>
+        <Form />
       </div>
     </MaxWidthWrapper>
   );

@@ -38,7 +38,9 @@ export default function RootLayout({
         <NextTopLoader color="#4e342e" showSpinner={false} shadow={false} />
         <Providers>
           <Navbar />
+
           <main>{children}</main>
+
           <Footer />
         </Providers>
       </body>

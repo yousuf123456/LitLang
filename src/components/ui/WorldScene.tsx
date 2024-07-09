@@ -1,26 +1,15 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-
-import countries from "@/data/globe/globe.json";
+import React, { useState, useRef, useEffect } from "react";
 
 import ThreeGlobe from "three-globe";
 
+import { Color, Fog, Scene, Vector3 } from "three";
+import { WebGLRendererConfig } from "./globe";
 import { OrbitControls } from "@react-three/drei";
 
-import { Color, Scene, Fog, PerspectiveCamera, Vector3 } from "three";
-
-import { useThree, Object3DNode, Canvas, extend } from "@react-three/fiber";
-
-declare module "@react-three/fiber" {
-  interface ThreeElements {
-    threeGlobe: Object3DNode<ThreeGlobe, typeof ThreeGlobe>;
-  }
-}
-
-extend({ ThreeGlobe });
+import countries from "@/data/globe/globe.json";
 
 const RING_PROPAGATION_SPEED = 3;
-const aspect = 1;
 const cameraZ = 300;
 
 type Position = {
@@ -66,7 +55,7 @@ interface WorldProps {
 
 let numbersOfRings = [0];
 
-export function Globe({ globeConfig, data }: WorldProps) {
+export function OffscreenGlobe({ globeConfig, data }: WorldProps) {
   const [globeData, setGlobeData] = useState<
     | {
         size: number;
@@ -236,25 +225,13 @@ export function Globe({ globeConfig, data }: WorldProps) {
   );
 }
 
-export function WebGLRendererConfig() {
-  const { gl, size } = useThree();
-
-  useEffect(() => {
-    gl.setPixelRatio(window.devicePixelRatio);
-    gl.setSize(size.width, size.height);
-    gl.setClearColor(0xffaaff, 0);
-  }, []);
-
-  return null;
-}
-
-export function World(props: WorldProps) {
+export default function WorldScene(props: WorldProps) {
   const { globeConfig } = props;
   const scene = new Scene();
   scene.fog = new Fog(0xffffff, 400, 2000);
 
   return (
-    <Canvas scene={scene} camera={new PerspectiveCamera(50, aspect, 180, 1800)}>
+    <>
       <WebGLRendererConfig />
       <ambientLight color={globeConfig.ambientLight} intensity={0.6} />
       <directionalLight
@@ -270,7 +247,9 @@ export function World(props: WorldProps) {
         position={new Vector3(-200, 500, 200)}
         intensity={0.8}
       />
-      <Globe {...props} />
+
+      <OffscreenGlobe {...props} />
+
       <OrbitControls
         enablePan={false}
         enableZoom={false}
@@ -281,7 +260,7 @@ export function World(props: WorldProps) {
         minPolarAngle={Math.PI / 3.5}
         maxPolarAngle={Math.PI - Math.PI / 3}
       />
-    </Canvas>
+    </>
   );
 }
 

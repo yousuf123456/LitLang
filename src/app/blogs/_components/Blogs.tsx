@@ -13,12 +13,17 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { auth } from "@clerk/nextjs/server";
 
 export const Blogs = ({
   isUserSpecificBlogs,
 }: {
   isUserSpecificBlogs: boolean;
 }) => {
+  const { userId } = auth();
+
+  if (isUserSpecificBlogs && !userId) return <p>Unauthorized</p>;
+
   return (
     <MaxWidthWrapper className="mt-14 md:mt-20 flex flex-col gap-8 px-3 sm:px-8 lg:px-16">
       <div className="w-full flex flex-col items-center gap-2 md:gap-3">

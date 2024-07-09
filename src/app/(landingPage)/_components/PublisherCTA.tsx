@@ -8,6 +8,8 @@ import { Boxes } from "@/components/ui/background-boxes";
 
 import { isDesktop, isMobile, isTablet } from "react-device-detect";
 import { useInView, m, useAnimation, LazyMotion } from "framer-motion";
+import { SignedIn, SignedOut, SignUpButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
@@ -66,14 +68,26 @@ export const PublisherCTA = () => {
               Share Your Voice, Publish Your Own Blog Today!
             </h2>
 
-            <div>
-              <Button
-                size={"lg"}
-                className="bg-white text-black hover:bg-white/90"
-              >
-                Become a Publisher
-              </Button>
-            </div>
+            <SignedOut>
+              <SignUpButton>
+                <Button
+                  size={"lg"}
+                  className="bg-white text-black hover:bg-white/90"
+                >
+                  Become a Publisher
+                </Button>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              <Link href={"/blogEditor"}>
+                <Button
+                  size={"lg"}
+                  className="bg-white text-black hover:bg-white/90"
+                >
+                  Publish a Blog
+                </Button>
+              </Link>
+            </SignedIn>
           </m.div>
         </LazyMotion>
       </div>

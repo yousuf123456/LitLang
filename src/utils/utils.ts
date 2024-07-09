@@ -6,10 +6,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function absoluteUrl(path: string) {
-  if (typeof window !== "undefined") return path;
+export function absoluteUrl(path: string, fullPath?: boolean) {
+  if (typeof window !== "undefined" && !fullPath) return path;
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}${path}`;
   return `http://localhost:${process.env.PORT ?? 3000}${path}`;
+}
+
+export function paymobApiUrl(path: string) {
+  return `https://pakistan.paymob.com${path}`;
 }
 
 export function getSearchParamsArray(
