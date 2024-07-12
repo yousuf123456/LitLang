@@ -1,10 +1,21 @@
-import Image from "next/image";
+"use client";
+import React, { useEffect } from "react";
+
 import Link from "next/link";
-import React from "react";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { cn } from "@/utils/utils";
 
 export const Footer = () => {
+  const pathname = usePathname();
+
   return (
-    <footer className="bg-primary mt-32">
+    <footer
+      className={cn(
+        "bg-primary",
+        !/^\/subjects\/[^\/]+\/[^\/]+$/.test(pathname) && "mt-32"
+      )}
+    >
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <Link href="/" aria-label="Home" className="flex items-center gap-4">

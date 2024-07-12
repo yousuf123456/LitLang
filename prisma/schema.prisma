@@ -28,6 +28,8 @@ model user {
 
 model blogs {
   id String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   asAUncompletedDraft Boolean
   isPublished Boolean 
   coverImage String?
@@ -43,20 +45,10 @@ model subject {
   imageUrl String
   university String
   universityShort String?
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
 
-  resources Resource[]
-}
+  resources Json[]
 
-enum ResourceType {
-  Folder
-  PDF
-}
-
-type Resource {
-  resources Resource[]
-  webViewLink String?
-  isPremium Boolean?
-  type ResourceType
-  name String
-  id String
+  @@unique([name, semester, university])
 }

@@ -8,7 +8,7 @@ import { SignedIn, SignedOut, SignUpButton } from "@clerk/clerk-react";
 
 export const Subscribe = ({ btnClassName }: { btnClassName: string }) => {
   const { mutateAsync: createSubscription } =
-    trpc.createSubscription.useMutation();
+    trpc.payments.createSubscription.useMutation();
 
   const { isLoaded } = useUser();
 
