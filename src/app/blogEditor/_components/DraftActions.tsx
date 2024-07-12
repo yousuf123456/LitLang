@@ -1,18 +1,19 @@
+"use client";
 import React, { useContext, useEffect, useMemo } from "react";
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { blogs } from "@prisma/client";
 import { BlogContext } from "./BlogEditorContext";
-import { Badge } from "@/components/ui/badge";
 import { useSearchParams } from "next/navigation";
-import { Loader2 } from "lucide-react";
 import Link from "next/link";
 
 export const DraftActions = ({
   initialDraft,
+  isLoading,
 }: {
   initialDraft: blogs | null;
+  isLoading?: boolean;
 }) => {
   const draftId = useSearchParams().get("draftId");
   const { content, title, coverImage, updateOrCreateDraft } =
@@ -66,7 +67,7 @@ export const DraftActions = ({
         <div className="flex gap-3 sm:gap-5 items-center">
           <Button
             variant={"secondary"}
-            disabled={!unsavedChanged}
+            disabled={!unsavedChanged || !!isLoading}
             onClick={() =>
               updateOrCreateDraft({ draftId, content, title, coverImage })
             }
@@ -74,6 +75,7 @@ export const DraftActions = ({
             {unsavedChanged ? "Save Draft" : "Saved"}
           </Button>
           <Button
+            disabled={!!isLoading}
             onClick={() =>
               updateOrCreateDraft({
                 draftId,

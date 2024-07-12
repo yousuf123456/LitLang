@@ -3,22 +3,24 @@ import React from "react";
 
 import { Button } from "@/components/ui/button";
 import { getSearchParamsArray } from "@/utils/utils";
-import { useRouter, useSearchParams } from "next/navigation";
-import { BlogsListPageSize } from "@/pagination";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export const PaginationControls = ({
   nextPaginationToken,
   prevPaginationToken,
+  itemsPerPage,
   totalCount,
 }: {
   nextPaginationToken: string | undefined;
   prevPaginationToken: string | undefined;
+  itemsPerPage: number;
   totalCount: number;
 }) => {
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "1");
 
-  const noOfAvailablePages = Math.ceil(totalCount / BlogsListPageSize);
+  const noOfAvailablePages = Math.ceil(totalCount / itemsPerPage);
   const isNextPageAvailable = currentPage < noOfAvailablePages;
 
   const router = useRouter();
@@ -34,7 +36,7 @@ export const PaginationControls = ({
       ["page", "paginationToken", "going"]
     );
 
-    router.push(`/blogs?${searchParamsArray.join("&")}`);
+    router.push(`${pathname}?${searchParamsArray.join("&")}`);
   };
 
   const onPrev = () => {
@@ -51,7 +53,7 @@ export const PaginationControls = ({
       ["page", "paginationToken", "going"]
     );
 
-    router.push(`/blogs?${searchParamsArray.join("&")}`);
+    router.push(`${pathname}?${searchParamsArray.join("&")}`);
   };
 
   return (

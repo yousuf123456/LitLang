@@ -6,29 +6,31 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge";
-import { HiArrowRight } from "react-icons/hi";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { trpc } from "@/app/_trpc/client";
 import { sortSearchParamType } from "@/types";
-import { PaginationControls } from "../../../components/PaginationControls";
-import { BlogsListPageSize } from "@/pagination";
-import { buttonVariants } from "@/components/ui/button";
-import { Edit, Pencil } from "lucide-react";
+import { SubjectsListPageSize } from "@/pagination";
+import { PaginationControls } from "@/components/PaginationControls";
+import { createImageUrlFromWebViewLink } from "@/utils/utils";
 
-export const BlogsList = () => {
+export const SubjectsList = () => {
   const searchParams = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "1");
 
-  const { data, isFetching } = trpc.blogs.get.useQuery({
+  const { data, isFetching, error, isError } = trpc.subjects.get.useQuery({
     sortBy: searchParams.get("sortBy") as sortSearchParamType | null,
     paginationToken: searchParams.get("paginationToken"),
-    userId: searchParams.get("userId"),
+    university: searchParams.get("university"),
     going: searchParams.get("going"),
     query: searchParams.get("query"),
     page: currentPage,
   });
+
+  useEffect(() => {
+    if (isError) console.log(error);
+  }, [isError, error]);
 
   const [hoveredIndex, setHoveredIndex] = useState<null | number>(null);
 
@@ -41,7 +43,7 @@ export const BlogsList = () => {
     );
   }
 
-  if (data.blogs.length === 0) {
+  if (data.subjects.length === 0) {
     return (
       <div className="flex w-full flex-col items-center gap-5 mt-12 ">
         <div className="w-[180px] md:w-[250px] aspect-1 h-auto relative">
@@ -49,7 +51,7 @@ export const BlogsList = () => {
         </div>
 
         <h2 className="text-xl md:text-2xl font-medium text-zinc-500 text-center">
-          No Blogs To Show
+          No Subjects To Show
         </h2>
       </div>
     );
@@ -58,10 +60,10 @@ export const BlogsList = () => {
   return (
     <div className="w-full flex flex-col gap-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
-        {data.blogs.map((blog, i) => (
+        {data.subjects.map((subject, i) => (
           <Link
             key={i}
-            href={`/blogs/${blog.id}`}
+            href={`/subjects/${subject.id}`}
             className="relative p-1.5 sm:p-3 lg:p-5 block"
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
@@ -83,12 +85,12 @@ export const BlogsList = () => {
                 />
               )}
             </AnimatePresence>
-            <div className="w-full h-full rounded-xl bg-zinc-50 hover:bg-white border border-zinc-200 p-1.5 flex flex-col gap-4 group cursor-pointer z-20">
+            <div className="w-full h-full rounded-xl bg-zinc-50 hover:bg-white transition-colors border border-zinc-200 p-1.5 flex flex-col gap-2 group cursor-pointer z-20">
               <div className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
                 <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8">
                   <Image
-                    alt="Blog Cover Image"
-                    src={blog.coverImage!}
+                    src={createImageUrlFromWebViewLink(subject.imageUrl)}
+                    alt="subject Cover Image"
                     className="object-cover"
                     fill
                   />
@@ -96,31 +98,17 @@ export const BlogsList = () => {
               </div>
 
               <div className="p-2 flex flex-col items-end gap-2">
-                <p className="text-sm md:text-base text-zinc-700 font-medium line-clamp-2 w-full text-start h-12">
-                  {blog.title}
+                <p className="text-base md:text-lg text-zinc-700 font-medium line-clamp-2 w-full text-start h-12">
+                  {subject.name}
                 </p>
 
-                <div className="w-full flex items-center">
-                  {searchParams.get("userId") && (
-                    <Link
-                      href={`/blogEditor?draftId=${blog.id}`}
-                      className={buttonVariants({
-                        size: "sm",
-                        variant: "outline",
-                        className: "bg-white text-xs",
-                      })}
-                    >
-                      Edit{" "}
-                      <Edit className="w-[14px] h-[14px] ml-2 text-zinc-600" />
-                    </Link>
-                  )}
-
-                  <div className="flex-1 flex justify-end">
-                    <Badge className="bg-white text-zinc-600 border border-zinc-200 rounded-lg hover:bg-white pr-4">
-                      Read Blog{" "}
-                      <HiArrowRight className="w-3 h-3  ml-3 group-hover:translate-x-2 transition-transform" />
-                    </Badge>
-                  </div>
+                <div className="flex items-center gap-3">
+                  <Badge className="bg-white text-sm font-medium text-zinc-600 border border-zinc-200 rounded-lg hover:bg-white">
+                    {subject.universityShort}
+                  </Badge>
+                  <Badge className="bg-white text-sm text-zinc-600 font-medium border border-zinc-200 rounded-lg hover:bg-white">
+                    Semester {subject.semester}
+                  </Badge>
                 </div>
               </div>
             </div>
@@ -129,9 +117,11 @@ export const BlogsList = () => {
       </div>
 
       <PaginationControls
-        nextPaginationToken={data.blogs[data.blogs.length - 1]?.paginationToken}
-        prevPaginationToken={data.blogs[0]?.paginationToken}
-        itemsPerPage={BlogsListPageSize}
+        nextPaginationToken={
+          data.subjects[data.subjects.length - 1]?.paginationToken
+        }
+        prevPaginationToken={data.subjects[0]?.paginationToken}
+        itemsPerPage={SubjectsListPageSize}
         totalCount={data.totalCount}
       />
     </div>

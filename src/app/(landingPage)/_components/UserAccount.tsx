@@ -1,16 +1,11 @@
 "use client";
 import React from "react";
 
-import {
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  useUser,
-} from "@clerk/nextjs";
+import { SignInButton, SignUpButton, SignedOut, useUser } from "@clerk/nextjs";
+
+import { cn } from "@/utils/utils";
 import { Button } from "@/components/ui/button";
 import { UserMenu } from "@/components/UserMenu";
-import { cn } from "@/utils/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { syncUpWithDrive } from "@/actions/syncUpWithDrive";
 
@@ -56,9 +51,9 @@ export const UserAccount = () => {
             "flex items-center lg:w-32 justify-center flex-shrink-0"
           )}
         >
-          <Button className="mr-3" variant={"secondary"} onClick={syncUp}>
+          {/* <Button variant={"secondary"} className="mr-4" onClick={syncUp}>
             Sync Up
-          </Button>
+          </Button> */}
           <UserMenu />
         </div>
       ) : (

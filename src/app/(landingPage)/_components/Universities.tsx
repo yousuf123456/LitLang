@@ -13,6 +13,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import Image from "next/image";
+import Link from "next/link";
 
 export const Universities = () => {
   const universitiesData = [
@@ -88,22 +89,24 @@ export const Universities = () => {
 
 const UniversityCard = ({ name, image }: { name: string; image: string }) => {
   return (
-    <div className="border border-brown-100 rounded-xl relative w-full bg-brown-50 p-1.5">
-      <div className="rounded-xl relative overflow-hidden w-full h-full aspect-w-16 aspect-h-10">
-        <div className="absolute inset-0 rounded-xl bg-black z-10 bg-opacity-30 hover:bg-opacity-40 cursor-pointer p-5 group">
-          <p className="text-xl font-semibold text-white z-20 pointer-events-none group-hover:translate-y-2 relative transition-all">
-            {name}
-          </p>
-        </div>
+    <Link href={`/subjects?university=${name}`}>
+      <div className="border border-brown-100 rounded-xl relative w-full bg-brown-50 p-1.5">
+        <div className="rounded-xl relative overflow-hidden w-full h-full aspect-w-16 aspect-h-10">
+          <div className="absolute inset-0 rounded-xl bg-black z-10 bg-opacity-30 hover:bg-opacity-40 cursor-pointer p-5 group">
+            <p className="text-xl font-semibold text-white z-20 pointer-events-none group-hover:translate-y-2 relative transition-all">
+              {name}
+            </p>
+          </div>
 
-        <Image
-          fill
-          src={image}
-          loading="lazy"
-          alt="University Image"
-          className="object-cover"
-        />
+          <Image
+            fill
+            src={image}
+            loading="lazy"
+            alt="University Image"
+            className="object-cover"
+          />
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };

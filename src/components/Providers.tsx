@@ -12,7 +12,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
-  const [queryClient] = useState(() => new QueryClient({}));
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: { queries: { refetchOnWindowFocus: false } },
+      })
+  );
 
   const [trpcClient] = useState(() =>
     trpc.createClient({

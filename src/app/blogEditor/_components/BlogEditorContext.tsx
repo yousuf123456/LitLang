@@ -24,7 +24,7 @@ export const BlogContext = createContext({
     React.SetStateAction<string | undefined>
   >,
   updateOrCreateDraft: undefined as unknown as (
-    props: RouterInput["updateOrCreateDraft"]
+    props: RouterInput["blogs"]["updateOrCreate"]
   ) => void,
 });
 
@@ -32,7 +32,7 @@ export default function BlogEditorContext({ draft }: { draft: blogs | null }) {
   const draftId = useSearchParams().get("draftId");
   const router = useRouter();
 
-  const { mutateAsync, isPending } = trpc.updateOrCreateDraft.useMutation();
+  const { mutateAsync, isPending } = trpc.blogs.updateOrCreate.useMutation();
 
   const [title, setTitle] = useState(draft?.title || "Untitled");
   const [content, setContent] = useState<string | undefined>(
@@ -42,7 +42,9 @@ export default function BlogEditorContext({ draft }: { draft: blogs | null }) {
     draft?.coverImage || undefined
   );
 
-  const updateOrCreateDraft = (props: RouterInput["updateOrCreateDraft"]) => {
+  const updateOrCreateDraft = (
+    props: RouterInput["blogs"]["updateOrCreate"]
+  ) => {
     if (!props.content || !props.coverImage || !props.title)
       return toast.error("Uncompleted blog data.");
 
@@ -79,7 +81,7 @@ export default function BlogEditorContext({ draft }: { draft: blogs | null }) {
         isSavingDraft: isPending,
       }}
     >
-      <div className="w-full h-full min-h-screen flex flex-col md:gap-8 pb-12 ">
+      <div className="w-full h-full min-h-screen flex flex-col md:gap-8 pb-12">
         <DraftActions initialDraft={draft} />
         <BlogEditor />
       </div>

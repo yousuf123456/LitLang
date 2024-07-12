@@ -1,32 +1,15 @@
-import { drive_v3, google } from "googleapis";
+import { drive_v3 } from "@googleapis/drive";
+import { GoogleAuth } from "google-auth-library";
 
-const authenticateGoogle = () => {
-  const auth = new google.auth.GoogleAuth({
-    keyFile: `src/data/litlang-820bb197c20a.json`,
+const authenticate = () => {
+  const auth = new GoogleAuth({
+    keyFile: "src/data/litlang-820bb197c20a.json",
     scopes: "https://www.googleapis.com/auth/drive",
   });
+
   return auth;
 };
 
-const auth = authenticateGoogle();
+let googleDrive = new drive_v3.Drive({ auth: authenticate() });
 
-declare global {
-  var googleDrive: drive_v3.Drive;
-}
-
-let googleDrive: drive_v3.Drive;
-
-if (typeof window === "undefined") {
-  if (process.env.NODE_ENV === "production") {
-    googleDrive = google.drive({ version: "v3", auth });
-  } else {
-    if (!global.googleDrive) {
-      global.googleDrive = google.drive({ version: "v3", auth });
-    }
-
-    googleDrive = global.googleDrive;
-  }
-}
-
-//@ts-ignore
 export default googleDrive;

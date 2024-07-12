@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   NavigationMenu,
@@ -17,12 +17,49 @@ const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
 
 import Link from "next/link";
-import { cn, scrollToElement } from "@/utils/utils";
+import { cn, getSearchParamsArray } from "@/utils/utils";
 import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Searchbar } from "@/components/Searchbar";
+
+import { useDebounce } from "use-debounce";
+import { trpc } from "@/app/_trpc/client";
+import { SubjectType } from "@/types";
+import { Badge } from "@/components/ui/badge";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export const Search_NavMenu = () => {
+  const [query, setQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
+
+  const [debouncedQueryValue] = useDebounce(query, 500);
+
+  const [autocompletes, setAutocompletes] = useState<
+    Omit<SubjectType, "createdAt" | "updatedAt" | "resources" | "university">[]
+  >([]);
+
+  const { mutateAsync: getAutocompletes } =
+    trpc.subjects.getSubjectsAutocompletes.useMutation();
+
+  useEffect(() => {
+    getAutocompletes({ query: debouncedQueryValue }).then((res) =>
+      setAutocompletes(res)
+    );
+  }, [debouncedQueryValue]);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const onSearch = (autocomplete: string) => {
+    console.log("Submitting");
+
+    const searchParamsArray = getSearchParamsArray(
+      searchParams,
+      query ? [`query=${autocomplete}`] : [],
+      ["query", "paginationToken", "going", "page"]
+    );
+
+    router.push(`/subjects?${searchParamsArray.join("&")}`);
+  };
 
   return (
     <AnimatePresence mode="wait">
@@ -42,7 +79,7 @@ export const Search_NavMenu = () => {
               opacity: [1, 0, 0],
             }}
             transition={{
-              duration: 0.2,
+              duration: 0.35,
               ease: "easeInOut",
             }}
             key={"nav_menu"}
@@ -116,7 +153,6 @@ export const Search_NavMenu = () => {
           </m.div>
         ) : (
           <m.div
-            onClick={() => setIsSearching(false)}
             className="relative flex-1"
             initial={{
               top: -48,
@@ -131,17 +167,60 @@ export const Search_NavMenu = () => {
               opacity: [1, 0, 0],
             }}
             transition={{
-              duration: 0.2,
+              duration: 0.35,
               ease: "easeInOut",
             }}
             key={"search_bar"}
           >
-            <Input
-              placeholder="Search for subjects"
-              className="w-full"
-              onBlur={() => setIsSearching(false)}
+            <Searchbar
               autoFocus
+              query={query}
+              setQuery={setQuery}
+              autoComplete="false"
+              pathname="/subjects"
+              id="subjects-search-input"
+              placeholder="Search for subjects here."
+              onBlur={(e) => {
+                if (e.relatedTarget?.id === "autocomplete") {
+                  document.getElementById("subjects-search-input")?.focus();
+                  return;
+                }
+
+                setIsSearching(false);
+              }}
             />
+
+            {autocompletes.length > 0 && (
+              <div className="absolute top-14 left-0 right-0 bg-white p-2 border-zinc-200 border rounded-lg">
+                <ul className="flex flex-col">
+                  {autocompletes.map((autocomplete, i) => (
+                    <li
+                      key={i}
+                      tabIndex={0}
+                      id="autocomplete"
+                      onClick={() => {
+                        setQuery("");
+                        setAutocompletes([]);
+                        onSearch(autocomplete.name);
+                      }}
+                      className="px-2 py-4 hover:bg-zinc-50 transition-colors rounded-lg flex flex-col gap-3"
+                    >
+                      <p className="text-zinc-700 text-sm">
+                        {autocomplete.name}
+                      </p>
+                      <div className="flex justify-start w-full gap-3">
+                        <Badge variant={"outline"} className="text-zinc-600">
+                          {autocomplete.universityShort}
+                        </Badge>
+                        <Badge variant={"outline"} className="text-zinc-600">
+                          Semester {autocomplete.semester}
+                        </Badge>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </m.div>
         )}
       </LazyMotion>

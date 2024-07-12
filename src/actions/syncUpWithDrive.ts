@@ -1,10 +1,9 @@
 "use server";
 
 import prisma from "@/app/utils/prismadb";
+import { ResourceType, SubjectType } from "@/types";
 
 import { drive_v3 } from "@googleapis/drive";
-import { Resource, subject } from "@prisma/client";
-import { promises } from "dns";
 import { GoogleAuth } from "google-auth-library";
 
 const universityShorts: { [key: string]: string } = {
@@ -23,7 +22,7 @@ const authenticate = () => {
 const googleDrive = new drive_v3.Drive({ auth: authenticate() });
 
 export const syncUpWithDrive = async () => {
-  let dbSubjects: Omit<subject, "id">[] = [];
+  let dbSubjects: Omit<SubjectType, "id">[] = [];
 
   const uniFolders = (
     await googleDrive.files.list({
@@ -96,16 +95,18 @@ export const syncUpWithDrive = async () => {
                           id: resource.id || "No Id",
                           name: resource.name || "Untitled",
                           resources: mappedFolderResources,
+                          isPremium: (resource.name || "").includes("(P)"),
                         };
                       }
 
                       return {
+                        isPremium: (resource.name || "").includes("(P)"),
                         webViewLink: resource.webViewLink,
                         name: resource.name || "Untitled",
                         id: resource.id || "No Id",
                         resources: [],
                         type: "PDF",
-                      } as Resource;
+                      } as ResourceType;
                     })
                   );
                 }
@@ -133,6 +134,7 @@ export const syncUpWithDrive = async () => {
                   resources: await fetchandMapResources(filteredSubjResources),
                 };
 
+                //@ts-ignore
                 dbSubjects.push(dbSubject);
               })
             );
@@ -142,5 +144,30 @@ export const syncUpWithDrive = async () => {
     )
   );
 
-  console.log(dbSubjects[0].resources);
+  await prisma.subject.deleteMany();
+  const existingDBSubjects = await prisma.subject.findMany();
+
+  await Promise.all(
+    dbSubjects.map(async (dbSubject) => {
+      const subjectAlreadyExisting = existingDBSubjects.filter(
+        (existingSubj) =>
+          existingSubj.university === dbSubject.university &&
+          existingSubj.name === dbSubject.name &&
+          existingSubj.semester === dbSubject.semester
+      );
+
+      if (subjectAlreadyExisting.length > 0) {
+        return await prisma.subject.update({
+          where: { id: subjectAlreadyExisting[0].id },
+          data: dbSubject as any,
+        });
+      } else {
+        return await prisma.subject.create({
+          data: dbSubject as any,
+        });
+      }
+    })
+  );
+
+  console.log("Synced Subjects Successfully");
 };

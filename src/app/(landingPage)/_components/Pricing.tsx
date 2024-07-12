@@ -1,9 +1,8 @@
 import React from "react";
 
-import { Highlight } from "@/components/Highlight";
-import { Button } from "@/components/ui/button";
-import { PricingPlanFeatures } from "./PricingPlanFeatures";
 import { Subscribe } from "./Subscribe";
+import { Highlight } from "@/components/Highlight";
+import { PricingPlanFeatures } from "./PricingPlanFeatures";
 
 export const Pricing = () => {
   return (
