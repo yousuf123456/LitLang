@@ -33,12 +33,11 @@ export default async function FilePage({
   const fileArrayBuffer = response.data as unknown as Blob;
 
   const uint8ArrayData = new Uint8Array(await fileArrayBuffer.arrayBuffer());
-
   return (
     <Suspense fallback={<Loading />}>
       <div className="md:max-h-[calc(100vh-89px)] max-h-[calc(100vh-73px)] md:min-h-[calc(100vh-89px)] min-h-[calc(100vh-73px)] flex">
         <Sidebar subject={subject} showSubject className="hidden md:block" />
-        <PDFViewer uint8ArrayData={uint8ArrayData} />
+        {/* <PDFViewer uint8ArrayData={uint8ArrayData} /> */}
       </div>
     </Suspense>
   );
