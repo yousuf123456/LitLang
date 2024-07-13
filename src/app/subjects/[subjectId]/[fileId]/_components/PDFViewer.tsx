@@ -23,6 +23,7 @@ import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { absoluteUrl } from "@/utils/utils";
 
 if (typeof Promise.withResolvers === "undefined") {
   if (typeof window !== undefined) {
@@ -50,9 +51,14 @@ if (typeof Promise.withResolvers === "undefined") {
 
 // there is your `/legacy/build/pdf.worker.min.mjs` url
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/legacy/build/pdf.worker.min.mjs",
-  import.meta.url
+  absoluteUrl("/_next/static/media/pdf.worker.min.1eb065b4.mjs", true)
+  // "pdfjs-dist/legacy/build/pdf.worker.min.mjs",
+  // import.meta.url
 ).toString();
+
+// pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+
+// pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 export const PDFViewer = ({
   uint8ArrayData,

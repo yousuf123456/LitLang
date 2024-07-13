@@ -50,6 +50,7 @@ export const ResourcesStructure = ({
                 isPremium={!!resource.isPremium}
                 paddingLeft={paddingLeft}
                 name={resource.name}
+                key={i}
               />
             ) : (
               <Link key={i} href={`/subjects/${subjectId}/${resource.id}`}>
