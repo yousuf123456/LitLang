@@ -71,7 +71,8 @@ export const Sidebar = ({
 
           {subject.resources.length === 0 && (
             <p className="mx-5 mt-8">
-              We are working hard to provide material for this subject.
+              We are working hard to provide material very soon for this
+              subject.
             </p>
           )}
 
