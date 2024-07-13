@@ -24,10 +24,10 @@ const World = dynamic<any>(
   }
 );
 
+import { ContactForm } from "./ContactForm";
 import { Smile } from "lucide-react";
 import { globeConfig } from "@/data/globe/config";
 import { sampleArcs } from "@/data/globe/arcs";
-import { Form } from "./Form";
 
 export default function ContactUsPage() {
   return (
@@ -44,7 +44,7 @@ export default function ContactUsPage() {
           </div>
         </div>
 
-        <Form />
+        <ContactForm />
       </div>
     </MaxWidthWrapper>
   );
