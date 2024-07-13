@@ -1,25 +1,13 @@
 "use server";
+import { drive_v3 } from "@googleapis/drive";
 
+import googleDrive from "@/app/utils/googleDrive";
 import prisma from "@/app/utils/prismadb";
 import { ResourceType, SubjectType } from "@/types";
-
-import { drive_v3 } from "@googleapis/drive";
-import { GoogleAuth } from "google-auth-library";
 
 const universityShorts: { [key: string]: string } = {
   "National University of Modern Languages": "NUML",
 };
-
-const authenticate = () => {
-  const auth = new GoogleAuth({
-    keyFile: "src/data/litlang-820bb197c20a.json",
-    scopes: "https://www.googleapis.com/auth/drive",
-  });
-
-  return auth;
-};
-
-const googleDrive = new drive_v3.Drive({ auth: authenticate() });
 
 export const syncUpWithDrive = async () => {
   let dbSubjects: Omit<SubjectType, "id">[] = [];
