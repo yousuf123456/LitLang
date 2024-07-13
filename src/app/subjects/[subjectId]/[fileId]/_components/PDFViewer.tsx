@@ -121,7 +121,7 @@ export const PDFViewer = ({
   };
 
   return (
-    <div className="flex-1 flex flex-col gap-0 overflow-x-hidden bg-[#DDD8C2]">
+    <div className="flex-1 flex flex-col gap-0 overflow-x-hidden bg-[#DDD8C2] print:hidden">
       <div
         ref={ref}
         className="flex items-center px-0 justify-between w-full h-14 flex-shrink-0"
