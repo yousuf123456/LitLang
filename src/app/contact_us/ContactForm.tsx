@@ -11,7 +11,7 @@ import { toast } from "sonner";
 const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
 
-export const Form = () => {
+export const ContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
