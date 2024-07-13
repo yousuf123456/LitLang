@@ -1,9 +1,8 @@
 "use client";
+import React, { Suspense } from "react";
 
 import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
 import Image from "next/image";
-import React from "react";
-import { Search } from "./Search";
 import { UserAccount } from "./UserAccount";
 import { usePathname } from "next/navigation";
 import { Search_NavMenu } from "./Search_NavMenu";
@@ -35,7 +34,9 @@ export const Navbar = () => {
             </div>
           </Link>
 
-          <Search_NavMenu />
+          <Suspense>
+            <Search_NavMenu />
+          </Suspense>
 
           <UserAccount />
         </div>

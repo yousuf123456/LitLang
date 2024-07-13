@@ -4,7 +4,7 @@ export type sortSearchParamType = `${string}-${string}`;
 
 export type blogType = blogs & { paginationToken?: string };
 
-export type ResourceMimeType = "PDF" | "Folder";
+export type ResourceMimeType = "PDF" | "Folder" | "Audio";
 
 export type ResourceType = {
   resources: ResourceType[];
