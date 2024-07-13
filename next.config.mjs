@@ -9,7 +9,6 @@ const nextConfig = {
       { hostname: "utfs.io" },
     ],
   },
-  transpilePackages: ["react-pdf"],
 };
 
 export default nextConfig;
