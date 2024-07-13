@@ -10,10 +10,10 @@ const authenticate = () => {
       token_url: process.env.TOKEN_URI!,
       client_id: process.env.CLIENT_ID!,
       projectId: process.env.PROJECT_ID!,
-      private_key: process.env.PRIVATE_KEY!,
       client_email: process.env.CLIENT_EMAIL!,
       private_key_id: process.env.PRIVATE_KEY_ID!,
       universe_domain: process.env.UNIVERSE_DOMAIN!,
+      private_key: process.env.PRIVATE_KEY!.replace(/\|\|/g, "\n"),
     },
   });
 
