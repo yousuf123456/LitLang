@@ -24,7 +24,7 @@ const World = dynamic<any>(
   }
 );
 
-import { ContactForm } from "./ContactForm";
+import { ContactForm } from "./_components/ContactForm";
 import { Smile } from "lucide-react";
 import { globeConfig } from "@/data/globe/config";
 import { sampleArcs } from "@/data/globe/arcs";
