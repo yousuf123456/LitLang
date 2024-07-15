@@ -6,6 +6,8 @@ import { Loader } from "lucide-react";
 import { File } from "./_components/File";
 import { FileNavigation } from "./_components/FileNavigation";
 
+export const revalidate = 3600;
+
 export default function FilePage({
   params,
 }: {

@@ -13,13 +13,14 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-import { SubjectType } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { Sidebar } from "./_components/Sidebar";
 import { createImageUrlFromWebViewLink } from "@/utils/utils";
 import { Loader, Plus } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getSubject } from "@/actions/getSubject";
+
+export const revalidate = 3600;
 
 export default async function SubjectPage({
   params,
