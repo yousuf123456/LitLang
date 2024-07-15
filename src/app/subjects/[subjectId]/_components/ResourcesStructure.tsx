@@ -42,6 +42,7 @@ export const ResourcesStructure = ({
           duration: 0.35,
           delay: 0.1,
         }}
+        role="tree"
         className="flex flex-col"
       >
         {resources.map((resource, i) => {
@@ -105,7 +106,11 @@ const FolderStructure = ({
   const toggleChildsCollapsed = () => setIsChildsCollapsed((prev) => !prev);
 
   return (
-    <li className="flex flex-col">
+    <li
+      className="flex flex-col"
+      role="treeitem"
+      aria-expanded={isChildsCollapsed}
+    >
       <div
         onClick={toggleChildsCollapsed}
         style={{ paddingLeft }}
@@ -152,6 +157,7 @@ const File = ({
 }) => {
   return (
     <li
+      role="treeitem"
       style={{ paddingLeft: paddingLeft + 4 }}
       className={cn(
         "flex items-center gap-2 py-3 pr-3 hover:bg-zinc-200/40 transition-colors",

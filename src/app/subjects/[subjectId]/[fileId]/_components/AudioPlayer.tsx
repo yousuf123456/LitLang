@@ -122,15 +122,19 @@ export const AudioPlayer = ({
 
         <div className="w-full flex gap-4 items-center">
           <div className="p-[10px] rounded-md bg-gray-800 flex-shrink-0">
-            <Mic className="text-gray-200 w-4 h-4 sm:w-5 sm:h-5" />
+            <Mic aria-hidden className="text-gray-200 w-4 h-4 sm:w-5 sm:h-5" />
           </div>
-          <p className="text-gray-700 sm:text-base text-sm font-medium">
+          <h2 className="text-gray-700 sm:text-base text-sm font-medium">
             {name}
-          </p>
+          </h2>
         </div>
 
         <div className="flex items-center gap-0 sm:gap-1 w-full relative ">
-          <p className="text-xs sm:text-sm text-gray-700 w-9 sm:w-10">
+          <p
+            aria-atomic
+            aria-live="polite"
+            className="text-xs sm:text-sm text-gray-700 w-9 sm:w-10"
+          >
             {formatTime(currentTime)}
           </p>
 
@@ -141,6 +145,7 @@ export const AudioPlayer = ({
             onChange={handleSeek}
             onMouseUp={onMouseUp}
             onMouseDown={onMouseDown}
+            aria-label="Seek audio position"
             value={(currentTime / duration) * 100 || 0}
             className="flex-1 w-full h-2 bg-transparent rounded-lg appearance-none cursor-pointer accent-gray-800 z-30"
           />
@@ -151,15 +156,24 @@ export const AudioPlayer = ({
             className="absolute sm:w-[calc(100%-108px)] w-[calc(100%-96px)] z-20 bg-gray-300 h-2 left-1/2 -translate-x-1/2"
           />
 
-          <p className="text-xs sm:text-sm text-gray-700 w-9 sm:w-10 text-end">
+          <p
+            aria-atomic
+            aria-live="polite"
+            className="text-xs sm:text-sm text-gray-700 w-9 sm:w-10 text-end"
+          >
             {formatTime(duration)}
           </p>
         </div>
 
         <LazyMotion features={loadFeatures} strict>
-          <div className="flex items-center gap-8 sm:gap-12">
+          <div
+            className="flex items-center gap-8 sm:gap-12"
+            role="group"
+            aria-label="Audio controls"
+          >
             <BsFillSkipStartFill
               className="sm:w-7 sm:h-7 w-6 h-6 text-gray-800 cursor-pointer"
+              aria-label="Skip backward 10 seconds"
               onClick={skipBackward}
             />
 
@@ -175,6 +189,7 @@ export const AudioPlayer = ({
                   <MdPauseCircleFilled
                     className="sm:w-10 w-9 h-9 sm:h-10 text-gray-800 cursor-pointer"
                     onClick={togglePlayPause}
+                    aria-label="Pause"
                   />
                 </m.div>
               ) : (
@@ -188,6 +203,7 @@ export const AudioPlayer = ({
                   <MdPlayCircleFilled
                     className="sm:w-10 w-9 h-9 sm:h-10 text-gray-800 cursor-pointer"
                     onClick={togglePlayPause}
+                    aria-label="play"
                   />
                 </m.div>
               )}
@@ -195,6 +211,7 @@ export const AudioPlayer = ({
 
             <BsSkipEndFill
               className="sm:w-7 sm:h-7 w-6 h-6 text-gray-800 cursor-pointer"
+              aria-label="Skip forward 10 seconds"
               onClick={skipForward}
             />
           </div>
@@ -202,6 +219,7 @@ export const AudioPlayer = ({
       </div>
 
       <Link
+        aria-label="Go back to previous page"
         href={`/subjects/${subjectId}`}
         className={buttonVariants({
           size: "sm",

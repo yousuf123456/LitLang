@@ -16,7 +16,11 @@ export default function FilePage({
       <Suspense
         key={`${params.subjectId} ${params.fileId}`}
         fallback={
-          <Skeleton className="hidden md:flex w-64 lg:w-80 rounded-none " />
+          <Skeleton
+            aria-busy
+            aria-live="polite"
+            className="hidden md:flex w-64 lg:w-80 rounded-none "
+          />
         }
       >
         <FileNavigation fileId={params.fileId} subjectId={params.subjectId} />
@@ -25,7 +29,12 @@ export default function FilePage({
       <Suspense
         key={`${params.subjectId} ${params.fileId}`}
         fallback={
-          <div className="flex-1 flex items-center justify-center">
+          <div
+            aria-busy
+            aria-live="polite"
+            className="flex-1 flex items-center justify-center"
+          >
+            <p className="sr-only">Loading file...</p>
             <Loader className="text-zinc-700 animate-spin" />
           </div>
         }

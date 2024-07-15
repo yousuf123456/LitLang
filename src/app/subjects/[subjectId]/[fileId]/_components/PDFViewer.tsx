@@ -146,19 +146,27 @@ export const PDFViewer = ({
   };
 
   return (
-    <div
+    <article
+      aria-labelledby="pdf-viewer-heading"
       className={cn(
         "flex-1 flex flex-col gap-0 overflow-x-hidden bg-[#DDD8C2] print:hidden",
         isFullscreen ? "fixed inset-0 z-50" : "relative"
       )}
     >
+      <h2 id="pdf-viewer-heading" className="sr-only">
+        PDF Viewer
+      </h2>
+
       <div
         ref={ref}
+        role="toolbar"
+        aria-label="PDF controls"
         className="flex items-center px-0 justify-between w-full h-14 flex-shrink-0"
       >
         <div className="flex items-center gap-3 ml-2 sm:ml-4 max-sm:absolute bottom-2 max-sm:-translate-x-1/2 left-1/2 z-[999] max-sm:bg-[#DDD8C2] max-sm:p-0.5 max-sm:rounded-lg">
           <Button
             size={"icon"}
+            aria-label="Previous page"
             variant={"ghost"}
             onClick={goToPrevPage}
             disabled={pageNumber === 1}
@@ -183,6 +191,7 @@ export const PDFViewer = ({
           </div>
 
           <Button
+            aria-label="Next page"
             variant={"ghost"}
             size={"icon"}
             onClick={goToNextPage}
@@ -195,6 +204,7 @@ export const PDFViewer = ({
         <div className="flex items-center max-sm:justify-around max-sm:w-full gap-1 sm:gap-4 mr-2 sm:mr-4">
           <Button
             size={"icon"}
+            aria-label="Zoom in"
             variant={"ghost"}
             onClick={onZoomIn}
             disabled={scale === 2.5}
@@ -206,16 +216,27 @@ export const PDFViewer = ({
             size={"icon"}
             variant={"ghost"}
             onClick={onZoomOut}
+            aria-label="Zoom out"
             disabled={scale === 1}
           >
             <ZoomOut className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
           </Button>
 
-          <Button variant={"ghost"} size={"icon"} onClick={onRotate}>
+          <Button
+            size={"icon"}
+            variant={"ghost"}
+            onClick={onRotate}
+            aria-label="rotate"
+          >
             <RotateCcw className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
           </Button>
 
-          <Button variant={"ghost"} size={"icon"} onClick={toggleFullscreen}>
+          <Button
+            size={"icon"}
+            variant={"ghost"}
+            aria-label="Fullscreen"
+            onClick={toggleFullscreen}
+          >
             {isFullscreen ? (
               <Minimize className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
             ) : (
@@ -225,7 +246,11 @@ export const PDFViewer = ({
 
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild className="md:hidden">
-              <Button variant={"ghost"} size={"icon"}>
+              <Button
+                variant={"ghost"}
+                size={"icon"}
+                aria-label="Go back options"
+              >
                 <EllipsisVertical className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
               </Button>
             </DropdownMenuTrigger>
@@ -250,7 +275,7 @@ export const PDFViewer = ({
         </div>
       </div>
 
-      <ScrollArea>
+      <ScrollArea role="document" aria-label={`PDF document: ${name}`}>
         <Document
           file={file}
           onLoadError={onLoadError}
@@ -266,7 +291,7 @@ export const PDFViewer = ({
         </Document>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-    </div>
+    </article>
   );
 };
 

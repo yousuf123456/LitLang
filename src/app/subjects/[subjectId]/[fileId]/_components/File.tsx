@@ -15,6 +15,7 @@ const AudioPlayer = dynamic(
 import googleDrive from "@/app/utils/googleDrive";
 import { getSubject } from "@/actions/getSubject";
 import { findFileById } from "@/utils/utils";
+import { getFile } from "@/actions/getFile";
 
 export const File = async ({
   fileId,
@@ -31,10 +32,7 @@ export const File = async ({
 
   if (!file) return <p>Invalid File Id</p>;
 
-  const response = await googleDrive.files.get({
-    fileId: file.id,
-    alt: "media",
-  });
+  const response = await getFile(file.id);
 
   const fileBlob = response.data as unknown as Blob;
 
