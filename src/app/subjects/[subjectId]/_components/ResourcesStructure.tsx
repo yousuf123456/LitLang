@@ -3,12 +3,22 @@ import React, { useState } from "react";
 
 import Link from "next/link";
 import { ResourceType } from "@/types";
-import { ChevronRight, Folder, Lock } from "lucide-react";
-import { AiFillFilePdf, AiOutlineFilePdf } from "react-icons/ai";
+import {
+  ChevronRight,
+  Folder,
+  Lock,
+  LucideProps,
+  Mic,
+  Mic2,
+} from "lucide-react";
+
+import { AiFillAudio, AiFillFilePdf, AiOutlineFilePdf } from "react-icons/ai";
+import { FaMicrophone } from "react-icons/fa";
 
 import { cn } from "@/utils/utils";
 
 import { LazyMotion, m } from "framer-motion";
+import { IconType } from "react-icons/lib";
 const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
 
@@ -46,22 +56,35 @@ export const ResourcesStructure = ({
             );
           else if (resource.type === "PDF")
             return resource.isPremium ? (
-              <PDF
+              <File
                 isPremium={!!resource.isPremium}
                 paddingLeft={paddingLeft}
                 name={resource.name}
+                Icon={AiFillFilePdf}
                 key={i}
               />
             ) : (
               <Link key={i} href={`/subjects/${subjectId}/${resource.id}`}>
-                <PDF
+                <File
                   isPremium={!!resource.isPremium}
                   paddingLeft={paddingLeft}
+                  Icon={AiOutlineFilePdf}
                   name={resource.name}
                 />
               </Link>
             );
-          else return null;
+          else if (resource.type === "Audio") {
+            return (
+              <Link key={i} href={`/subjects/${subjectId}/${resource.id}`}>
+                <File
+                  paddingLeft={paddingLeft}
+                  name={resource.name}
+                  Icon={FaMicrophone}
+                  isPremium
+                />
+              </Link>
+            );
+          } else return null;
         })}
       </m.ul>
     </LazyMotion>
@@ -112,11 +135,17 @@ const FolderStructure = ({
   );
 };
 
-const PDF = ({
+const File = ({
   paddingLeft,
   isPremium,
+  Icon,
   name,
 }: {
+  Icon:
+    | IconType
+    | React.ForwardRefExoticComponent<
+        Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
+      >;
   paddingLeft: number;
   isPremium: boolean;
   name: string;
@@ -130,10 +159,11 @@ const PDF = ({
       )}
     >
       {isPremium ? (
-        <AiFillFilePdf className="text-brown-700 w-[18px] h-[18px] flex-shrink-0" />
+        <Icon className="text-brown-600  w-[18px] h-[18px] flex-shrink-0" />
       ) : (
-        <AiOutlineFilePdf className="text-zinc-500 w-[18px] h-[18px] flex-shrink-0" />
+        <Icon className="text-zinc-500 w-[18px] h-[18px] flex-shrink-0" />
       )}
+
       <p
         className={cn(
           "text-zinc-900 text-sm line-clamp-1 flex-1",

@@ -14,7 +14,7 @@ export const syncUpWithDrive = async () => {
 
   const uniFolders = (
     await googleDrive.files.list({
-      q: "trashed = false and parents in '1OhuxwqnpsOgsgefnatHFN6aKaqXOr-lM'",
+      q: "trashed = false and parents in '196EHsYxFE1lKTwnNLmwxogwRAIz8Ylku'",
     })
   ).data.files;
 
@@ -93,7 +93,10 @@ export const syncUpWithDrive = async () => {
                         name: resource.name || "Untitled",
                         id: resource.id || "No Id",
                         resources: [],
-                        type: "PDF",
+                        type:
+                          resource.mimeType === "application/pdf"
+                            ? "PDF"
+                            : "Audio",
                       } as ResourceType;
                     })
                   );

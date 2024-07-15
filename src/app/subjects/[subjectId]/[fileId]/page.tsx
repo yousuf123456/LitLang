@@ -10,6 +10,14 @@ import { Loader } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PDFViewer } from "./_components/PDFViewer";
 
+import dynamic from "next/dynamic";
+const AudioPlayer = dynamic(
+  () => import("./_components/AudioPlayer").then((mod) => mod.AudioPlayer),
+  {
+    ssr: false,
+  }
+);
+
 export default async function FilePage({
   params,
 }: {
@@ -30,14 +38,28 @@ export default async function FilePage({
     alt: "media",
   });
 
-  const fileArrayBuffer = response.data as unknown as Blob;
+  const fileBlob = response.data as unknown as Blob;
 
-  const uint8ArrayData = new Uint8Array(await fileArrayBuffer.arrayBuffer());
+  const uint8ArrayData = new Uint8Array(await fileBlob.arrayBuffer());
+
   return (
     <Suspense fallback={<Loading />}>
       <div className="md:max-h-[calc(100vh-89px)] max-h-[calc(100vh-73px)] md:min-h-[calc(100vh-89px)] min-h-[calc(100vh-73px)] flex">
         <Sidebar subject={subject} showSubject className="hidden md:block" />
-        {/* <PDFViewer uint8ArrayData={uint8ArrayData} /> */}
+
+        {file.type === "PDF" ? (
+          <PDFViewer
+            uint8ArrayData={uint8ArrayData}
+            name={file.name}
+            subjectId={params.subjectId}
+          />
+        ) : (
+          <AudioPlayer
+            bufferArray={Array.from(uint8ArrayData)}
+            subjectId={params.subjectId}
+            name={file.name}
+          />
+        )}
       </div>
     </Suspense>
   );
