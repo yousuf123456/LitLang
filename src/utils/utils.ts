@@ -1,3 +1,4 @@
+import { ResourceType } from "@/types";
 import { type ClassValue, clsx } from "clsx";
 import { ReadonlyURLSearchParams } from "next/navigation";
 import { twMerge } from "tailwind-merge";
@@ -62,3 +63,22 @@ export function createImageUrlFromWebViewLink(webViewLink: string) {
     ? `https://drive.google.com/uc?export=view&id=${fileId}`
     : webViewLink;
 }
+
+export const findFileById = (
+  resources: ResourceType[],
+  id: string
+): ResourceType | null => {
+  for (const resource of resources) {
+    if (resource.type !== "Folder" && resource.id === id) {
+      return resource;
+    } else {
+      const found = findFileById(resource.resources, id);
+
+      if (found) {
+        return found;
+      }
+    }
+  }
+
+  return null;
+};

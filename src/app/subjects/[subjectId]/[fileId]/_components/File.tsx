@@ -13,15 +13,24 @@ const AudioPlayer = dynamic(
 );
 
 import googleDrive from "@/app/utils/googleDrive";
-import { Loader } from "lucide-react";
+import { getSubject } from "@/actions/getSubject";
+import { findFileById } from "@/utils/utils";
 
 export const File = async ({
-  file,
+  fileId,
   subjectId,
 }: {
-  file: ResourceType;
+  fileId: string;
   subjectId: string;
 }) => {
+  const subject = await getSubject(subjectId);
+
+  if (!subject) return <p>Invalid Subject Id</p>;
+
+  const file = findFileById(subject.resources, fileId);
+
+  if (!file) return <p>Invalid File Id</p>;
+
   const response = await googleDrive.files.get({
     fileId: file.id,
     alt: "media",
@@ -32,13 +41,7 @@ export const File = async ({
   const uint8ArrayData = new Uint8Array(await fileBlob.arrayBuffer());
 
   return (
-    <Suspense
-      fallback={
-        <div className="flex-1 flex items-center justify-center">
-          <Loader className="text-zinc-700 animate-spin" />
-        </div>
-      }
-    >
+    <>
       {file.type === "PDF" ? (
         <PDFViewer
           uint8ArrayData={uint8ArrayData}
@@ -52,6 +55,6 @@ export const File = async ({
           name={file.name}
         />
       )}
-    </Suspense>
+    </>
   );
 };
