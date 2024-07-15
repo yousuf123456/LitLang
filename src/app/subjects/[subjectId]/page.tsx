@@ -19,20 +19,19 @@ import { Sidebar } from "./_components/Sidebar";
 import { createImageUrlFromWebViewLink } from "@/utils/utils";
 import { Loader, Plus } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getSubject } from "@/actions/getSubject";
 
 export default async function SubjectPage({
   params,
 }: {
   params: { subjectId: string };
 }) {
-  const subject = (await prisma.subject.findUnique({
-    where: { id: params.subjectId },
-  })) as SubjectType;
+  const subject = await getSubject(params.subjectId);
 
   if (!subject) return <p>Invalid Subject Id</p>;
 
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense key={params.subjectId} fallback={<Loading />}>
       <div className="md:max-h-[calc(100vh-89px)] max-h-[calc(100vh-73px)] md:min-h-[calc(100vh-89px)] min-h-[calc(100vh-73px)] flex">
         <Sidebar subject={subject} />
 
