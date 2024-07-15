@@ -28,7 +28,8 @@ export default async function FilePage({
     <Suspense
       key={`${params.subjectId} ${params.fileId}`}
       fallback={
-        <Skeleton className="hidden md:flex w-64 lg:w-80 rounded-none " />
+        <p>Loading</p>
+        // <Skeleton className="hidden md:flex w-64 lg:w-80 rounded-none " />
       }
     >
       <div className="md:max-h-[calc(100vh-89px)] max-h-[calc(100vh-73px)] md:min-h-[calc(100vh-89px)] min-h-[calc(100vh-73px)] flex">
