@@ -25,17 +25,18 @@ export default async function FilePage({
   if (!file) return <p>Invalid File Id</p>;
 
   return (
-    <div className="md:max-h-[calc(100vh-89px)] max-h-[calc(100vh-73px)] md:min-h-[calc(100vh-89px)] min-h-[calc(100vh-73px)] flex">
-      <Suspense
-        fallback={
-          <Skeleton className="hidden md:flex w-64 lg:w-80 rounded-none " />
-        }
-      >
+    <Suspense
+      key={`${params.subjectId} ${params.fileId}`}
+      fallback={
+        <Skeleton className="hidden md:flex w-64 lg:w-80 rounded-none " />
+      }
+    >
+      <div className="md:max-h-[calc(100vh-89px)] max-h-[calc(100vh-73px)] md:min-h-[calc(100vh-89px)] min-h-[calc(100vh-73px)] flex">
         <Sidebar subject={subject} showSubject className="hidden md:block" />
-      </Suspense>
 
-      <File file={file} subjectId={params.subjectId} />
-    </div>
+        <File file={file} subjectId={params.subjectId} />
+      </div>
+    </Suspense>
   );
 }
 
