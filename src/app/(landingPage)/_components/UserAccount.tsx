@@ -54,6 +54,7 @@ export const UserAccount = () => {
           {/* <Button variant={"secondary"} className="mr-4" onClick={syncUp}>
             Sync Up
           </Button> */}
+
           <UserMenu />
         </div>
       ) : (

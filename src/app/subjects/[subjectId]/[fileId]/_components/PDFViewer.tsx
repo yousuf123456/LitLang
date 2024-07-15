@@ -5,7 +5,10 @@ import { Input } from "@/components/ui/input";
 import {
   ChevronLeft,
   ChevronRight,
+  EllipsisVertical,
+  Fullscreen,
   Loader2,
+  Minimize,
   RotateCcw,
   ZoomIn,
   ZoomOut,
@@ -23,7 +26,16 @@ import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { absoluteUrl } from "@/utils/utils";
+import { absoluteUrl, cn } from "@/utils/utils";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 if (typeof Promise.withResolvers === "undefined") {
   if (typeof window !== undefined) {
@@ -50,20 +62,24 @@ if (typeof Promise.withResolvers === "undefined") {
 }
 
 // there is your `/legacy/build/pdf.worker.min.mjs` url
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  absoluteUrl("/_next/static/media/pdf.worker.min.1eb065b4.mjs", true)
-  // "pdfjs-dist/legacy/build/pdf.worker.min.mjs",
-  // import.meta.url
-).toString();
+// pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+//   // absoluteUrl("/_next/static/media/pdf.worker.min.1eb065b4.mjs", true)
+//   "pdfjs-dist/legacy/build/pdf.worker.min.mjs",
+//   import.meta.url
+// ).toString();
 
-// pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 // pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 export const PDFViewer = ({
   uint8ArrayData,
+  subjectId,
+  name,
 }: {
   uint8ArrayData: Uint8Array;
+  subjectId: string;
+  name: string;
 }) => {
   const file = useMemo(() => {
     return { data: uint8ArrayData };
@@ -74,6 +90,7 @@ export const PDFViewer = ({
   const [scale, setScale] = useState(1);
   const [rotation, setRotation] = useState(0);
   const [numPages, setNumPages] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   const [pageNumber, setPageNumber] = useState(1);
   const [inputPageNumber, setInputPageNumber] = useState(1);
@@ -115,6 +132,8 @@ export const PDFViewer = ({
     else setScale(availScales[oldScaleIndex - 1]);
   };
 
+  const toggleFullscreen = () => setIsFullscreen((prev) => !prev);
+
   const onRotate = () => {
     setRotation((prev) => prev + 90);
   };
@@ -127,19 +146,24 @@ export const PDFViewer = ({
   };
 
   return (
-    <div className="flex-1 flex flex-col gap-0 overflow-x-hidden bg-[#DDD8C2] print:hidden">
+    <div
+      className={cn(
+        "flex-1 flex flex-col gap-0 overflow-x-hidden bg-[#DDD8C2] print:hidden",
+        isFullscreen ? "fixed inset-0 z-50" : "relative"
+      )}
+    >
       <div
         ref={ref}
         className="flex items-center px-0 justify-between w-full h-14 flex-shrink-0"
       >
-        <div className="flex items-center gap-1 sm:gap-3 ml-2 sm:ml-6">
+        <div className="flex items-center gap-3 ml-2 sm:ml-4 max-sm:absolute bottom-2 max-sm:-translate-x-1/2 left-1/2 z-[999] max-sm:bg-[#DDD8C2] max-sm:p-0.5 max-sm:rounded-lg">
           <Button
             size={"icon"}
             variant={"ghost"}
             onClick={goToPrevPage}
             disabled={pageNumber === 1}
           >
-            <ChevronLeft className="w-5 h-5 text-black/70" />
+            <ChevronLeft className="w-5 h-5 text-black sm:text-black/70" />
           </Button>
 
           <div className="flex items-center gap-1.5">
@@ -151,9 +175,11 @@ export const PDFViewer = ({
               }}
               value={inputPageNumber}
               onChange={(e) => setInputPageNumber(parseInt(e.target.value))}
-              className="w-8 h-6 p-0 text-center text-black [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent border-black/70"
+              className="w-8 h-6 p-0 text-center font-medium text-black [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent border-black/70"
             />
-            <p className="text-sm text-black">\ {numPages}</p>
+            <p className="text-xs sm:text-sm text-black font-medium">
+              \ {numPages}
+            </p>
           </div>
 
           <Button
@@ -162,34 +188,65 @@ export const PDFViewer = ({
             onClick={goToNextPage}
             disabled={!numPages || pageNumber === numPages}
           >
-            <ChevronRight className="w-5 h-5 text-black/70" />
+            <ChevronRight className="w-5 h-5 text-black sm:text-black/70" />
           </Button>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-10 mr-2 sm:mr-6">
-          <div className="flex gap-2 sm:gap-4">
-            <Button
-              size={"icon"}
-              variant={"ghost"}
-              onClick={onZoomIn}
-              disabled={scale === 2.5}
-            >
-              <ZoomIn className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
-            </Button>
+        <div className="flex items-center max-sm:justify-around max-sm:w-full gap-1 sm:gap-4 mr-2 sm:mr-4">
+          <Button
+            size={"icon"}
+            variant={"ghost"}
+            onClick={onZoomIn}
+            disabled={scale === 2.5}
+          >
+            <ZoomIn className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
+          </Button>
 
-            <Button
-              size={"icon"}
-              variant={"ghost"}
-              onClick={onZoomOut}
-              disabled={scale === 1}
-            >
-              <ZoomOut className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
-            </Button>
-          </div>
+          <Button
+            size={"icon"}
+            variant={"ghost"}
+            onClick={onZoomOut}
+            disabled={scale === 1}
+          >
+            <ZoomOut className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
+          </Button>
 
           <Button variant={"ghost"} size={"icon"} onClick={onRotate}>
             <RotateCcw className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
           </Button>
+
+          <Button variant={"ghost"} size={"icon"} onClick={toggleFullscreen}>
+            {isFullscreen ? (
+              <Minimize className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
+            ) : (
+              <Fullscreen className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
+            )}
+          </Button>
+
+          <DropdownMenu modal={false}>
+            <DropdownMenuTrigger asChild className="md:hidden">
+              <Button variant={"ghost"} size={"icon"}>
+                <EllipsisVertical className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              sideOffset={5}
+              className="max-w-xl w-72 rounded-xl md:hidden"
+            >
+              <DropdownMenuLabel className="py-3" asChild>
+                <p className=" line-clamp-2 text-sm text-zinc-700">{name}</p>
+              </DropdownMenuLabel>
+
+              <DropdownMenuSeparator />
+
+              <Link href={`/subjects/${subjectId}`}>
+                <DropdownMenuItem>
+                  <ChevronLeft className="mr-4 h-4 w-4 text-zinc-700" />
+                  <span>Go Back</span>
+                </DropdownMenuItem>
+              </Link>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
 

@@ -19,7 +19,7 @@ export const Navbar = () => {
         <div className="flex justify-between items-center w-full gap-3 sm:gap-8 h-full min-h-[40px]">
           <Link href={"/"} aria-label="Home">
             <div className="flex items-center gap-4">
-              <div className="relative w-8 h-8 sm:w-9 sm:h-9">
+              <div className="relative w-8 h-8">
                 <Image
                   alt="Company Logo"
                   src={"/logo2.svg"}
@@ -28,7 +28,7 @@ export const Navbar = () => {
                 />
               </div>
 
-              <p className="text-2xl font-semibold font-brand hidden lg:block font-">
+              <p className="text-xl font-semibold font-brand hidden lg:block font-">
                 LitLang
               </p>
             </div>
