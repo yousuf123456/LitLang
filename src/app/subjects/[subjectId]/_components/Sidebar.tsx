@@ -27,8 +27,10 @@ export const Sidebar = ({
       )}
     >
       <Resizer />
+
       <ScrollArea className="h-full">
-        <div
+        <section
+          aria-label="Subject Information"
           className={cn("w-full block md:hidden", showSubject && "md:block")}
         >
           <div className="w-full h-44 relative">
@@ -41,9 +43,9 @@ export const Sidebar = ({
             />
 
             <div className="absolute inset-0 p-4 bg-black/50 z-10 flex flex-col justify-between">
-              <p className="line-clamp-2 text-lg font-medium text-white">
+              <h1 className="line-clamp-2 text-lg font-medium text-white">
                 {subject.name}
-              </p>
+              </h1>
 
               <div className="w-full flex justify-end gap-4">
                 <Badge
@@ -61,9 +63,12 @@ export const Sidebar = ({
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className="py-8 flex flex-col gap-6">
+        <section
+          aria-label="File explorer"
+          className="py-8 flex flex-col gap-6"
+        >
           <div className="px-3 flex items-center gap-4">
             <Text className="w-5 h-5 text-zinc-700" />
 
@@ -82,7 +87,7 @@ export const Sidebar = ({
             subjectId={subject.id}
             resources={subject.resources}
           />
-        </div>
+        </section>
       </ScrollArea>
     </aside>
   );

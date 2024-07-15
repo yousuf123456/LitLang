@@ -26,6 +26,9 @@ export const Resizer = () => {
 
   return (
     <div
+      role="separator"
+      aria-orientation="vertical"
+      aria-label="Sidebar resizer"
       onMouseDown={onMouseDown}
       className={cn(
         "absolute right-0 top-0 bottom-0 w-1 bg-zinc-100 opacity-100 hidden md:block z-40",
