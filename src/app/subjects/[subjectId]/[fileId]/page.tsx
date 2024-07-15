@@ -1,22 +1,13 @@
 import React, { Suspense } from "react";
 
 import prisma from "@/app/utils/prismadb";
-import googleDrive from "@/app/utils/googleDrive";
 
 import { Sidebar } from "../_components/Sidebar";
 import { ResourceType, SubjectType } from "@/types";
 
-import { Loader } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PDFViewer } from "./_components/PDFViewer";
 
-import dynamic from "next/dynamic";
-const AudioPlayer = dynamic(
-  () => import("./_components/AudioPlayer").then((mod) => mod.AudioPlayer),
-  {
-    ssr: false,
-  }
-);
+import { File } from "./_components/File";
 
 export default async function FilePage({
   params,
@@ -33,35 +24,18 @@ export default async function FilePage({
 
   if (!file) return <p>Invalid File Id</p>;
 
-  const response = await googleDrive.files.get({
-    fileId: file.id,
-    alt: "media",
-  });
-
-  const fileBlob = response.data as unknown as Blob;
-
-  const uint8ArrayData = new Uint8Array(await fileBlob.arrayBuffer());
-
   return (
-    <Suspense fallback={<Loading />}>
-      <div className="md:max-h-[calc(100vh-89px)] max-h-[calc(100vh-73px)] md:min-h-[calc(100vh-89px)] min-h-[calc(100vh-73px)] flex">
+    <div className="md:max-h-[calc(100vh-89px)] max-h-[calc(100vh-73px)] md:min-h-[calc(100vh-89px)] min-h-[calc(100vh-73px)] flex">
+      <Suspense
+        fallback={
+          <Skeleton className="hidden md:flex w-64 lg:w-80 rounded-none " />
+        }
+      >
         <Sidebar subject={subject} showSubject className="hidden md:block" />
+      </Suspense>
 
-        {file.type === "PDF" ? (
-          <PDFViewer
-            uint8ArrayData={uint8ArrayData}
-            name={file.name}
-            subjectId={params.subjectId}
-          />
-        ) : (
-          <AudioPlayer
-            bufferArray={Array.from(uint8ArrayData)}
-            subjectId={params.subjectId}
-            name={file.name}
-          />
-        )}
-      </div>
-    </Suspense>
+      <File file={file} subjectId={params.subjectId} />
+    </div>
   );
 }
 
@@ -82,16 +56,4 @@ const findFileById = (
   }
 
   return null;
-};
-
-const Loading = () => {
-  return (
-    <div className="md:max-h-[calc(100vh-89px)] max-h-[calc(100vh-73px)] md:min-h-[calc(100vh-89px)] min-h-[calc(100vh-73px)] flex">
-      <Skeleton className="hidden md:flex w-64 lg:w-80 rounded-none "></Skeleton>
-
-      <div className="flex-1 flex items-center justify-center">
-        <Loader className="text-zinc-700 animate-spin" />
-      </div>
-    </div>
-  );
 };

@@ -36,6 +36,7 @@ export const Sidebar = ({
               src={createImageUrlFromWebViewLink(subject.imageUrl)}
               className="object-cover "
               alt="Subject Picture"
+              priority={true}
               fill
             />
 
