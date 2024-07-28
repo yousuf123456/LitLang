@@ -164,7 +164,7 @@ export const UserMenu = () => {
                 </li>
                 <li>
                   <SignUpButton>
-                    <Button className="w-full">Be a Publisher</Button>
+                    <Button className="w-full">Get Started</Button>
                   </SignUpButton>
                 </li>
               </ul>
