@@ -9,10 +9,11 @@ export const StandaloneFiles = ({ type }: { type: string }) => {
   return (
     <div className="flex flex-col gap-6">
       <OverlayImageHeader
+        buttonLabel={`Browse ${type}s`}
         heading={type === "Book" ? "Our Books" : "Our Articles"}
-        subHeading={`Browse through our extensive collection of ${
+        subHeading={`Discover a wealth of knowledge, explore our ${
           type === "Book" ? "books" : "articles"
-        }`}
+        } to inspire and inform your journey.`}
         overlayImages={{
           desktop:
             type === "Book" ? "/desktop_books.jpg" : "/desktop_articles.jpg",
