@@ -219,22 +219,19 @@ export const ParallaxRevampedHero = () => {
       <section ref={targetedRef} className="overlay-image">
         <m.div
           style={{ opacity: opacity, y, display }}
-          className="fixed top-32 min-[470px]:top-44 inset-x-0 z-10"
+          className="fixed top-32 min-[470px]:top-44 inset-x-0 z-10 will-change-transform"
         >
           <div className="w-full flex flex-col gap-8 items-center">
-            {/* <BlurFade duration={0.5}> */}
-            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-semibold font-brand text-[#F6F5AE] text-center">
-              Explore Literary <br /> Treasures
-            </h1>
-            {/* </BlurFade> */}
+            <BlurFade duration={0.5}>
+              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-semibold font-brand text-[#F6F5AE] text-center">
+                Explore Literary <br /> Treasures
+              </h1>
+            </BlurFade>
 
             <div className="w-[196px] h-[44px]">
               <SignedOut>
                 <SignUpButton>
-                  <Button size={"lg"} className="mt-4 ">
-                    Publish a Blog
-                  </Button>
-                  {/* <ShimmerButton
+                  <ShimmerButton
                     shimmerSize="3px"
                     shimmerDuration="2s"
                     background="#A0522D"
@@ -245,7 +242,7 @@ export const ParallaxRevampedHero = () => {
                     })}
                   >
                     Become a Publisher
-                  </ShimmerButton> */}
+                  </ShimmerButton>
                 </SignUpButton>
               </SignedOut>
               <SignedIn>
@@ -262,7 +259,7 @@ export const ParallaxRevampedHero = () => {
         <div className="h-[400vh] w-full contain-paint">
           <m.div
             style={{ scale: imageScale, y: imageY }}
-            className="h-screen w-full sticky top-0"
+            className="h-screen w-full sticky top-0 will-change-transform"
           >
             <m.div
               style={{ opacity: bgOpacity }}
