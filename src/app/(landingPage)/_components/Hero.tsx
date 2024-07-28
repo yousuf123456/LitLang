@@ -188,14 +188,6 @@ export const ParallaxRevampedHero = () => {
 
   const y = useTransform(scrollYProgress, [0, 0.4, 1], [0, -120, -120]);
 
-  useMotionValueEvent(y, "change", (latest) => {
-    console.log("Y: ", latest);
-  });
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    console.log("Y Progress: ", latest);
-  });
-
   const bgOpacity = useTransform(
     scrollYProgress,
     [0, 0.4, 0.9, 1],
