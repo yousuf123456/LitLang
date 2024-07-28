@@ -221,15 +221,14 @@ export const ParallaxRevampedHero = () => {
           style={{ opacity, y, display }}
           className="fixed top-44 min-[470px]:top-44 inset-x-0 z-10 will-change-transform"
         >
-          <p className="text-center text-themeSecondary">Helllo</p>
-          {/* <div className="w-full flex flex-col gap-8 items-center">
+          <div className="w-full flex flex-col gap-8 items-center">
             <BlurFade duration={0.5}>
               <h1 className="text-6xl sm:text-7xl lg:text-8xl font-semibold font-brand text-[#F6F5AE] text-center">
                 Explore Literary <br /> Treasures
               </h1>
             </BlurFade>
 
-            <div className="h-[44px] mt-4 ">
+            {/* <div className="h-[44px] mt-4 ">
               <SignedOut>
                 <SignUpButton>
                   <ShimmerButton
@@ -262,8 +261,8 @@ export const ParallaxRevampedHero = () => {
                   </ShimmerButton>
                 </Link>
               </SignedIn>
-            </div>
-          </div> */}
+            </div> */}
+          </div>
         </m.div>
 
         <div className="h-[350vh] w-full contain-paint">
