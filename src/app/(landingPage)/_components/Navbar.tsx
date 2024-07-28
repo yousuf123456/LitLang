@@ -66,7 +66,7 @@ export const Navbar = ({}: {}) => {
     <header>
       <div
         className={cn(
-          "py-4 xl:px-12 md:px-6 px-3 fixed top-0 left-0 right-0 z-[999] transition-all backdrop-blur-sm backdrop-filter",
+          "py-4 xl:px-12 md:px-6 px-3 fixed top-0 left-0 right-0 z-[999] transition-all backdrop-blur-sm backdrop-filter h-[72px]",
           !imageTheme ? "bg-white bg-opacity-70" : "bg-primary/10",
           imageTheme === null && "bg-transparent"
         )}

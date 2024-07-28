@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Dropzone from "react-dropzone";
 
 import { Progress } from "@/components/ui/progress";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Loader2, UploadCloud, File } from "lucide-react";
 import { useUploadThing } from "@/utils/uploadthing";
 import { ClientUploadedFileData } from "uploadthing/types";
@@ -65,6 +65,8 @@ export const UploadFile = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
+        <DialogTitle className="sr-only">Upload Image</DialogTitle>
+
         <Dropzone multiple={false} onDrop={onDrop}>
           {({ getRootProps, getInputProps, acceptedFiles }) => (
             <div className="mt-4 w-full flex flex-col" {...getRootProps()}>

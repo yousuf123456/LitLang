@@ -6,6 +6,7 @@ import { HeroImage } from "@/app/(landingPage)/_components/HeroImage";
 
 import { LazyMotion, m, useScroll, useTransform } from "framer-motion";
 import { Button } from "./ui/button";
+import { StaticImageData } from "next/image";
 const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
 
@@ -17,14 +18,12 @@ export const OverlayImageHeader = ({
   overlayImages,
 }: {
   buttonLabel?: string;
-  heading: string | string[];
   subHeading?: string;
-  overlayImages: {
-    tabs?: string | undefined;
-    desktop?: string | undefined;
-    mobiles?: string | undefined;
-  };
+  heading: string | string[];
   children?: React.ReactNode;
+  overlayImages: {
+    [key in "tabs" | "desktop" | "mobiles"]?: string;
+  };
 }) => {
   const onClick = () => {
     const dataContainer = document.getElementById("data-container");
@@ -88,7 +87,7 @@ export const OverlayImageHeader = ({
           className="bg-black z-10 absolute inset-0"
         />
 
-        <HeroImage images={overlayImages} />
+        <HeroImage images={overlayImages} priority />
       </LazyMotion>
     </div>
   );
