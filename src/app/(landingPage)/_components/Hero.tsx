@@ -192,9 +192,9 @@ export const ParallaxRevampedHero = () => {
     [0.5, 0.1, 0.1, 0.5]
   );
 
-  const y = useTransform(scrollYProgress, [0, 0.5, 1], [0, -120, -120]);
+  const y = useTransform(scrollYProgress, [0, 0.45, 1], [0, -120, -120]);
 
-  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.5], [1, 1, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.45], [1, 1, 0]);
 
   const display = useTransform(scrollYProgress, (pos) =>
     pos === 1 ? "none" : "block"
@@ -265,7 +265,7 @@ export const ParallaxRevampedHero = () => {
           </div>
         </m.div>
 
-        <div className="h-[320vh] w-full contain-paint">
+        <div className="h-[300vh] w-full contain-paint">
           <m.div
             style={{ scale: imageScale, y: imageY }}
             className="h-screen w-full sticky top-0 will-change-transform"
