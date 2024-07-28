@@ -203,22 +203,22 @@ export const ParallaxRevampedHero = () => {
   const imageY = useTransform(scrollYProgress, [0, 0.95], [0, 60]);
   const imageScale = useTransform(scrollYProgress, [0, 0.95], [1, 1.3]);
 
-  // useEffect(() => {
-  //   const lenis = new Lenis({ lerp: 0.085, duration: 1.25 });
+  useEffect(() => {
+    const lenis = new Lenis({ lerp: 0.085, duration: 1.25 });
 
-  //   function raf(time: number) {
-  //     lenis.raf(time);
-  //     requestAnimationFrame(raf);
-  //   }
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
 
-  //   requestAnimationFrame(raf);
-  // }, []);
+    requestAnimationFrame(raf);
+  }, []);
 
   return (
     <LazyMotion features={loadFeatures}>
       <section ref={targetedRef} className="overlay-image">
         <m.div
-          style={{ opacity: opacity, y, display }}
+          style={{ y, display }}
           className="fixed top-44 min-[470px]:top-44 inset-x-0 z-10 will-change-transform"
         >
           <div className="w-full flex flex-col gap-8 items-center">
