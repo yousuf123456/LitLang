@@ -20,12 +20,12 @@ export default function ContactUsPage() {
 
       <div className=" absolute inset-0 bg-black/80" />
 
-      <PaddingTopWrapper className="w-full mt-20 mb-28 px-12">
-        <MaxWidthWrapper className="w-full grid grid-cols-2 gap-0 ">
+      <PaddingTopWrapper className="w-full mt-12 mb-20 px-5 md:px-8 lg:px-12">
+        <MaxWidthWrapper className="w-full grid grid-cols-1 md:grid-cols-2 gap-0 ">
           <ContactForm />
 
-          <div className="w-full h-full relative rounded-r-xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/10 to-black z-10" />
+          <div className="w-full h-[420px] md:h-full relative max-md:rounded-b-xl md:rounded-r-xl overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/20 to-black/90 z-10" />
 
             <Image
               src={"/mobiles_contact.jpg"}
@@ -34,30 +34,30 @@ export default function ContactUsPage() {
               className="object-cover"
             />
 
-            <div className="absolute bottom-4 inset-x-4 flex justify-around z-20">
+            <div className="absolute bottom-8 right-8 flex flex-col items-end gap-8 z-20">
               <div className="flex gap-4 items-center">
-                <div className="p-3 rounded-lg border border-themeSecondary/30">
-                  <FiSend className="w-4 h-4 text-themeSecondary" />
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <p className="font-medium text-themeSecondary">
+                <div className="flex flex-col gap-0 w-40">
+                  <p className="font-medium max-lg:text-sm text-themeSecondary">
                     Email us today
                   </p>
                   <p className=" text-themeSecondary">litlang58@gmail.com</p>
                 </div>
+
+                <div className="p-3 rounded-lg border border-themeSecondary/30 flex-shrink-0">
+                  <FiSend className="w-4 h-4 text-themeSecondary" />
+                </div>
               </div>
 
               <div className="flex gap-4 items-center">
-                <div className="p-3 rounded-lg border border-themeSecondary/30">
-                  <FiPhoneCall className="w-4 h-4 text-themeSecondary" />
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <p className="font-medium text-themeSecondary">
+                <div className="flex flex-col gap-0 w-40">
+                  <p className="font-medium max-lg:text-sm text-themeSecondary">
                     Call us today
                   </p>
                   <p className=" text-themeSecondary">+923183920797</p>
+                </div>
+
+                <div className="p-3 rounded-lg border border-themeSecondary/30 flex-shrink-0">
+                  <FiPhoneCall className="w-4 h-4 text-themeSecondary" />
                 </div>
               </div>
             </div>

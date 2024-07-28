@@ -12,7 +12,7 @@ import { Loader2 } from "lucide-react";
 import { Dialog, DialogClose, DialogContent } from "@/components/ui/dialog";
 
 export const ContactForm = () => {
-  const [success, setSuccess] = useState(true);
+  const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const [name, setName] = useState("");
@@ -40,7 +40,7 @@ export const ContactForm = () => {
 
   return (
     <>
-      <article className="w-full flex flex-col gap-8 max-w-2xl z-50 relative bg-white p-10 rounded-l-xl">
+      <article className="w-full flex flex-col gap-8 max-w-2xl z-50 relative bg-white p-7 lg:p-10 max-md:rounded-t-xl md:rounded-l-xl">
         <h1 className="text-2xl md:text-3xl font-brand text-center font-medium text-gray-800">
           Contact Us
         </h1>
@@ -48,14 +48,14 @@ export const ContactForm = () => {
         <form className="flex flex-col gap-4">
           <Input
             value={name}
-            className="border-primary/40"
+            className="border-primary/20"
             placeholder="Your Name"
             onChange={(e) => setName(e.target.value)}
           />
 
           <Input
             value={email}
-            className="border-primary/40"
+            className="border-primary/20"
             placeholder="Your Email"
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -63,7 +63,7 @@ export const ContactForm = () => {
           <Textarea
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Your Message For Us "
-            className=" resize-none h-36 border-primary/40"
+            className=" resize-none h-36 border-primary/20"
             value={message}
           />
 

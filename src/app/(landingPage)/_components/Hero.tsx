@@ -203,16 +203,16 @@ export const ParallaxRevampedHero = () => {
   const imageY = useTransform(scrollYProgress, [0, 0.95], [0, 60]);
   const imageScale = useTransform(scrollYProgress, [0, 0.95], [1, 1.3]);
 
-  useEffect(() => {
-    const lenis = new Lenis({ lerp: 0.085, duration: 1.25 });
+  // useEffect(() => {
+  //   const lenis = new Lenis({ lerp: 0.085, duration: 1.25 });
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+  //   function raf(time: number) {
+  //     lenis.raf(time);
+  //     requestAnimationFrame(raf);
+  //   }
 
-    requestAnimationFrame(raf);
-  }, []);
+  //   requestAnimationFrame(raf);
+  // }, []);
 
   return (
     <LazyMotion features={loadFeatures}>
@@ -228,7 +228,7 @@ export const ParallaxRevampedHero = () => {
               </h1>
             </BlurFade>
 
-            <div className="w-[196px] h-[44px]">
+            <div className="h-[44px] mt-4 ">
               <SignedOut>
                 <SignUpButton>
                   <ShimmerButton
@@ -238,7 +238,7 @@ export const ParallaxRevampedHero = () => {
                     shimmerColor="#EFD780"
                     className={buttonVariants({
                       size: "lg",
-                      className: "mt-4 h-12 px-12",
+                      className: "h-12 px-12",
                     })}
                   >
                     Become a Publisher
@@ -247,9 +247,18 @@ export const ParallaxRevampedHero = () => {
               </SignedOut>
               <SignedIn>
                 <Link href="/blogEditor">
-                  <Button size={"lg"} className="mt-4 ">
+                  <ShimmerButton
+                    shimmerSize="3px"
+                    shimmerDuration="2s"
+                    background="#A0522D"
+                    shimmerColor="#EFD780"
+                    className={buttonVariants({
+                      size: "lg",
+                      className: "h-12 px-12",
+                    })}
+                  >
                     Publish a Blog
-                  </Button>
+                  </ShimmerButton>
                 </Link>
               </SignedIn>
             </div>

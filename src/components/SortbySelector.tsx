@@ -77,11 +77,18 @@ export const SortbySelector = ({
       >
         <SelectValue placeholder="Sort By" />
       </SelectTrigger>
-      <SelectContent>
+
+      <SelectContent
+        ref={(ref) => {
+          if (!ref) return;
+          ref.ontouchstart = (e) => e.preventDefault();
+        }}
+      >
         <SelectGroup>
           <SelectLabel>Sort By</SelectLabel>
           <SelectItem
             value="best_matched"
+            onClick={(e) => e.stopPropagation()}
             disabled={!!!searchParams.get("query")}
           >
             Best Matched
@@ -91,6 +98,7 @@ export const SortbySelector = ({
             <SelectItem
               key={i}
               value={sortByOption.value}
+              onClick={(e) => e.stopPropagation()}
               disabled={!!searchParams.get("query")}
             >
               {sortByOption.label}
