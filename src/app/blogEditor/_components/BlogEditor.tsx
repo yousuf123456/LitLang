@@ -11,12 +11,16 @@ import { ClientUploadedFileData } from "uploadthing/types";
 import { cn } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 
-export const BlogEditor = () => {
-  const draftId = useSearchParams().get("draftId") || undefined;
-
-  const [open, setOpen] = useState(false);
+export const BlogEditor = ({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const draftId = useSearchParams().get("draftId") || undefined;
 
   const {
     title,
@@ -71,8 +75,12 @@ export const BlogEditor = () => {
                 </figure>
 
                 <Button
+                  type="button"
                   variant={"secondary"}
-                  onClick={() => setOpen(true)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpen(true);
+                  }}
                   aria-label="Upload Cover Image"
                 >
                   Upload Cover Image
@@ -92,7 +100,10 @@ export const BlogEditor = () => {
                 />
                 <Button
                   variant={"secondary"}
-                  onClick={() => setOpen(true)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpen(true);
+                  }}
                   aria-label="Change Cover Image"
                   className="opacity-0 absolute bottom-6 right-6 group-hover:opacity-100 transition-opacity w-fit"
                 >

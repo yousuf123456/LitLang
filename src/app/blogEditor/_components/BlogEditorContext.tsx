@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { RouterInput } from "@/trpc_server";
 import { useRouter, useSearchParams } from "next/navigation";
 import { blogs } from "@prisma/client";
+import { Button } from "@/components/ui/button";
 
 export const BlogContext = createContext({
   title: "Untitled",
@@ -34,6 +35,8 @@ export default function BlogEditorContext({ draft }: { draft: blogs | null }) {
   const draftId = useSearchParams().get("draftId");
 
   const { mutateAsync, isPending } = trpc.blogs.updateOrCreate.useMutation();
+
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const [title, setTitle] = useState(draft?.title || "Untitled");
 
@@ -83,20 +86,20 @@ export default function BlogEditorContext({ draft }: { draft: blogs | null }) {
   };
 
   useEffect(() => {
-    const onbeforeunloadFn = async (e: any) => {
-      console.log(e);
+    const onbeforeunloadFn = async (e: BeforeUnloadEvent) => {
       if (!unsavedChanges) return;
 
       e.preventDefault();
-      updateOrCreateDraft({ draftId, content, title, coverImage });
     };
+
+    if (!draft && !coverImage && !content && title === "Untitled") return;
 
     window.addEventListener("beforeunload", onbeforeunloadFn);
 
     return () => {
       window.removeEventListener("beforeunload", onbeforeunloadFn);
     };
-  }, [unsavedChanges, updateOrCreateDraft]);
+  }, [unsavedChanges, updateOrCreateDraft, content, coverImage, title]);
 
   if (draftId && !draft) return <p>Invalid Draft Id</p>;
 
@@ -116,7 +119,7 @@ export default function BlogEditorContext({ draft }: { draft: blogs | null }) {
     >
       <div className="w-full h-full min-h-screen flex flex-col md:gap-8 pb-12">
         <DraftActions initialDraft={draft} />
-        <BlogEditor />
+        <BlogEditor open={dialogOpen} setOpen={setDialogOpen} />
       </div>
     </BlogContext.Provider>
   );
