@@ -11,7 +11,7 @@ import {
   SignUpButton,
 } from "@clerk/nextjs";
 // Import the Next.js router
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,16 +29,14 @@ import {
   Newspaper,
   Contact,
   PersonStanding,
-  EllipsisVertical,
-  ChevronLeft,
 } from "lucide-react";
 import { Button } from "./ui/button";
-import { scrollToElement } from "@/utils/utils";
 
 export const UserMenu = () => {
   const { isLoaded, user } = useUser();
-  // Grab the signOut and openUserProfile methods
   const { signOut, openUserProfile } = useClerk();
+
+  const pathname = usePathname();
 
   if (!isLoaded) return null;
 
@@ -95,7 +93,11 @@ export const UserMenu = () => {
             </DropdownMenuItem>
           </Link>
 
-          <Link href={"/?goTo=pricing"} className="sm:hidden">
+          <Link
+            href={"/?goTo=pricing"}
+            scroll={pathname !== "/"}
+            className="sm:hidden"
+          >
             <DropdownMenuItem className="sm:hidden">
               <Gem className="mr-4 h-4 w-4 text-zinc-700" />
               <span>Pricing</span>
