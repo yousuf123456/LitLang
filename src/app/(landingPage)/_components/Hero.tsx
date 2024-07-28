@@ -256,7 +256,7 @@ export const ParallaxRevampedHero = () => {
           </div>
         </m.div>
 
-        <div className="h-[200vh] w-full contain-paint">
+        <div className="h-[350vh] w-full contain-paint">
           <m.div
             style={{ scale: imageScale, y: imageY }}
             className="h-screen w-full sticky top-0 will-change-transform"
