@@ -1,9 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { useSearchParams } from "next/navigation";
 import { Searchbar } from "@/components/Searchbar";
 import { SortbySelector } from "@/components/SortbySelector";
+import { trpc } from "@/app/_trpc/client";
 
 export const Search_SortInputs = () => {
   const searchParams = useSearchParams();
@@ -14,7 +15,8 @@ export const Search_SortInputs = () => {
       : searchParams.get("sortBy") || "_id-desc-default"
   );
 
-  const [query, setQuery] = useState(searchParams.get("query") || "");
+  const { mutateAsync: getAutocompletes } =
+    trpc.blogs.getBlogsAutocompletes.useMutation();
 
   const sortByOptions = [
     {
@@ -28,12 +30,13 @@ export const Search_SortInputs = () => {
   ];
 
   return (
-    <>
+    <div className="flex min-[480px]:flex-row flex-col items-center gap-3 md:gap-6">
       <div className="w-full max-[480px]:order-2 relative">
         <Searchbar
-          query={query}
           pathname="/blogs"
-          setQuery={setQuery}
+          imageTheme={false}
+          autocompleteFieldName="title"
+          getAutocompletes={getAutocompletes}
           placeholder="Search for blogs here."
         />
       </div>
@@ -44,6 +47,6 @@ export const Search_SortInputs = () => {
         setSortBy={setSortBy}
         sortByOptions={sortByOptions}
       />
-    </>
+    </div>
   );
 };

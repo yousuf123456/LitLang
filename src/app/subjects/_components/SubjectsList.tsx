@@ -64,7 +64,7 @@ export const SubjectsList = () => {
           <Link
             key={i}
             href={`/subjects/${subject.id}`}
-            className="relative p-1.5 sm:p-3 lg:p-5 block"
+            className="relative p-1.5 sm:p-3 lg:p-4 block"
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
           >

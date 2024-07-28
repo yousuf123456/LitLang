@@ -15,7 +15,7 @@ import { sortSearchParamType } from "@/types";
 import { PaginationControls } from "../../../components/PaginationControls";
 import { BlogsListPageSize } from "@/pagination";
 import { buttonVariants } from "@/components/ui/button";
-import { Edit, Pencil } from "lucide-react";
+import { Edit } from "lucide-react";
 
 export const BlogsList = () => {
   const searchParams = useSearchParams();
@@ -62,7 +62,7 @@ export const BlogsList = () => {
           <Link
             key={i}
             href={`/blogs/${blog.id}`}
-            className="relative p-1.5 sm:p-3 lg:p-5 block"
+            className="relative p-1.5 sm:p-3 lg:p-4 block"
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
           >

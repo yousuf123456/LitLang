@@ -1,22 +1,21 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import { Inter_Tight, Space_Grotesk } from "next/font/google";
+import localfont from "next/font/local";
 import { Providers } from "@/components/Providers";
 import { Navbar } from "./(landingPage)/_components/Navbar";
-import { Footer } from "./(landingPage)/_components/Footer";
 
 import NextTopLoader from "nextjs-toploader";
+import { Footer } from "./(landingPage)/_components/Footer";
 
-const inter = Inter_Tight({
-  weight: "variable",
-  variable: "--font-inter",
-  subsets: ["latin"],
+const clashGrotesk = localfont({
+  src: "./ClashGrotesk-Variable.ttf",
+  variable: "--font-clash_grotesk",
 });
-const space_grotesk = Space_Grotesk({
-  weight: "variable",
-  variable: "--font-space_grotesk",
-  subsets: ["latin"],
+
+const satoshi = localfont({
+  src: "./Satoshi-Variable.ttf",
+  variable: "--font-satoshi",
 });
 
 export const metadata: Metadata = {
@@ -33,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${space_grotesk.className} ${space_grotesk.variable} bg-white `}
+        className={`${satoshi.className} ${satoshi.variable} ${clashGrotesk.variable} bg-white `}
       >
         <NextTopLoader color="#4e342e" showSpinner={false} shadow={false} />
         <Providers>

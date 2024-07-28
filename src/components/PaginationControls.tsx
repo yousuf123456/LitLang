@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import { getSearchParamsArray } from "@/utils/utils";
@@ -28,7 +28,9 @@ export const PaginationControls = ({
   const onNext = () => {
     let searchParamsToAdd = [`page=${currentPage + 1}`, "going=next"];
     if (nextPaginationToken)
-      searchParamsToAdd.push(`paginationToken=${nextPaginationToken}`);
+      searchParamsToAdd.push(
+        `paginationToken=${encodeURIComponent(nextPaginationToken)}`
+      );
 
     const searchParamsArray = getSearchParamsArray(
       searchParams,
@@ -36,14 +38,18 @@ export const PaginationControls = ({
       ["page", "paginationToken", "going"]
     );
 
-    router.push(`${pathname}?${searchParamsArray.join("&")}`);
+    router.push(`${pathname}?${searchParamsArray.join("&")}`, {
+      scroll: false,
+    });
   };
 
   const onPrev = () => {
     let searchParamsToAdd = currentPage > 2 ? [`page=${currentPage - 1}`] : [];
 
     if (prevPaginationToken) {
-      searchParamsToAdd.push(`paginationToken=${prevPaginationToken}`);
+      searchParamsToAdd.push(
+        `paginationToken=${encodeURIComponent(prevPaginationToken)}`
+      );
       searchParamsToAdd.push("going=prev");
     }
 
@@ -53,8 +59,26 @@ export const PaginationControls = ({
       ["page", "paginationToken", "going"]
     );
 
-    router.push(`${pathname}?${searchParamsArray.join("&")}`);
+    router.push(`${pathname}?${searchParamsArray.join("&")}`, {
+      scroll: currentPage <= 2,
+    });
   };
+
+  useEffect(() => {
+    if (currentPage <= 1) return;
+
+    const dataContainer = document.getElementById("data-container");
+    if (!dataContainer) return;
+
+    const elementPosition = dataContainer.getBoundingClientRect().top;
+
+    const offsetPosition = elementPosition + window.scrollY - 48;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  }, [currentPage]);
 
   return (
     <div className="flex w-full justify-center gap-4 mt-6">

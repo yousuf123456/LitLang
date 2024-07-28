@@ -12,6 +12,7 @@ import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
 import { BsLinkedin, BsTwitter } from "react-icons/bs";
 import { useScroll } from "framer-motion";
 import { AnimatedLetters } from "@/components/ui/animated-letters";
+import { OverlayImageHeader } from "@/components/OverlayImageHeader";
 
 const FounderCard = ({
   image,
@@ -57,21 +58,24 @@ export default function AboutUsPage() {
     offset: ["0.05 end", "0 0.2"],
   });
 
-  const y = useSpring(useTransform(scrollYProgress, [0, 1], [180, 0]), {
-    stiffness: 80,
-  });
+  const y = useTransform(scrollYProgress, [0, 1], [180, 0]);
 
   const leftX = useTransform(scrollYProgress, [0, 1], [-320, 0]);
   const rightX = useTransform(scrollYProgress, [0, 1], [320, 0]);
 
   return (
-    <MaxWidthWrapper className="mt-20 md:mt-28 px-6 relative">
-      <article className="flex flex-col gap-24">
-        <section className="flex flex-col gap-4 max-w-4xl mx-auto">
-          <h1 className="text-center text-3xl sm:text-4xl tracking-tight font-bold text-gray-800">
-            <AnimatedLetters text="Who Are We ?" delayChildren={0.3} />
-          </h1>
+    <div className="flex flex-col">
+      <OverlayImageHeader
+        buttonLabel="More About Us"
+        heading={["Nurturing the Love", "of Literature"]}
+        overlayImages={{
+          desktop: "/desktop_aboutus.jpg",
+          mobiles: "/mobiles_aboutus.jpg",
+        }}
+      />
 
+      <article id="data-container" className="flex flex-col gap-24 pt-20">
+        <section className="flex flex-col gap-4 max-w-4xl mx-auto">
           <LazyMotion features={loadFeatures} strict>
             <m.p
               initial={{ y: 14, opacity: 0 }}
@@ -82,8 +86,9 @@ export default function AboutUsPage() {
               }}
               className="text-base sm:text-lg text-zinc-700 "
             >
-              Welcome to <span className="font-medium text-black">LitLang</span>
-              , your premier destination for literature and linguistic notes. We
+              Welcome to{" "}
+              <span className="font-medium text-black">LitLang,</span> your
+              premier destination for literature and linguistic notes. We
               provide curated resources and a platform for writers to publish
               their thoughts through blogs and texts.
             </m.p>
@@ -91,9 +96,12 @@ export default function AboutUsPage() {
         </section>
 
         <section className="flex flex-col gap-4 max-w-4xl mx-auto">
-          <h1 className="text-center text-3xl sm:text-4xl tracking-tight font-bold text-zinc-800">
+          {/* <h1 className="text-center text-3xl sm:text-4xl tracking-tight font-bold text-zinc-800">
             <AnimatedLetters text="Our Mission" delayChildren={1.8} />
-          </h1>
+          </h1> */}
+          <h2 className="text-center font-brand sm:text-4xl text-3xl font-[550] tracking-tight text-primary">
+            Our Mission
+          </h2>
 
           <LazyMotion features={loadFeatures} strict>
             <m.p
@@ -122,7 +130,7 @@ export default function AboutUsPage() {
                 y,
                 opacity: scrollYProgress,
               }}
-              className="text-center tracking-tight text-3xl sm:text-4xl font-bold text-zinc-800"
+              className="text-center font-[550] font-brand tracking-tight text-3xl sm:text-4xl text-primary"
             >
               Meet the founders
             </m.h1>
@@ -149,6 +157,6 @@ export default function AboutUsPage() {
           </div>
         </section>
       </article>
-    </MaxWidthWrapper>
+    </div>
   );
 }

@@ -52,3 +52,18 @@ model subject {
 
   @@unique([name, semester, university])
 }
+
+enum StandaloneFileType {
+  Book
+  Article
+}
+
+model standaloneFile {
+  id String   @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  pdfKey String?
+  imageUrl String
+  type StandaloneFileType?
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}

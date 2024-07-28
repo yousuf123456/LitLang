@@ -1,19 +1,20 @@
 import React from "react";
 
-import { Heading } from "@/components/Heading";
 import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
 import { BlogsList } from "./BlogsList";
 import { Search_SortInputs } from "./Search_SortInputs";
+
+import { auth } from "@clerk/nextjs/server";
+import { OverlayImageHeader } from "@/components/OverlayImageHeader";
 
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
+  BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
-import { auth } from "@clerk/nextjs/server";
 
 export const Blogs = ({
   isUserSpecificBlogs,
@@ -25,43 +26,58 @@ export const Blogs = ({
   if (isUserSpecificBlogs && !userId) return <p>Unauthorized</p>;
 
   return (
-    <MaxWidthWrapper className="mt-10 md:mt-16 flex flex-col gap-8 px-3 sm:px-8 lg:px-16">
-      <div className="w-full flex flex-col items-center gap-6">
-        {isUserSpecificBlogs && (
-          <Breadcrumb className="w-full">
+    <div className="flex flex-col gap-6">
+      <OverlayImageHeader
+        buttonLabel="Explore Blogs"
+        heading={isUserSpecificBlogs ? "My Blogs" : "Our Blogs"}
+        overlayImages={{
+          desktop: "/desktop_blogs.jpg",
+          mobiles: "/mobiles_blogs.jpg",
+        }}
+        subHeading={
+          !isUserSpecificBlogs
+            ? "Explore expert opinions in our diverse range of engaging blogs where knowledge meets inspiration!"
+            : undefined
+        }
+      >
+        {!isUserSpecificBlogs && (
+          <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/blogs" className="sm:text-base">
+                <BreadcrumbLink
+                  href="/blogs"
+                  className="sm:text-base text-white/90 hover:text-white/70"
+                >
                   Blogs
                 </BreadcrumbLink>
               </BreadcrumbItem>
 
-              <BreadcrumbSeparator />
+              <BreadcrumbSeparator className="text-white/50" />
+
               <BreadcrumbItem>
-                <BreadcrumbPage className="max-w-56 sm:max-w-80 line-clamp-1 sm:text-base">
+                <BreadcrumbPage className="max-w-56 sm:max-w-80 line-clamp-1 sm:text-base text-white/90">
                   My Blogs
                 </BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         )}
+      </OverlayImageHeader>
 
-        <Heading
-          subHeading={
-            !isUserSpecificBlogs
-              ? "Explore expert opinions in our diverse range of engaging blogs where knowledge meets inspiration!"
-              : undefined
-          }
-        >
-          {isUserSpecificBlogs ? "My Blogs" : "Our Blogs"}
-        </Heading>
+      <div
+        id="data-container"
+        className="flex flex-col w-full gap-3 mt-5 md:mt-8"
+      >
+        <div className="sticky z-50 top-[72px] w-full bg-white pt-2 pb-5 backdrop-blur-sm bg-opacity-70">
+          <MaxWidthWrapper className="px-3 sm:px-8 w-full">
+            <Search_SortInputs />
+          </MaxWidthWrapper>
+        </div>
+
+        <MaxWidthWrapper className="px-3 sm:px-8 w-full">
+          <BlogsList />
+        </MaxWidthWrapper>
       </div>
-
-      <div className="flex min-[480px]:flex-row flex-col items-center gap-3 md:gap-6">
-        <Search_SortInputs />
-      </div>
-
-      <BlogsList />
-    </MaxWidthWrapper>
+    </div>
   );
 };

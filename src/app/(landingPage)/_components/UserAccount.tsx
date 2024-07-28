@@ -7,18 +7,18 @@ import { cn } from "@/utils/utils";
 import { Button } from "@/components/ui/button";
 import { UserMenu } from "@/components/UserMenu";
 import { Skeleton } from "@/components/ui/skeleton";
-import { syncUpWithDrive } from "@/actions/syncUpWithDrive";
+import { syncUpWithS3 } from "@/actions/syncUpWithS3";
 
-export const UserAccount = () => {
+export const UserAccount = ({ imageTheme }: { imageTheme: boolean | null }) => {
   const { user, isLoaded } = useUser();
 
   const syncUp = () => {
-    syncUpWithDrive();
+    syncUpWithS3();
   };
 
   if (!isLoaded)
     return (
-      <div className="flex items-center lg:w-32 justify-center flex-shrink-0">
+      <div className="flex items-center lg:w-[182.5px] justify-center flex-shrink-0">
         <Skeleton className="w-9 h-9 rounded-full" />
       </div>
     );
@@ -33,12 +33,20 @@ export const UserAccount = () => {
           <ul className="flex items-center gap-3">
             <li>
               <SignInButton>
-                <Button variant={"secondary"}>Login</Button>
+                <Button
+                  variant={"secondary"}
+                  className={cn(imageTheme && "bg-white hover:bg-white/90")}
+                >
+                  Login
+                </Button>
               </SignInButton>
             </li>
+            {/* <Button variant={"secondary"} className="mr-4" onClick={syncUp}>
+              Sync Up
+            </Button> */}
             <li>
               <SignUpButton>
-                <Button>Be a Publisher</Button>
+                <Button>Get Started</Button>
               </SignUpButton>
             </li>
           </ul>

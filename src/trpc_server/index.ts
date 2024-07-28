@@ -1,28 +1,9 @@
-import prisma from "@/app/utils/prismadb";
+import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 
-import { z } from "zod";
+import { createCallerFactory, router } from "./trpc";
 
-import { inferRouterInputs, inferRouterOutputs, TRPCError } from "@trpc/server";
-
-import {
-  createCallerFactory,
-  protectedProcedure,
-  publicProcedure,
-  router,
-} from "./trpc";
-
-import { getSortbyDirection, transformRawResultsToPrisma } from "@/utils/utils";
-
-import { BlogsListPageSize, SubjectsListPageSize } from "@/pagination";
-import { blogType, SubjectType } from "@/types";
-import { currentUser, User } from "@clerk/nextjs/server";
-
-import {
-  authenticate,
-  createPaymobSubscription,
-  createSubscriptionPlan,
-} from "@/utils/paymob";
 import { blogsRouter } from "./blogs";
+import { standaloneFileRouter } from "./standaloneFile";
 import { subjectsRouter } from "./subjects";
 import { paymentsRouter } from "./payments";
 
@@ -30,6 +11,7 @@ export const appRouter = router({
   blogs: blogsRouter,
   subjects: subjectsRouter,
   payments: paymentsRouter,
+  standaloneFiles: standaloneFileRouter,
 });
 
 const createCaller = createCallerFactory(appRouter);

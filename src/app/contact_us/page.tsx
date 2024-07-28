@@ -1,51 +1,69 @@
-"use client";
 import React from "react";
 
+import Image from "next/image";
+
+import { FiSend, FiPhoneCall } from "react-icons/fi";
+import { HeroImage } from "../(landingPage)/_components/HeroImage";
+import { PaddingTopWrapper } from "@/components/PaddingTopWrapper";
 import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
-
-const loadFeatures = () =>
-  import("@/app/utils/features").then((res) => res.default);
-
-import dynamic from "next/dynamic";
-
-const World = dynamic<any>(
-  () => import("@/components/ui/globe").then((mod) => mod.World),
-  {
-    ssr: false,
-    suspense: true,
-    loading: () => (
-      <div className="flex items-center justify-center w-full h-full">
-        <p className="max-w-md text-lg font-medium text-zinc-700">
-          World is Waiting For You...
-        </p>
-        <Smile className="w-5 h-5 text-zinc-600" />
-      </div>
-    ),
-  }
-);
-
 import { ContactForm } from "./_components/ContactForm";
-import { Smile } from "lucide-react";
-import { globeConfig } from "@/data/globe/config";
-import { sampleArcs } from "@/data/globe/arcs";
 
 export default function ContactUsPage() {
   return (
-    <MaxWidthWrapper className="lg:mt-28 px-8 relative pb-12 overflow-hidden">
-      <div className="flex lg:flex-row flex-col justify-center items-center lg:gap-16">
-        <div
-          aria-hidden
-          className="relative h-full max-lg:bg-dot-black/[0.5] z-10 flex items-center max-sm:pt-16 max-sm:pb-6 max-lg:pb-16"
-        >
-          <div className="absolute pointer-events-none inset-0 -bottom-12 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_5%,black)]"></div>
+    <div className="relative min-h-screen w-full overlay-image flex justify-center">
+      <HeroImage
+        images={{
+          desktop: "/desktop_contact.jpg",
+          mobiles: "/mobiles_contact.jpg",
+        }}
+      />
 
-          <div className="relative w-[350px] h-[350px] sm:w-[440px] sm:h-[440px] xl:w-[520px] xl:h-[520px]">
-            <World data={sampleArcs} globeConfig={globeConfig} />
+      <div className=" absolute inset-0 bg-black/80" />
+
+      <PaddingTopWrapper className="w-full mt-20 mb-28 px-12">
+        <MaxWidthWrapper className="w-full grid grid-cols-2 gap-0 ">
+          <ContactForm />
+
+          <div className="w-full h-full relative rounded-r-xl overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/10 to-black z-10" />
+
+            <Image
+              src={"/mobiles_contact.jpg"}
+              alt=""
+              fill
+              className="object-cover"
+            />
+
+            <div className="absolute bottom-4 inset-x-4 flex justify-around z-20">
+              <div className="flex gap-4 items-center">
+                <div className="p-3 rounded-lg border border-themeSecondary/30">
+                  <FiSend className="w-4 h-4 text-themeSecondary" />
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <p className="font-medium text-themeSecondary">
+                    Email us today
+                  </p>
+                  <p className=" text-themeSecondary">litlang58@gmail.com</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4 items-center">
+                <div className="p-3 rounded-lg border border-themeSecondary/30">
+                  <FiPhoneCall className="w-4 h-4 text-themeSecondary" />
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <p className="font-medium text-themeSecondary">
+                    Call us today
+                  </p>
+                  <p className=" text-themeSecondary">+923183920797</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <ContactForm />
-      </div>
-    </MaxWidthWrapper>
+        </MaxWidthWrapper>
+      </PaddingTopWrapper>
+    </div>
   );
 }
