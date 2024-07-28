@@ -97,6 +97,7 @@ export const StandaloneFilesList = () => {
                     src={createImageUrlFromWebViewLink(book.imageUrl)}
                     alt="subject Cover Image"
                     className="object-cover"
+                    loading="lazy"
                     fill
                   />
                 </div>

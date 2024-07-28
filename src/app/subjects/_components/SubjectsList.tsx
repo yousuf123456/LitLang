@@ -92,6 +92,7 @@ export const SubjectsList = () => {
                     src={createImageUrlFromWebViewLink(subject.imageUrl)}
                     alt="subject Cover Image"
                     className="object-cover"
+                    loading="lazy"
                     fill
                   />
                 </div>
