@@ -90,6 +90,7 @@ export const BlogsList = () => {
                     alt="Blog Cover Image"
                     src={blog.coverImage!}
                     className="object-cover"
+                    loading="lazy"
                     fill
                   />
                 </div>
