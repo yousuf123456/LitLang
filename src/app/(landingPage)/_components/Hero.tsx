@@ -218,7 +218,7 @@ export const ParallaxRevampedHero = () => {
     <LazyMotion features={loadFeatures}>
       <section ref={targetedRef} className="overlay-image">
         <m.div
-          style={{ y, display }}
+          style={{ opacity, display }}
           className="fixed top-44 min-[470px]:top-44 inset-x-0 z-10 will-change-transform"
         >
           <div className="w-full flex flex-col gap-8 items-center">
