@@ -91,11 +91,10 @@ export default function BlogEditorContext({ draft }: { draft: blogs | null }) {
       updateOrCreateDraft({ draftId, content, title, coverImage });
     };
 
-    // window.onbeforeunload = () => undefined;
-    // window.addEventListener("beforeunload", onbeforeunloadFn);
+    window.addEventListener("beforeunload", onbeforeunloadFn);
 
     return () => {
-      // window.removeEventListener("beforeunload", onbeforeunloadFn);
+      window.removeEventListener("beforeunload", onbeforeunloadFn);
     };
   }, [unsavedChanges, updateOrCreateDraft]);
 
