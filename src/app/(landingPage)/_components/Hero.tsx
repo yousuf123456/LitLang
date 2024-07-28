@@ -219,7 +219,7 @@ export const ParallaxRevampedHero = () => {
       <section ref={targetedRef} className="overlay-image">
         <m.div
           style={{ opacity: opacity, y, display }}
-          className="fixed top-32 min-[470px]:top-44 inset-x-0 z-10 will-change-transform"
+          className="fixed top-44 min-[470px]:top-44 inset-x-0 z-10 will-change-transform"
         >
           <div className="w-full flex flex-col gap-8 items-center">
             <BlurFade duration={0.5}>
