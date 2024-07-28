@@ -5,7 +5,9 @@ export const HeroImage = ({
   images,
   priority,
 }: {
-  images: { [key in "tabs" | "desktop" | "mobiles"]?: string };
+  images: {
+    [key in "tabs" | "desktop" | "mobiles"]?: string;
+  };
   priority?: boolean;
 }) => {
   const commonPreload = {
@@ -15,10 +17,10 @@ export const HeroImage = ({
   };
 
   const common = {
-    alt: "Hero Image",
     fill: true,
-    priority: !!priority,
     sizes: "100vw",
+    alt: "Hero Image",
+    priority: !!priority,
     style: { objectFit: "cover" },
   } as any;
 
@@ -38,17 +40,23 @@ export const HeroImage = ({
   }).props;
 
   const tabMedia = `(min-width: 728px)`;
+
   const mobileMedia = `(max-width: 727px)`;
+
   const desktopMedia = images.tabs
     ? `(min-width: 1024px)`
     : `(min-width: 728px)`;
 
   return (
-    <picture>
-      {images.desktop && <source media={desktopMedia} srcSet={desktop} />}
-      {images.mobiles && <source media={mobileMedia} srcSet={mobile} />}
-      {images.mobiles && <source media={tabMedia} srcSet={tab} />}
-      <img alt={"Hero Image"} {...rest} />
-    </picture>
+    <>
+      <picture>
+        {images.desktop && <source media={desktopMedia} srcSet={desktop} />}
+        {images.mobiles && <source media={mobileMedia} srcSet={mobile} />}
+        {images.mobiles && <source media={tabMedia} srcSet={tab} />}
+
+        {/* <Image alt="Hero Image" {...rest} priority fill /> */}
+        <img alt={"Hero Image"} className="bg-brown-900/80" {...rest} />
+      </picture>
+    </>
   );
 };

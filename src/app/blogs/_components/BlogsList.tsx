@@ -117,11 +117,11 @@ export const BlogsList = () => {
               <div className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
                 <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8">
                   <Image
+                    fill
+                    loading="lazy"
                     alt="Blog Cover Image"
                     src={blog.coverImage!}
                     className="object-cover"
-                    loading="lazy"
-                    fill
                   />
                 </div>
               </div>

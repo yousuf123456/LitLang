@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 import ShimmerButton from "@/components/magicui/shimmer-button";
 import Image from "next/image";
@@ -11,21 +11,12 @@ import { SignedIn, SignedOut, SignUpButton } from "@clerk/nextjs";
 import { AnimatedHeading } from "./AnimatedHeading";
 import Link from "next/link";
 
-import {
-  easeIn,
-  LazyMotion,
-  m,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { m, LazyMotion, useScroll, useTransform } from "framer-motion";
 
 import Lenis from "lenis";
 
 import { FlipWords } from "@/components/ui/flip-words";
-import { Navbar } from "./Navbar";
 import { HeroImage } from "./HeroImage";
-import WordPullUp from "@/components/magicui/word-pull-up";
 import BlurFade from "@/components/magicui/blur-fade";
 const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
@@ -204,6 +195,8 @@ export const ParallaxRevampedHero = () => {
   const imageScale = useTransform(scrollYProgress, [0, 0.95], [1, 1.3]);
 
   useEffect(() => {
+    window.history.scrollRestoration = "manual";
+
     const lenis = new Lenis({ lerp: 0.09 });
 
     function raf(time: number) {
@@ -241,7 +234,7 @@ export const ParallaxRevampedHero = () => {
                       className: "h-12 px-12",
                     })}
                   >
-                    Become a Publisher
+                    Get Started For Free
                   </ShimmerButton>
                 </SignUpButton>
               </SignedOut>
