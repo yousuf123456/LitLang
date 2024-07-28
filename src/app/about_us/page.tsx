@@ -58,10 +58,10 @@ export default function AboutUsPage() {
     offset: ["0.05 end", "0 0.2"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [180, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], [80, 0]);
 
-  const leftX = useTransform(scrollYProgress, [0, 1], [-320, 0]);
-  const rightX = useTransform(scrollYProgress, [0, 1], [320, 0]);
+  const leftX = useTransform(scrollYProgress, [0, 1], [-160, 0]);
+  const rightX = useTransform(scrollYProgress, [0, 1], [160, 0]);
 
   return (
     <div className="flex flex-col">
@@ -74,50 +74,26 @@ export default function AboutUsPage() {
         }}
       />
 
-      <article id="data-container" className="flex flex-col gap-24 pt-20">
+      <article id="data-container" className="flex flex-col gap-24 px-6 pt-20">
         <section className="flex flex-col gap-4 max-w-4xl mx-auto">
-          <LazyMotion features={loadFeatures} strict>
-            <m.p
-              initial={{ y: 14, opacity: 0 }}
-              animate={{
-                y: 0,
-                opacity: 1,
-                transition: { duration: 0.6, ease: "easeInOut", delay: 1 },
-              }}
-              className="text-base sm:text-lg text-zinc-700 "
-            >
-              Welcome to{" "}
-              <span className="font-medium text-black">LitLang,</span> your
-              premier destination for literature and linguistic notes. We
-              provide curated resources and a platform for writers to publish
-              their thoughts through blogs and texts.
-            </m.p>
-          </LazyMotion>
+          <p className="text-base sm:text-lg text-zinc-700 text-center">
+            Welcome to <span className="font-medium text-black">LitLang,</span>{" "}
+            your premier destination for literature and linguistic notes. We
+            provide curated resources and a platform for writers to publish
+            their thoughts through blogs and texts.
+          </p>
         </section>
 
         <section className="flex flex-col gap-4 max-w-4xl mx-auto">
-          {/* <h1 className="text-center text-3xl sm:text-4xl tracking-tight font-bold text-zinc-800">
-            <AnimatedLetters text="Our Mission" delayChildren={1.8} />
-          </h1> */}
           <h2 className="text-center font-brand sm:text-4xl text-3xl font-[550] tracking-tight text-primary">
             Our Mission
           </h2>
 
-          <LazyMotion features={loadFeatures} strict>
-            <m.p
-              initial={{ y: 14, opacity: 0 }}
-              animate={{
-                y: 0,
-                opacity: 1,
-                transition: { duration: 0.6, ease: "easeInOut", delay: 2.3 },
-              }}
-              className="sm:text-lg text-zinc-700"
-            >
-              Our mission is to enrich understanding and foster creativity in
-              literature and linguistics, empowering individuals through
-              valuable insights and community support.
-            </m.p>
-          </LazyMotion>
+          <p className="sm:text-lg text-zinc-700 text-center">
+            Our mission is to enrich understanding and foster creativity in
+            literature and linguistics, empowering individuals through valuable
+            insights and community support.
+          </p>
         </section>
 
         <section

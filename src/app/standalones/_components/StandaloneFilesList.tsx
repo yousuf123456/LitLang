@@ -41,9 +41,30 @@ export const StandaloneFilesList = () => {
 
   if (isFetching || !data) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-6">
-        <Skeleton className="w-full aspect-w-16 aspect-h-11 rounded-xl" />
-        <Skeleton className="w-full aspect-w-16 aspect-h-11 rounded-xl" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
+        <div className="relative p-1.5 sm:p-3 lg:p-4 block">
+          <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5">
+            <div className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-1.5">
+              <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8"></div>
+            </div>
+
+            <div className="p-2 flex flex-col items-end gap-2">
+              <div className="h-14" />
+            </div>
+          </Skeleton>
+        </div>
+
+        <div className="relative p-1.5 sm:p-3 lg:p-4 block">
+          <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5">
+            <div className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-1.5">
+              <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8"></div>
+            </div>
+
+            <div className="p-2 flex flex-col items-end gap-2">
+              <div className="h-14" />
+            </div>
+          </Skeleton>
+        </div>
       </div>
     );
   }
@@ -90,6 +111,7 @@ export const StandaloneFilesList = () => {
                 />
               )}
             </AnimatePresence>
+
             <div className="w-full h-full rounded-xl bg-zinc-50 hover:bg-white transition-colors border border-zinc-200 p-1.5 flex flex-col gap-2 group cursor-pointer z-20">
               <div className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
                 <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8">
@@ -104,7 +126,7 @@ export const StandaloneFilesList = () => {
               </div>
 
               <div className="w-full p-2">
-                <p className="text-base md:text-lg text-zinc-700 font-medium line-clamp-2 w-full text-start min-h-12">
+                <p className="text-base md:text-lg text-zinc-700 font-medium line-clamp-2 w-full text-start h-14">
                   {book.name}
                 </p>
               </div>

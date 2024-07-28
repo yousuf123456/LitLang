@@ -95,13 +95,12 @@ export const UserMenu = () => {
             </DropdownMenuItem>
           </Link>
 
-          <DropdownMenuItem
-            className="sm:hidden"
-            onClick={() => setTimeout(() => scrollToElement("pricing"), 170)}
-          >
-            <Gem className="mr-4 h-4 w-4 text-zinc-700" />
-            <span>Pricing</span>
-          </DropdownMenuItem>
+          <Link href={"/?goTo=pricing"} className="sm:hidden">
+            <DropdownMenuItem className="sm:hidden">
+              <Gem className="mr-4 h-4 w-4 text-zinc-700" />
+              <span>Pricing</span>
+            </DropdownMenuItem>
+          </Link>
 
           <Link href={"/contact_us"} className="sm:hidden">
             <DropdownMenuItem>

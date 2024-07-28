@@ -21,11 +21,8 @@ import { cn, getSearchParamsArray, scrollToElement } from "@/utils/utils";
 import { Search } from "lucide-react";
 import { Searchbar } from "@/components/Searchbar";
 
-import { useDebounce } from "use-debounce";
 import { trpc } from "@/app/_trpc/client";
-import { SubjectType } from "@/types";
-import { Badge } from "@/components/ui/badge";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export const Search_NavMenu = ({
   imageTheme,
@@ -36,6 +33,23 @@ export const Search_NavMenu = ({
 
   const { mutateAsync: getAutocompletes } =
     trpc.subjects.getSubjectsAutocompletes.useMutation();
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const goTo = searchParams.get("goTo");
+
+  useEffect(() => {
+    if (!goTo) return;
+
+    scrollToElement(goTo);
+
+    // setTimeout(()=> ,)
+    const searchParamsArray = getSearchParamsArray(searchParams, [], ["goTo"]);
+    router.push(`${pathname}?${searchParamsArray.join("&")}`, {
+      scroll: false,
+    });
+  }, [goTo, router]);
 
   return (
     <AnimatePresence mode="wait">
@@ -88,17 +102,23 @@ export const Search_NavMenu = ({
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuLink
-                    onClick={() => scrollToElement("pricing")}
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      "bg-transparent",
-                      imageTheme &&
-                        "bg-transparent text-[#F6F5AE] hover:text-[#F6F5AE] hover:bg-[#F6F5AE]/20"
-                    )}
+                  <Link
+                    href="/?goTo=pricing"
+                    scroll={pathname !== "/"}
+                    legacyBehavior
+                    passHref
                   >
-                    Pricing
-                  </NavigationMenuLink>
+                    <NavigationMenuLink
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        "bg-transparent",
+                        imageTheme &&
+                          "bg-transparent text-[#F6F5AE] hover:text-[#F6F5AE] hover:bg-[#F6F5AE]/20"
+                      )}
+                    >
+                      Pricing
+                    </NavigationMenuLink>
+                  </Link>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
@@ -177,8 +197,6 @@ export const Search_NavMenu = ({
           >
             <Searchbar
               autoFocus
-              // query={query}
-              // setQuery={setQuery}
               autoComplete="false"
               pathname="/subjects"
               imageTheme={imageTheme}

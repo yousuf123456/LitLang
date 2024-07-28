@@ -19,6 +19,7 @@ interface SearchbarProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Searchbar = ({
+  id,
   pathname,
   imageTheme,
   getAutocompletes,
@@ -68,15 +69,14 @@ export const Searchbar = ({
 
   const router = useRouter();
 
-  const onSearch = (e?: any) => {
+  const onSearch = (e?: any, autocompleteValue?: string) => {
     if (e) e.preventDefault();
 
-    const searchParamQuery =
-      selectedAutocompInd === null
-        ? query
-        : autocompletes.at(selectedAutocompInd)![
-            autocompleteFieldName || "name"
-          ];
+    const searchParamQuery = autocompleteValue
+      ? autocompleteValue
+      : selectedAutocompInd === null
+      ? query
+      : autocompletes.at(selectedAutocompInd)![autocompleteFieldName || "name"];
 
     const searchParamsArray = getSearchParamsArray(
       searchParams,
@@ -87,6 +87,11 @@ export const Searchbar = ({
     router.push(`${pathname}?${searchParamsArray.join("&")}`, {
       scroll: false,
     });
+
+    document.getElementById(id || "search-input")?.blur();
+    setShowingAutocompletes(false);
+    document;
+    if (searchParamQuery !== query) setQuery(searchParamQuery);
   };
 
   const onArrowDown = () => {
@@ -114,13 +119,18 @@ export const Searchbar = ({
   };
 
   return (
-    <form className="w-full relative" autoComplete="false">
+    <form className="w-full relative" autoComplete="new-password">
       <label className=" sr-only" htmlFor="search-input">
         Search
       </label>
 
       <Input
-        type="url"
+        type="text"
+        name="searchbar"
+        autoComplete="off"
+        onKeyDown={onKeyDown}
+        id={id || "search-input"}
+        onFocus={() => setShowingAutocompletes(true)}
         value={
           selectedAutocompInd === null
             ? query
@@ -128,14 +138,16 @@ export const Searchbar = ({
                 autocompleteFieldName || "name"
               ]
         }
-        onFocus={() => setShowingAutocompletes(true)}
-        onBlur={() => setShowingAutocompletes(false)}
-        id="search-input"
-        autoComplete="false"
-        onKeyDown={onKeyDown}
+        onBlur={(e) => {
+          if (e.relatedTarget?.id === "autocomplete") {
+            e.preventDefault();
+            return;
+          }
+
+          setShowingAutocompletes(false);
+        }}
         onChange={(e) => {
           if (selectedAutocompInd !== null) setSelectedAutocompInd(null);
-
           setQuery(e.target.value);
         }}
         className={cn(
@@ -177,8 +189,10 @@ export const Searchbar = ({
                 tabIndex={0}
                 id="autocomplete"
                 onClick={() => {
-                  setAutocompletes([]);
-                  onSearch(autocomplete[autocompleteFieldName || "name"]);
+                  onSearch(
+                    undefined,
+                    autocomplete[autocompleteFieldName || "name"]
+                  );
                 }}
                 className={cn(
                   "px-2 py-4 hover:bg-zinc-100 transition-colors rounded-lg flex flex-col gap-3",

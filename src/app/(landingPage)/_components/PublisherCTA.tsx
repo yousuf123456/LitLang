@@ -141,19 +141,28 @@ export const RevampedPublisherCTA = () => {
         <m.div
           ref={contentRef}
           style={{ y: y }}
-          className="top-48 absolute w-full h-[120vh] flex justify-center items-center z-10 flex-col gap-6"
+          className="top-48 absolute w-full h-[120vh] flex justify-center items-center z-10 flex-col gap-6 px-6"
         >
           <h2 className="text-6xl sm:text-7xl font-semibold text-[#F6F5AE] text-center font-brand">
             Your Stories Matter
           </h2>
 
-          <p className="font-regular text-lg text-[#F6F5AE] text-center">
+          <p className="font-regular text-base sm:text-lg text-[#F6F5AE] text-center">
             Publish Blogs on Our Platform and Connect with Readers Worldwide!
           </p>
 
-          <Button size={"lg"} className="rounded-3xl px-10 h-12">
-            Become a Publisher
-          </Button>
+          <div className="h-[44px] mt-4">
+            <SignedOut>
+              <SignUpButton>
+                <Button size={"lg"}>Become a Publisher</Button>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              <Link href="/blogEditor">
+                <Button size={"lg"}>Publish a Blog</Button>
+              </Link>
+            </SignedIn>
+          </div>
         </m.div>
 
         <m.div
