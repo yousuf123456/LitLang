@@ -204,7 +204,7 @@ export const ParallaxRevampedHero = () => {
   const imageScale = useTransform(scrollYProgress, [0, 0.95], [1, 1.3]);
 
   useEffect(() => {
-    const lenis = new Lenis();
+    const lenis = new Lenis({ lerp: 0.08 });
 
     function raf(time: number) {
       lenis.raf(time);
