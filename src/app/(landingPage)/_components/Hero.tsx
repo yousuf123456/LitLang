@@ -218,10 +218,11 @@ export const ParallaxRevampedHero = () => {
     <LazyMotion features={loadFeatures}>
       <section ref={targetedRef} className="overlay-image">
         <m.div
-          style={{ opacity, display }}
+          style={{ opacity, y, display }}
           className="fixed top-44 min-[470px]:top-44 inset-x-0 z-10 will-change-transform"
         >
-          <div className="w-full flex flex-col gap-8 items-center">
+          Hello
+          {/* <div className="w-full flex flex-col gap-8 items-center">
             <BlurFade duration={0.5}>
               <h1 className="text-6xl sm:text-7xl lg:text-8xl font-semibold font-brand text-[#F6F5AE] text-center">
                 Explore Literary <br /> Treasures
@@ -262,7 +263,7 @@ export const ParallaxRevampedHero = () => {
                 </Link>
               </SignedIn>
             </div>
-          </div>
+          </div> */}
         </m.div>
 
         <div className="h-[350vh] w-full contain-paint">
