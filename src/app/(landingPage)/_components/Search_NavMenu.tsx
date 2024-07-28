@@ -17,7 +17,7 @@ const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
 
 import Link from "next/link";
-import { cn, getSearchParamsArray } from "@/utils/utils";
+import { cn, getSearchParamsArray, scrollToElement } from "@/utils/utils";
 import { Search } from "lucide-react";
 import { Searchbar } from "@/components/Searchbar";
 
@@ -32,36 +32,10 @@ export const Search_NavMenu = ({
 }: {
   imageTheme: boolean | null;
 }) => {
-  // const [query, setQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-
-  // const [debouncedQueryValue] = useDebounce(query, 500);
-
-  // const [autocompletes, setAutocompletes] = useState<
-  //   Omit<SubjectType, "createdAt" | "updatedAt" | "resources" | "university">[]
-  // >([]);
 
   const { mutateAsync: getAutocompletes } =
     trpc.subjects.getSubjectsAutocompletes.useMutation();
-
-  // useEffect(() => {
-  //   getAutocompletes({ query: debouncedQueryValue }).then((res) =>
-  //     setAutocompletes(res)
-  //   );
-  // }, [debouncedQueryValue]);
-
-  // const router = useRouter();
-  // const searchParams = useSearchParams();
-
-  // const onSearch = (autocomplete: string) => {
-  //   const searchParamsArray = getSearchParamsArray(
-  //     searchParams,
-  //     query ? [`query=${autocomplete}`] : [],
-  //     ["query", "paginationToken", "going", "page"]
-  //   );
-
-  //   router.push(`/subjects?${searchParamsArray.join("&")}`);
-  // };
 
   return (
     <AnimatePresence mode="wait">
@@ -114,18 +88,17 @@ export const Search_NavMenu = ({
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link href={"#pricing"} legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        "bg-transparent",
-                        imageTheme &&
-                          "bg-transparent text-[#F6F5AE] hover:text-[#F6F5AE] hover:bg-[#F6F5AE]/20"
-                      )}
-                    >
-                      Pricing
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink
+                    onClick={() => scrollToElement("pricing")}
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      "bg-transparent",
+                      imageTheme &&
+                        "bg-transparent text-[#F6F5AE] hover:text-[#F6F5AE] hover:bg-[#F6F5AE]/20"
+                    )}
+                  >
+                    Pricing
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
