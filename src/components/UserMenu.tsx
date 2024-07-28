@@ -93,14 +93,14 @@ export const UserMenu = () => {
             </DropdownMenuItem>
           </Link>
 
-          <Link href={"/standalones?type=Book"} className="sm:hidden">
+          <Link href={"/standalones?type=Article"} className="sm:hidden">
             <DropdownMenuItem>
               <Newspaper className="mr-4 h-4 w-4 text-zinc-700" />
               <span>Articles</span>
             </DropdownMenuItem>
           </Link>
 
-          <Link href={"/standalones?type=Article"} className="sm:hidden">
+          <Link href={"/standalones?type=Book"} className="sm:hidden">
             <DropdownMenuItem>
               <Newspaper className="mr-4 h-4 w-4 text-zinc-700" />
               <span>Books</span>
