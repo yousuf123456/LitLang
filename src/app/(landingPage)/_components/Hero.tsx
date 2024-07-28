@@ -192,9 +192,9 @@ export const ParallaxRevampedHero = () => {
     [0.5, 0.1, 0.1, 0.5]
   );
 
-  const y = useTransform(scrollYProgress, [0, 0.45, 1], [0, -120, -120]);
+  const y = useTransform(scrollYProgress, [0, 0.55, 1], [0, -120, -120]);
 
-  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.45], [1, 1, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.55], [1, 1, 0]);
 
   const display = useTransform(scrollYProgress, (pos) =>
     pos === 1 ? "none" : "block"
@@ -204,7 +204,7 @@ export const ParallaxRevampedHero = () => {
   const imageScale = useTransform(scrollYProgress, [0, 0.95], [1, 1.3]);
 
   useEffect(() => {
-    const lenis = new Lenis({ lerp: 0.08 });
+    const lenis = new Lenis({ lerp: 0.09 });
 
     function raf(time: number) {
       lenis.raf(time);
