@@ -12,8 +12,11 @@ export const Footer = () => {
   return (
     <footer
       className={cn(
-        "bg-primary",
-        !/^\/subjects\/[^\/]+\/[^\/]+$/.test(pathname) && "mt-32"
+        "bg-brown-800",
+        !/^\/subjects\/[^\/]+\/[^\/]+$/.test(pathname) &&
+          !/^\/standalones\/[^\/]+\/[^\/]+$/.test(pathname) &&
+          pathname !== "/contact_us" &&
+          "mt-28 md:mt-32"
       )}
     >
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
@@ -23,11 +26,13 @@ export const Footer = () => {
               <Image src={"/logo2.svg"} alt="Company Logo" fill />
             </div>
 
-            <p className="text-lg font-semibold text-[#FFECD1]">LitLang</p>
+            <p className="text-lg font-medium text-themeSecondary font-brand">
+              LitLang
+            </p>
           </Link>
 
           <nav aria-label="Secondary Navigation">
-            <ul className="max-sm:mt-4 flex flex-wrap items-center text-sm font-medium text-[#FFECD1]">
+            <ul className="max-sm:mt-4 flex flex-wrap items-center text-sm font-medium text-themeSecondary">
               <li>
                 <Link
                   href={"/about_us"}
@@ -55,9 +60,9 @@ export const Footer = () => {
           </nav>
         </div>
 
-        <hr className="my-6 sm:mx-auto border-[#FFECD1] lg:my-8" />
+        <hr className="my-6 sm:mx-auto border-themeSecondary/50 lg:my-8" />
 
-        <span className="block text-sm sm:text-center text-[#FFECD1]">
+        <span className="block text-sm sm:text-center text-themeSecondary">
           © 2024{" "}
           <Link href="https://LitLang.com/" className="hover:underline">
             LitLang

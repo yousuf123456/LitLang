@@ -1,8 +1,9 @@
-import React, { Suspense } from "react";
+import React from "react";
 
-import { ResourceType } from "@/types";
-
+import aws_s3 from "@/app/utils/aws-s3";
 import { PDFViewer } from "./PDFViewer";
+import { GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 import dynamic from "next/dynamic";
 const AudioPlayer = dynamic(
@@ -12,10 +13,10 @@ const AudioPlayer = dynamic(
   }
 );
 
-import googleDrive from "@/app/utils/googleDrive";
 import { getSubject } from "@/actions/getSubject";
 import { findFileById } from "@/utils/utils";
-import { getFile } from "@/actions/getFile";
+
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const File = async ({
   fileId,
@@ -25,33 +26,35 @@ export const File = async ({
   subjectId: string;
 }) => {
   const subject = await getSubject(subjectId);
-
   if (!subject) return <p>Invalid Subject Id</p>;
 
   const file = findFileById(subject.resources, fileId);
-
   if (!file) return <p>Invalid File Id</p>;
 
-  const response = await getFile(file.id);
+  const command = new GetObjectCommand({
+    Key: file.key || "",
+    Bucket: "litlang2",
+  });
 
-  const fileBlob = response.data as unknown as Blob;
-
-  const uint8ArrayData = new Uint8Array(await fileBlob.arrayBuffer());
+  const signedUrl = await getSignedUrl(aws_s3, command, {
+    expiresIn: 5,
+  });
 
   return (
     <>
       {file.type === "PDF" ? (
         <PDFViewer
-          uint8ArrayData={uint8ArrayData}
+          backUrl={`/subjects/${subjectId}`}
+          pdfUrl={signedUrl}
           name={file.name}
-          subjectId={subjectId}
         />
       ) : (
-        <AudioPlayer
-          bufferArray={Array.from(uint8ArrayData)}
-          subjectId={subjectId}
-          name={file.name}
-        />
+        <p></p>
+        // <AudioPlayer
+        //   bufferArray={Array.from(uint8ArrayData)}
+        //   subjectId={subjectId}
+        //   name={file.name}
+        // />
       )}
     </>
   );

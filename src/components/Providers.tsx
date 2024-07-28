@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { trpc } from "@/app/_trpc/client";
 import { absoluteUrl } from "@/utils/utils";
@@ -10,6 +10,8 @@ import { Toaster } from "./ui/sonner";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
+
+import Lenis from "lenis";
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(

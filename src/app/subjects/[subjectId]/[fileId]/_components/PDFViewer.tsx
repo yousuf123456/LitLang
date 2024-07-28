@@ -73,17 +73,17 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 // pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 export const PDFViewer = ({
-  uint8ArrayData,
-  subjectId,
+  pdfUrl,
+  backUrl,
   name,
 }: {
-  uint8ArrayData: Uint8Array;
-  subjectId: string;
+  pdfUrl: string;
+  backUrl: string;
   name: string;
 }) => {
-  const file = useMemo(() => {
-    return { data: uint8ArrayData };
-  }, [uint8ArrayData]);
+  const options = useMemo(() => {
+    return { disableAutoFetch: true, disableStream: true };
+  }, []);
 
   const { ref, width } = useResizeDetector();
 
@@ -105,13 +105,13 @@ export const PDFViewer = ({
   }, [inputPageNumber]);
 
   const goToNextPage = () =>
-    setPageNumber((prev) => {
+    setInputPageNumber((prev) => {
       if (prev + 1 > numPages) return prev;
       return prev + 1;
     });
 
   const goToPrevPage = () =>
-    setPageNumber((prev) => {
+    setInputPageNumber((prev) => {
       if (prev - 1 < 1) return prev;
       return prev - 1;
     });
@@ -163,7 +163,7 @@ export const PDFViewer = ({
         aria-label="PDF controls"
         className="flex items-center px-0 justify-between w-full h-14 flex-shrink-0"
       >
-        <div className="flex items-center gap-3 ml-2 sm:ml-4 max-sm:absolute bottom-2 max-sm:-translate-x-1/2 left-1/2 z-[999] max-sm:bg-[#DDD8C2] max-sm:p-0.5 max-sm:rounded-lg">
+        <div className="flex items-center gap-3 ml-2 sm:ml-4 max-sm:absolute bottom-2 max-sm:-translate-x-1/2 left-1/2 z-50 max-sm:bg-[#DDD8C2] max-sm:p-0.5 max-sm:rounded-lg">
           <Button
             size={"icon"}
             aria-label="Previous page"
@@ -264,7 +264,7 @@ export const PDFViewer = ({
 
               <DropdownMenuSeparator />
 
-              <Link href={`/subjects/${subjectId}`}>
+              <Link href={backUrl}>
                 <DropdownMenuItem>
                   <ChevronLeft className="mr-4 h-4 w-4 text-zinc-700" />
                   <span>Go Back</span>
@@ -277,9 +277,14 @@ export const PDFViewer = ({
 
       <ScrollArea role="document" aria-label={`PDF document: ${name}`}>
         <Document
-          file={file}
+          file={
+            pdfUrl ||
+            "https://s3.amazonaws.com/pdftron/downloads/pl/2gb-sample-file.pdf"
+          }
+          options={options}
           onLoadError={onLoadError}
           loading={PDFLoadingState}
+          onLoadProgress={(data) => console.log(data.loaded, data.total)}
           onLoadSuccess={({ numPages }) => setNumPages(numPages)}
         >
           <Page

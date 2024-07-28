@@ -11,10 +11,10 @@ export const Heading = ({
   children: React.ReactNode;
 }) => {
   return (
-    <>
+    <div className="flex flex-col gap-3 items-center z-10">
       <h1
         className={cn(
-          "text-3xl md:text-4xl font-semibold text-gray-800",
+          "text-5xl md:text-6xl font-semibold text-themeSecondary font-brand text-center",
           className
         )}
       >
@@ -22,10 +22,10 @@ export const Heading = ({
       </h1>
 
       {subHeading && (
-        <p className="text-zinc-500 max-w-lg text-center text-sm md:text-base">
+        <p className="text-themeSecondary max-w-lg text-center text-base md:text-lg font-secondary">
           {subHeading}
         </p>
       )}
-    </>
+    </div>
   );
 };

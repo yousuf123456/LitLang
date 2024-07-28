@@ -101,7 +101,7 @@ export const PricingPlanFeatures = () => {
   return (
     <div
       ref={ref}
-      className="border border-zinc-400 grid grid-cols-1 sm:grid-cols-2 auto-rows-[3.5rem] rounded-lg"
+      className="flex-1 border border-zinc-400 grid grid-cols-1 sm:grid-cols-2 auto-rows-auto rounded-lg"
     >
       <LazyMotion features={loadFeatures}>
         {features.map((feature, i) => (
@@ -120,7 +120,7 @@ export const PricingPlanFeatures = () => {
               variants={variants}
               custom={{ i, isIcon: false }}
               initial={{ opacity: 0, y: 36 }}
-              className="text-zinc-700 text-sm"
+              className="text-zinc-600 text-sm font-[450] font-secondary"
             >
               {feature.text}
             </m.p>
@@ -132,7 +132,7 @@ export const PricingPlanFeatures = () => {
               custom={{ i, isIcon: true }}
             >
               {feature.availability.premium ? (
-                <Verified className="w-6 h-6 fill-gray-900 text-white flex-shrink-0" />
+                <Verified className="w-6 h-6 fill-gray-800 text-white flex-shrink-0" />
               ) : (
                 <X className="text-red-400 w-5 h-5 flex-shrink-0" />
               )}

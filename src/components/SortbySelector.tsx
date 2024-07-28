@@ -37,7 +37,9 @@ export const SortbySelector = ({
       ["sortBy"]
     );
 
-    router.push(`${pathname}?${searchParamsArray.join("&")}`);
+    router.push(`${pathname}?${searchParamsArray.join("&")}`, {
+      scroll: false,
+    });
   };
 
   useEffect(() => {

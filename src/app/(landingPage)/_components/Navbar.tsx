@@ -1,24 +1,79 @@
 "use client";
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
-import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
-import Image from "next/image";
-import { UserAccount } from "./UserAccount";
-import { usePathname } from "next/navigation";
-import { Search_NavMenu } from "./Search_NavMenu";
 import Link from "next/link";
+import Image from "next/image";
+import { cn } from "@/utils/utils";
+import { useParams, usePathname } from "next/navigation";
+import { Search_NavMenu } from "./Search_NavMenu";
+import { UserAccount } from "./UserAccount";
 
-export const Navbar = () => {
+export const Navbar = ({}: {}) => {
   const pathname = usePathname();
+
+  const defaultImageThemePages = [
+    "/",
+    "/blogs",
+    "/standalones",
+    "/subjects",
+    "/contact_us",
+    "/about_us",
+  ];
+  const defaultImageTheme = defaultImageThemePages.includes(pathname);
+
+  const [imageTheme, setImageTheme] = useState<boolean>(defaultImageTheme);
+
+  useEffect(() => {
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      const isAnyEntryIntersecting =
+        entries.filter((entry) => entry.isIntersecting).length > 0;
+
+      if (isAnyEntryIntersecting) setImageTheme(true);
+      else {
+        setImageTheme(false);
+      }
+    };
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "-73px 0px -100% 0px",
+      threshold: [0],
+    };
+
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions
+    );
+
+    const targetElements = document.querySelectorAll(".overlay-image");
+
+    targetElements.forEach((targetElem) => {
+      observer.observe(targetElem);
+    });
+
+    if (targetElements.length === 0) setImageTheme(false);
+
+    return () => {
+      targetElements.forEach((targetElem) => {
+        observer.unobserve(targetElem);
+      });
+    };
+  }, [pathname]);
 
   if (pathname === "/blogEditor") return;
 
   return (
-    <header className="border-b border-zinc-200">
-      <MaxWidthWrapper className="md:py-6 py-4 xl:px-0 md:px-6 px-3 sticky top-0 left-0 bg-white z-50 h-full">
-        <div className="flex justify-between items-center w-full gap-3 sm:gap-8 h-full min-h-[40px]">
+    <header>
+      <div
+        className={cn(
+          "py-4 xl:px-12 md:px-6 px-3 fixed top-0 left-0 right-0 z-[999] transition-all backdrop-blur-sm backdrop-filter",
+          !imageTheme ? "bg-white bg-opacity-70" : "bg-primary/10",
+          imageTheme === null && "bg-transparent"
+        )}
+      >
+        <div className="flex justify-between items-center w-full gap-3 sm:gap-8 h-full min-h-[40px] ">
           <Link href={"/"} aria-label="Home">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 lg:w-[182.5px]">
               <div className="relative w-8 h-8">
                 <Image
                   alt="Company Logo"
@@ -28,19 +83,25 @@ export const Navbar = () => {
                 />
               </div>
 
-              <p className="text-xl font-semibold font-brand hidden lg:block font-">
+              <p
+                className={cn(
+                  "text-2xl font-medium font-brand hidden lg:block text-white transition-colors",
+                  imageTheme ? "text-white" : "text-black",
+                  imageTheme === null && "opacity-0"
+                )}
+              >
                 LitLang
               </p>
             </div>
           </Link>
 
           <Suspense>
-            <Search_NavMenu />
+            <Search_NavMenu imageTheme={imageTheme} />
           </Suspense>
 
-          <UserAccount />
+          <UserAccount imageTheme={imageTheme} />
         </div>
-      </MaxWidthWrapper>
+      </div>
     </header>
   );
 };

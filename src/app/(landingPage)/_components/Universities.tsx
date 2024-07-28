@@ -55,25 +55,19 @@ export const Universities = () => {
   }, [api]);
 
   return (
-    <section>
-      <MaxWidthWrapper className="px-6 sm:px-16">
-        {/* <div className="w-full"> */}
+    <section className=" ">
+      <MaxWidthWrapper className="px-0 sm:px-16 md:py-40 py-24">
         <Carousel
           setApi={setApi}
           className="w-full"
           opts={{
             loop: true,
           }}
-          plugins={[
-            Autoplay({
-              delay: 5000,
-            }),
-          ]}
         >
-          <div className="absolute pointer-events-none inset-0 flex z-30 items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_80%,black)]"></div>
+          {/* <div className="absolute pointer-events-none inset-0 flex z-30 items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_80%,black)]"></div> */}
           <CarouselContent>
             {universitiesData.map((uni, i) => (
-              <CarouselItem className="sm:basis-1/2 lg:basis-1/3" key={i}>
+              <CarouselItem className="min-[970px]:basis-1/2" key={i}>
                 <UniversityCard name={uni.name} image={uni.image} />
               </CarouselItem>
             ))}
@@ -90,10 +84,10 @@ export const Universities = () => {
 const UniversityCard = ({ name, image }: { name: string; image: string }) => {
   return (
     <Link href={`/subjects?university=${name}`}>
-      <div className="border border-brown-100 rounded-xl relative w-full bg-brown-50 p-1.5">
-        <div className="rounded-xl relative overflow-hidden w-full h-full aspect-w-16 aspect-h-10">
-          <div className="absolute inset-0 rounded-xl bg-black z-10 bg-opacity-30 hover:bg-opacity-40 cursor-pointer p-5 group">
-            <p className="text-xl font-semibold text-white z-20 pointer-events-none group-hover:translate-y-2 relative transition-all">
+      <div className="border border-white rounded-xl relative w-full bg-transparent p-1.5">
+        <div className="rounded-xl relative overflow-hidden w-full max-[500px]:aspect-w-12 min-[500px]:aspect-w-16 aspect-h-10">
+          <div className="absolute inset-0 rounded-xl bg-brown-800/50 z-10 hover:bg-brown-800/60 cursor-pointer p-5 group flex justify-center items-center">
+            <p className="text-2xl sm:text-3xl font-medium text-center text-themeSecondary z-20 pointer-events-none group-hover:translate-y-2 relative transition-all font-brand">
               {name}
             </p>
           </div>

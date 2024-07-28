@@ -9,9 +9,9 @@ export type ResourceMimeType = "PDF" | "Folder" | "Audio";
 export type ResourceType = {
   resources: ResourceType[];
   type: ResourceMimeType;
-  webViewLink?: string;
   isPremium?: Boolean;
   name: string;
+  key?: string;
   id: string;
 };
 

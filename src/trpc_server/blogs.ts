@@ -7,6 +7,7 @@ import { blogType } from "@/types";
 
 import { BlogsListPageSize } from "@/pagination";
 import { getSortbyDirection, transformRawResultsToPrisma } from "@/utils/utils";
+import { blogs } from "@prisma/client";
 
 export const blogsRouter = router({
   updateOrCreate: protectedProcedure
@@ -111,9 +112,9 @@ export const blogsRouter = router({
             count: {
               type: "total",
             },
-            sort: {
-              createdAt: 1,
-            },
+
+            sort: { score: { $meta: "searchScore" }, createdAt: 1 },
+
             ...(paginationToken
               ? {
                   ...(going === "next"
@@ -190,5 +191,41 @@ export const blogsRouter = router({
         blogs,
         totalCount,
       };
+    }),
+
+  getBlogsAutocompletes: publicProcedure
+    .input(
+      z.object({
+        query: z.optional(z.string()),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { query } = input;
+
+      if (!query || query.length === 0) return [];
+
+      const pipeline = [
+        {
+          $search: {
+            index: "search",
+            autocomplete: {
+              query,
+              path: "title",
+              fuzzy: {},
+            },
+          },
+        },
+        {
+          $project: {
+            title: 1,
+          },
+        },
+      ];
+
+      const data = (await prisma.blogs.aggregateRaw({
+        pipeline,
+      })) as unknown as Omit<blogs, "createdAt" | "updatedAt">[];
+
+      return data;
     }),
 });

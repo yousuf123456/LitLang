@@ -20,6 +20,7 @@ export const Subscribe = ({ btnClassName }: { btnClassName: string }) => {
     <>
       <SignedIn>
         <Button
+          size={"lg"}
           disabled={!isLoaded}
           onClick={onSubscribe}
           className={btnClassName}
@@ -29,7 +30,7 @@ export const Subscribe = ({ btnClassName }: { btnClassName: string }) => {
       </SignedIn>
       <SignedOut>
         <SignUpButton>
-          <Button className={btnClassName} disabled={!isLoaded}>
+          <Button size={"lg"} className={btnClassName} disabled={!isLoaded}>
             Subscribe
           </Button>
         </SignUpButton>

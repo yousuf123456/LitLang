@@ -2,14 +2,16 @@ import { cn } from "@/lib/utils";
 import React from "react";
 
 export const MaxWidthWrapper = ({
+  id,
   children,
   className,
 }: {
-  children: React.ReactNode;
+  id?: string;
   className?: string;
+  children: React.ReactNode;
 }) => {
   return (
-    <div className={cn("mx-auto max-w-screen-xl w-full", className)}>
+    <div id={id} className={cn("mx-auto max-w-screen-xl w-full", className)}>
       {children}
     </div>
   );

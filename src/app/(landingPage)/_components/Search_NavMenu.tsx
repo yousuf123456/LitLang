@@ -27,39 +27,41 @@ import { SubjectType } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export const Search_NavMenu = () => {
-  const [query, setQuery] = useState("");
+export const Search_NavMenu = ({
+  imageTheme,
+}: {
+  imageTheme: boolean | null;
+}) => {
+  // const [query, setQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
 
-  const [debouncedQueryValue] = useDebounce(query, 500);
+  // const [debouncedQueryValue] = useDebounce(query, 500);
 
-  const [autocompletes, setAutocompletes] = useState<
-    Omit<SubjectType, "createdAt" | "updatedAt" | "resources" | "university">[]
-  >([]);
+  // const [autocompletes, setAutocompletes] = useState<
+  //   Omit<SubjectType, "createdAt" | "updatedAt" | "resources" | "university">[]
+  // >([]);
 
   const { mutateAsync: getAutocompletes } =
     trpc.subjects.getSubjectsAutocompletes.useMutation();
 
-  useEffect(() => {
-    getAutocompletes({ query: debouncedQueryValue }).then((res) =>
-      setAutocompletes(res)
-    );
-  }, [debouncedQueryValue]);
+  // useEffect(() => {
+  //   getAutocompletes({ query: debouncedQueryValue }).then((res) =>
+  //     setAutocompletes(res)
+  //   );
+  // }, [debouncedQueryValue]);
 
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  // const router = useRouter();
+  // const searchParams = useSearchParams();
 
-  const onSearch = (autocomplete: string) => {
-    console.log("Submitting");
+  // const onSearch = (autocomplete: string) => {
+  //   const searchParamsArray = getSearchParamsArray(
+  //     searchParams,
+  //     query ? [`query=${autocomplete}`] : [],
+  //     ["query", "paginationToken", "going", "page"]
+  //   );
 
-    const searchParamsArray = getSearchParamsArray(
-      searchParams,
-      query ? [`query=${autocomplete}`] : [],
-      ["query", "paginationToken", "going", "page"]
-    );
-
-    router.push(`/subjects?${searchParamsArray.join("&")}`);
-  };
+  //   router.push(`/subjects?${searchParamsArray.join("&")}`);
+  // };
 
   return (
     <AnimatePresence mode="wait">
@@ -91,12 +93,22 @@ export const Search_NavMenu = () => {
             >
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+                  <NavigationMenuTrigger
+                    className={cn(
+                      "bg-transparent",
+                      imageTheme &&
+                        " text-[#F6F5AE] hover:text-[#F6F5AE] hover:bg-[#F6F5AE]/20 data-[state=open]:bg-[#F6F5AE]/40"
+                    )}
+                  >
+                    Resources
+                  </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="flex flex-col p-4 gap-3 w-[150px] ">
                       <ListItem href="/blogs">Blogs</ListItem>
-                      <ListItem href="/">Articles</ListItem>
-                      <ListItem href="/">Books</ListItem>
+                      <ListItem href="/standalones?type=Article">
+                        Articles
+                      </ListItem>
+                      <ListItem href="/standalones?type=Book">Books</ListItem>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -104,7 +116,12 @@ export const Search_NavMenu = () => {
                 <NavigationMenuItem>
                   <Link href={"#pricing"} legacyBehavior passHref>
                     <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        "bg-transparent",
+                        imageTheme &&
+                          "bg-transparent text-[#F6F5AE] hover:text-[#F6F5AE] hover:bg-[#F6F5AE]/20"
+                      )}
                     >
                       Pricing
                     </NavigationMenuLink>
@@ -115,11 +132,14 @@ export const Search_NavMenu = () => {
 
             <div
               onClick={() => setIsSearching(true)}
-              className="p-2 rounded-full bg-white border border-zinc-200 cursor-pointer hover:bg-zinc-50 transition-colors hover:top-0.5 relative"
+              className="p-2 rounded-full bg-transparent border-none border-black/20 cursor-pointer transition-colors hover:top-0.5 relative"
             >
               <Search
                 aria-label="Open Search Bar"
-                className="text-zinc-400 w-5 h-5"
+                className={cn(
+                  "w-5 h-5",
+                  imageTheme ? "text-[#F6F5AE]" : "text-zinc-700"
+                )}
               />
               <span className="sr-only">Toggle Search Bar</span>
             </div>
@@ -132,7 +152,12 @@ export const Search_NavMenu = () => {
                 <NavigationMenuItem>
                   <Link href="/contact_us" legacyBehavior passHref>
                     <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        "bg-transparent",
+                        imageTheme &&
+                          "bg-transparent text-[#F6F5AE] hover:text-[#F6F5AE] hover:bg-[#F6F5AE]/20"
+                      )}
                     >
                       Contact Us
                     </NavigationMenuLink>
@@ -142,7 +167,12 @@ export const Search_NavMenu = () => {
                 <NavigationMenuItem>
                   <Link href="/about_us" legacyBehavior passHref>
                     <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        "bg-transparent",
+                        imageTheme &&
+                          "bg-transparent text-[#F6F5AE] hover:text-[#F6F5AE] hover:bg-[#F6F5AE]/20"
+                      )}
                     >
                       About Us
                     </NavigationMenuLink>
@@ -174,11 +204,13 @@ export const Search_NavMenu = () => {
           >
             <Searchbar
               autoFocus
-              query={query}
-              setQuery={setQuery}
+              // query={query}
+              // setQuery={setQuery}
               autoComplete="false"
               pathname="/subjects"
+              imageTheme={imageTheme}
               id="subjects-search-input"
+              getAutocompletes={getAutocompletes}
               placeholder="Search for subjects here."
               onBlur={(e) => {
                 if (e.relatedTarget?.id === "autocomplete") {
@@ -190,8 +222,8 @@ export const Search_NavMenu = () => {
               }}
             />
 
-            {autocompletes.length > 0 && (
-              <div className="absolute top-14 left-0 right-0 bg-white p-2 border-zinc-200 border rounded-lg">
+            {/* {autocompletes.length > 0 && (
+              <div className="absolute top-14 left-0 right-0 bg-white p-3 rounded-md drop-shadow-md">
                 <ul className="flex flex-col">
                   {autocompletes.map((autocomplete, i) => (
                     <li
@@ -205,14 +237,20 @@ export const Search_NavMenu = () => {
                       }}
                       className="px-2 py-4 hover:bg-zinc-50 transition-colors rounded-lg flex flex-col gap-3"
                     >
-                      <p className="text-zinc-700 text-sm">
+                      <p className="text-zinc-700 text-[13px] leading-4 font-medium">
                         {autocomplete.name}
                       </p>
                       <div className="flex justify-start w-full gap-3">
-                        <Badge variant={"outline"} className="text-zinc-600">
+                        <Badge
+                          variant={"outline"}
+                          className="text-zinc-700 font-normal"
+                        >
                           {autocomplete.universityShort}
                         </Badge>
-                        <Badge variant={"outline"} className="text-zinc-600">
+                        <Badge
+                          variant={"outline"}
+                          className="text-zinc-700 font-normal"
+                        >
                           Semester {autocomplete.semester}
                         </Badge>
                       </div>
@@ -220,7 +258,7 @@ export const Search_NavMenu = () => {
                   ))}
                 </ul>
               </div>
-            )}
+            )} */}
           </m.div>
         )}
       </LazyMotion>

@@ -1,10 +1,8 @@
-import { TRPCError } from "@trpc/server";
 import { router, publicProcedure } from "./trpc";
 
 import { z } from "zod";
 
 import prisma from "@/app/utils/prismadb";
-import googleDrive from "@/app/utils/googleDrive";
 
 import { SubjectType } from "@/types";
 
@@ -71,9 +69,9 @@ export const subjectsRouter = router({
             count: {
               type: "total",
             },
-            sort: {
-              createdAt: 1,
-            },
+
+            sort: { score: { $meta: "searchScore" }, createdAt: 1 },
+
             ...(paginationToken
               ? {
                   ...(going === "next"
@@ -151,6 +149,7 @@ export const subjectsRouter = router({
         totalCount,
       };
     }),
+
   getSubjectsAutocompletes: publicProcedure
     .input(
       z.object({
@@ -190,36 +189,5 @@ export const subjectsRouter = router({
       >[];
 
       return data;
-    }),
-  getUInt8ArrayOfPdf: publicProcedure
-    .input(z.string())
-    .query(async ({ input }) => {
-      try {
-        const fileId = input;
-
-        if (!fileId)
-          throw new TRPCError({
-            message: "No file id was provided",
-            code: "UNPROCESSABLE_CONTENT",
-          });
-
-        const response = await googleDrive.files.get(
-          { fileId, alt: "media" },
-          { responseType: "arraybuffer" }
-        );
-
-        // const pdfBuffer = Buffer.from(response.data as ArrayBuffer);
-
-        const u8intArray = new Uint8Array(response.data as ArrayBuffer);
-
-        console.log(typeof u8intArray);
-
-        return u8intArray;
-      } catch (e: any) {
-        throw new TRPCError({
-          message: "Internal Server Error",
-          code: "INTERNAL_SERVER_ERROR",
-        });
-      }
     }),
 });

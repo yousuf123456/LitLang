@@ -7,7 +7,14 @@ import { Button } from "@/components/ui/button";
 import { Boxes } from "@/components/ui/background-boxes";
 
 import { isDesktop, isMobile, isTablet } from "react-device-detect";
-import { useInView, m, useAnimation, LazyMotion } from "framer-motion";
+import {
+  useInView,
+  m,
+  useAnimation,
+  LazyMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { SignedIn, SignedOut, SignUpButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { absoluteUrl } from "@/utils/utils";
@@ -96,6 +103,77 @@ export const PublisherCTA = () => {
           </m.div>
         </LazyMotion>
       </div>
+    </section>
+  );
+};
+
+export const RevampedPublisherCTA = () => {
+  const targetedRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: targetedRef,
+    offset: ["start 0.85", "end 0.15"],
+  });
+
+  const overlayOpacity = useTransform(
+    scrollYProgress,
+    [0.55, 0.7, 1],
+    [0.5, 0, 0]
+  );
+
+  const scale = useTransform(scrollYProgress, [0.7, 1], [1, 0.9]);
+
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress: contentYProgress } = useScroll({
+    target: contentRef,
+    offset: ["start 0.85", "end 0.15"],
+  });
+
+  const y = useTransform(contentYProgress, [0, 0.5, 1], [200, 0, -150]);
+
+  return (
+    <section
+      ref={targetedRef}
+      className="h-[180vh] w-full contain-paint relative overlay-image"
+    >
+      <LazyMotion features={loadFeatures} strict>
+        <m.div
+          ref={contentRef}
+          style={{ y: y }}
+          className="top-48 absolute w-full h-[120vh] flex justify-center items-center z-10 flex-col gap-6 pl-4"
+        >
+          <h2 className="text-6xl sm:text-7xl font-semibold text-[#F6F5AE] text-center font-brand">
+            Your Stories Matter
+          </h2>
+
+          <p className="font-regular text-lg text-[#F6F5AE] text-center">
+            Publish Blogs on Our Platform and Connect with Readers Worldwide!
+          </p>
+
+          <Button size={"lg"} className="rounded-3xl px-10 h-12">
+            Become a Publisher
+          </Button>
+        </m.div>
+
+        <m.div
+          style={{ scale }}
+          className="w-screen h-screen sticky bottom-0 top-0"
+        >
+          <m.div
+            style={{ opacity: overlayOpacity }}
+            className="absolute inset-0 bg-black z-10"
+          />
+
+          <Image
+            fill
+            priority
+            src={"/book.jpg"}
+            alt="Background Image"
+            className="object-cover object-center"
+          />
+        </m.div>
+      </LazyMotion>
     </section>
   );
 };
