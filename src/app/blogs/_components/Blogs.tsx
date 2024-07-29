@@ -28,7 +28,7 @@ export const Blogs = ({
   return (
     <div className="flex flex-col gap-6">
       <OverlayImageHeader
-        buttonLabel="Explore Blogs"
+        buttonLabel={isUserSpecificBlogs ? "See My Blogs" : "Explore Blogs"}
         heading={isUserSpecificBlogs ? "My Blogs" : "Our Blogs"}
         overlayImages={{
           desktop: "/desktop_blogs.jpg",
@@ -37,10 +37,10 @@ export const Blogs = ({
         subHeading={
           !isUserSpecificBlogs
             ? "Explore expert opinions in our diverse range of engaging blogs where knowledge meets inspiration!"
-            : undefined
+            : "View or Edit all of your published / unpublished blogs."
         }
       >
-        {!isUserSpecificBlogs && (
+        {isUserSpecificBlogs && (
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>

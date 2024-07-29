@@ -59,10 +59,19 @@ export default function BlogEditorContext({ draft }: { draft: blogs | null }) {
     return unsavedChanges;
   }, [draft, title, content, coverImage]);
 
+  let isPerformingAction = false;
+
   const updateOrCreateDraft = (
     props: RouterInput["blogs"]["updateOrCreate"]
   ) => {
-    if (!props.content || !props.coverImage || !props.title)
+    if (isPerformingAction) return;
+
+    isPerformingAction = true;
+
+    if (
+      (!props.content || !props.coverImage || !props.title) &&
+      props.pendingForApproval
+    )
       return toast.error(
         "Please provide all the blogs details, cover image/blog title/blog content."
       );
@@ -73,14 +82,15 @@ export default function BlogEditorContext({ draft }: { draft: blogs | null }) {
           router.refresh();
         } else router.push(`/blogEditor?draftId=${data}`);
       })
-      .then(() => {
-        if (!props.asAnUncompletedDraft)
-          toast.success("Blog will be officially published after approval.");
-      });
+      .finally(() => (isPerformingAction = false));
 
     toast.promise(promise, {
-      loading: "Saving Draft",
-      success: "Draft Saved.",
+      loading: props.pendingForApproval
+        ? "Requesting for Publish"
+        : "Saving Draft",
+      success: props.pendingForApproval
+        ? "Request Made Succesfully. Blog will be officially published after approval from the team."
+        : "Draft Saved.",
       error: "Error saving draft. Please try again.",
     });
   };
@@ -101,7 +111,11 @@ export default function BlogEditorContext({ draft }: { draft: blogs | null }) {
     };
   }, [unsavedChanges, updateOrCreateDraft, content, coverImage, title]);
 
-  if (draftId && !draft) return <p>Invalid Draft Id</p>;
+  if (draftId && !draft) {
+    router.push("/blogEditor");
+
+    return <p>Invalid Draft Id</p>;
+  }
 
   return (
     <BlogContext.Provider

@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { cn, getSearchParamsArray } from "@/utils/utils";
+import { cn, getSearchParamsArray, scrollToElement } from "@/utils/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 import { useDebounce } from "use-debounce";
@@ -90,8 +90,9 @@ export const Searchbar = ({
 
     document.getElementById(id || "search-input")?.blur();
     setShowingAutocompletes(false);
-    document;
     if (searchParamQuery !== query) setQuery(searchParamQuery);
+
+    scrollToElement("data-container", 48);
   };
 
   const onArrowDown = () => {
@@ -119,14 +120,14 @@ export const Searchbar = ({
   };
 
   return (
-    <form className="w-full relative" autoComplete="new-password">
+    <form className="w-full relative">
       <label className=" sr-only" htmlFor="search-input">
         Search
       </label>
 
       <Input
         type="text"
-        name="searchbar"
+        name="search_bar"
         autoComplete="off"
         onKeyDown={onKeyDown}
         id={id || "search-input"}
@@ -151,7 +152,7 @@ export const Searchbar = ({
           setQuery(e.target.value);
         }}
         className={cn(
-          "w-full",
+          "w-full pr-12",
           imageTheme &&
             "bg-transparent text-[#F6F5AE] focus-visible:ring-[#F6F5AE]/50 placeholder:text-[#F6F5AE]/80 ring-offset-white focus-visible:ring-offset-0 border-none"
         )}
@@ -164,14 +165,14 @@ export const Searchbar = ({
         variant={"ghost"}
         onClick={onSearch}
         className={cn(
-          "absolute top-1/2 -translate-y-1/2 right-4 p-2",
+          "absolute top-1/2 -translate-y-1/2 right-2 p-2",
           imageTheme && "hover:bg-themeSecondary/20"
         )}
       >
         <span className="sr-only">Submit search</span>
         <Search
           className={cn(
-            "w-5 h-5",
+            "w-[18px] h-[18px]",
             imageTheme ? "text-[#F6F5AE]" : "text-gray-400"
           )}
         />

@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
-import { getSearchParamsArray } from "@/utils/utils";
+import { getSearchParamsArray, scrollToElement } from "@/utils/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export const PaginationControls = ({
@@ -67,17 +67,7 @@ export const PaginationControls = ({
   useEffect(() => {
     if (currentPage <= 1) return;
 
-    const dataContainer = document.getElementById("data-container");
-    if (!dataContainer) return;
-
-    const elementPosition = dataContainer.getBoundingClientRect().top;
-
-    const offsetPosition = elementPosition + window.scrollY - 48;
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: "smooth",
-    });
+    scrollToElement("data-container", 48);
   }, [currentPage]);
 
   return (

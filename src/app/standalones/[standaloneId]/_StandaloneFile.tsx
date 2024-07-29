@@ -6,6 +6,7 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 import { getStandalone } from "@/actions/getStandalone";
 import { PDFViewer } from "@/app/subjects/[subjectId]/[fileId]/_components/PDFViewer";
+import { redirect } from "next/navigation";
 
 export const StandaloneFile = async ({
   standaloneId,
@@ -13,7 +14,8 @@ export const StandaloneFile = async ({
   standaloneId: string;
 }) => {
   const standalone = await getStandalone(standaloneId);
-  if (!standalone) return <p>Invalid book/article id.</p>;
+
+  if (!standalone) return redirect("/standalones");
 
   const command = new GetObjectCommand({
     Key: standalone.pdfKey || "",

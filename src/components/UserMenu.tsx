@@ -1,7 +1,7 @@
 "use client";
-
+import { useState } from "react";
 import Image from "next/image";
-// Import useClerk()
+
 import {
   useUser,
   useClerk,
@@ -10,8 +10,9 @@ import {
   SignInButton,
   SignUpButton,
 } from "@clerk/nextjs";
-// Import the Next.js router
-import { usePathname, useRouter } from "next/navigation";
+
+import { usePathname, useSearchParams } from "next/navigation";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +21,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+
 import Link from "next/link";
+
 import {
   Edit,
   Gem,
@@ -30,19 +33,34 @@ import {
   Contact,
   PersonStanding,
 } from "lucide-react";
+
+import { IoBookOutline } from "react-icons/io5";
+import { PiGraduationCap } from "react-icons/pi";
+import { PiNewspaperClipping } from "react-icons/pi";
+
 import { Button } from "./ui/button";
+import { getSearchParamsArray } from "@/utils/utils";
 
 export const UserMenu = () => {
+  const [open, setOpen] = useState(false);
+
   const { isLoaded, user } = useUser();
   const { signOut, openUserProfile } = useClerk();
 
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const onSignOut = () => {
+    const searchParamsArray = getSearchParamsArray(searchParams, [], []);
+
+    signOut({ redirectUrl: `${pathname}?${searchParamsArray.join("&")}` });
+  };
 
   if (!isLoaded) return null;
 
   return (
     <>
-      <DropdownMenu modal={false}>
+      <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
         <DropdownMenuTrigger>
           <div className="relative w-9 h-9 rounded-full overflow-hidden">
             <Image
@@ -86,83 +104,95 @@ export const UserMenu = () => {
 
           <DropdownMenuSeparator />
 
-          <Link href={"/blogs"} className="sm:hidden">
-            <DropdownMenuItem>
-              <Newspaper className="mr-4 h-4 w-4 text-zinc-700" />
-              <span>Blogs</span>
-            </DropdownMenuItem>
-          </Link>
-
-          <Link href={"/standalones?type=Article"} className="sm:hidden">
-            <DropdownMenuItem>
-              <Newspaper className="mr-4 h-4 w-4 text-zinc-700" />
-              <span>Articles</span>
-            </DropdownMenuItem>
-          </Link>
-
-          <Link href={"/standalones?type=Book"} className="sm:hidden">
-            <DropdownMenuItem>
-              <Newspaper className="mr-4 h-4 w-4 text-zinc-700" />
-              <span>Books</span>
-            </DropdownMenuItem>
-          </Link>
-
-          <Link
-            href={"/?goTo=pricing"}
-            scroll={pathname !== "/"}
-            className="sm:hidden"
+          <div
+            className="max-h-72 overflow-y-auto overflow-x-hidden scrollbar-thin"
+            data-lenis-prevent
           >
-            <DropdownMenuItem className="sm:hidden">
-              <Gem className="mr-4 h-4 w-4 text-zinc-700" />
-              <span>Pricing</span>
-            </DropdownMenuItem>
-          </Link>
-
-          <Link href={"/contact_us"} className="sm:hidden">
-            <DropdownMenuItem>
-              <Contact className="mr-4 h-4 w-4 text-zinc-700" />
-              <span>Contact Us</span>
-            </DropdownMenuItem>
-          </Link>
-
-          <Link href={"/about_us"} className="sm:hidden">
-            <DropdownMenuItem>
-              <PersonStanding className="mr-4 h-4 w-4 text-zinc-700" />
-              <span>About Us</span>
-            </DropdownMenuItem>
-          </Link>
-
-          <DropdownMenuSeparator className="sm:hidden" />
-
-          {user && (
-            <Link href={"/blogEditor"}>
+            <Link href={"/subjects"} className="sm:hidden">
               <DropdownMenuItem>
-                <Edit className="mr-4 h-4 w-4 text-zinc-700" />
-                <span>Write Blog</span>
+                <PiGraduationCap className="mr-4 h-4 w-4 text-zinc-700" />
+                <span>Subjects</span>
               </DropdownMenuItem>
             </Link>
-          )}
 
-          {user && (
-            <Link href={`/blogs?userId=${user.id}`}>
+            <Link href={"/standalones?type=Book"} className="sm:hidden">
+              <DropdownMenuItem>
+                <IoBookOutline className="mr-4 h-4 w-4 text-zinc-700" />
+                <span>Books</span>
+              </DropdownMenuItem>
+            </Link>
+
+            <Link href={"/standalones?type=Article"} className="sm:hidden">
               <DropdownMenuItem>
                 <Newspaper className="mr-4 h-4 w-4 text-zinc-700" />
-                <span>My Blogs</span>
+                <span>Articles</span>
               </DropdownMenuItem>
             </Link>
-          )}
 
-          {user && (
-            <DropdownMenuItem onClick={() => openUserProfile()}>
-              <User className="mr-4 h-4 w-4 text-zinc-700" />
-              <span>Manage Account</span>
-            </DropdownMenuItem>
-          )}
+            <Link href={"/blogs"} className="sm:hidden">
+              <DropdownMenuItem>
+                <PiNewspaperClipping className="mr-4 h-4 w-4 text-zinc-700" />
+                <span>Blogs</span>
+              </DropdownMenuItem>
+            </Link>
+
+            <Link
+              href={"/?goTo=pricing"}
+              scroll={pathname !== "/"}
+              className="sm:hidden"
+            >
+              <DropdownMenuItem className="sm:hidden">
+                <Gem className="mr-4 h-4 w-4 text-zinc-700" />
+                <span>Pricing</span>
+              </DropdownMenuItem>
+            </Link>
+
+            <Link href={"/contact_us"} className="sm:hidden">
+              <DropdownMenuItem>
+                <Contact className="mr-4 h-4 w-4 text-zinc-700" />
+                <span>Contact Us</span>
+              </DropdownMenuItem>
+            </Link>
+
+            <Link href={"/about_us"} className="sm:hidden">
+              <DropdownMenuItem>
+                <PersonStanding className="mr-4 h-4 w-4 text-zinc-700" />
+                <span>About Us</span>
+              </DropdownMenuItem>
+            </Link>
+
+            <DropdownMenuSeparator className="sm:hidden" />
+
+            {user && (
+              <Link href={"/blogEditor"}>
+                <DropdownMenuItem>
+                  <Edit className="mr-4 h-4 w-4 text-zinc-700" />
+                  <span>Write Blog</span>
+                </DropdownMenuItem>
+              </Link>
+            )}
+
+            {user && (
+              <Link href={`/blogs?userId=${user.id}`}>
+                <DropdownMenuItem>
+                  <Newspaper className="mr-4 h-4 w-4 text-zinc-700" />
+                  <span>My Blogs</span>
+                </DropdownMenuItem>
+              </Link>
+            )}
+
+            {user && (
+              <DropdownMenuItem onClick={() => openUserProfile()}>
+                <User className="mr-4 h-4 w-4 text-zinc-700" />
+                <span>Manage Account</span>
+              </DropdownMenuItem>
+            )}
+          </div>
 
           <DropdownMenuSeparator />
 
           <SignedIn>
-            <DropdownMenuItem onClick={() => signOut()}>
+            <DropdownMenuItem onClick={onSignOut}>
               <LogOutIcon className="mr-4 h-4 w-4 text-zinc-700" />
               <span>Logout</span>
             </DropdownMenuItem>
@@ -172,14 +202,20 @@ export const UserMenu = () => {
               <ul className="w-full flex flex-col p-1 gap-2">
                 <li>
                   <SignInButton>
-                    <Button variant={"secondary"} className="w-full">
+                    <Button
+                      className="w-full"
+                      variant={"secondary"}
+                      onClick={() => setOpen(false)}
+                    >
                       Login
                     </Button>
                   </SignInButton>
                 </li>
                 <li>
                   <SignUpButton>
-                    <Button className="w-full">Get Started</Button>
+                    <Button onClick={() => setOpen(false)} className="w-full">
+                      Get Started
+                    </Button>
                   </SignUpButton>
                 </li>
               </ul>

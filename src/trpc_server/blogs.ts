@@ -15,34 +15,40 @@ export const blogsRouter = router({
       z.object({
         asAnUncompletedDraft: z.union([z.undefined(), z.boolean()]),
         draftId: z.union([z.string(), z.undefined(), z.null()]),
-        isPublished: z.union([z.undefined(), z.boolean()]),
         coverImage: z.union([z.undefined(), z.string()]),
         content: z.union([z.undefined(), z.string()]),
         title: z.union([z.undefined(), z.string()]),
+        pendingForApproval: z.boolean(),
+        isPublished: z.boolean(),
       })
     )
     .mutation(async ({ ctx, input }) => {
       const { userId } = ctx;
+
       const {
+        title,
         draftId,
         content,
         coverImage,
-        title,
-        asAnUncompletedDraft,
         isPublished,
+        pendingForApproval,
+        asAnUncompletedDraft,
       } = input;
 
       if (!draftId) {
+        const data = {
+          asAUncompletedDraft:
+            asAnUncompletedDraft === undefined ? true : asAnUncompletedDraft,
+          isPublished: isPublished,
+          pendingForApproval,
+          coverImage,
+          content,
+          userId,
+          title,
+        };
+
         const createdDraft = await prisma.blogs.create({
-          data: {
-            asAUncompletedDraft:
-              asAnUncompletedDraft === undefined ? true : asAnUncompletedDraft,
-            isPublished: isPublished!!,
-            coverImage,
-            content,
-            title,
-            userId,
-          },
+          data,
         });
 
         return createdDraft.id;
@@ -56,7 +62,8 @@ export const blogsRouter = router({
           title,
           content,
           coverImage,
-          isPublished: isPublished!!,
+          pendingForApproval,
+          isPublished: isPublished,
           asAUncompletedDraft:
             asAnUncompletedDraft === undefined ? true : asAnUncompletedDraft,
         },
@@ -108,6 +115,19 @@ export const blogsRouter = router({
                     ],
                   }
                 : {}),
+
+              ...(!userId
+                ? {
+                    filter: [
+                      {
+                        equals: {
+                          path: "isPublished",
+                          value: true,
+                        },
+                      },
+                    ],
+                  }
+                : {}),
             },
             count: {
               type: "total",
@@ -148,7 +168,7 @@ export const blogsRouter = router({
       const pipeline_noSearch = [
         {
           $match: {
-            isPublished: true,
+            ...(!userId ? { isPublished: true } : {}),
             ...(userId ? { userId } : {}),
           },
         },

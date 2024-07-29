@@ -25,6 +25,7 @@ export const Subjects = ({
     <div className="flex flex-col gap-6">
       <OverlayImageHeader
         heading={"Subjects"}
+        buttonLabel="Explore Subjects"
         subHeading={`Browse through our extensive collection of ${
           university || "several universities"
         } subjects.`}
