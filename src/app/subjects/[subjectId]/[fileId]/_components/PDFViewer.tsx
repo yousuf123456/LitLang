@@ -245,7 +245,7 @@ export const PDFViewer = ({
           </Button>
 
           <DropdownMenu modal={false}>
-            <DropdownMenuTrigger asChild className="md:hidden">
+            <DropdownMenuTrigger asChild className="">
               <Button
                 variant={"ghost"}
                 size={"icon"}
@@ -284,7 +284,7 @@ export const PDFViewer = ({
           options={options}
           onLoadError={onLoadError}
           loading={PDFLoadingState}
-          onLoadProgress={(data) => console.log(data.loaded, data.total)}
+          // onLoadProgress={(data) => console.log(data.loaded, data.total)}
           onLoadSuccess={({ numPages }) => setNumPages(numPages)}
         >
           <Page

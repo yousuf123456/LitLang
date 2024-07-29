@@ -231,7 +231,7 @@ export const ParallaxRevampedHero = () => {
                     shimmerColor="#EFD780"
                     className={buttonVariants({
                       size: "lg",
-                      className: "h-12 px-12",
+                      className: "h-12 px-11",
                     })}
                   >
                     Get Started For Free
@@ -239,7 +239,7 @@ export const ParallaxRevampedHero = () => {
                 </SignUpButton>
               </SignedOut>
               <SignedIn>
-                <Link href="/blogEditor">
+                <Link href="/subjects">
                   <ShimmerButton
                     shimmerSize="3px"
                     shimmerDuration="2s"
@@ -247,10 +247,10 @@ export const ParallaxRevampedHero = () => {
                     shimmerColor="#EFD780"
                     className={buttonVariants({
                       size: "lg",
-                      className: "h-12 px-12",
+                      className: "h-12 px-11",
                     })}
                   >
-                    Publish a Blog
+                    Get Your Material Now
                   </ShimmerButton>
                 </Link>
               </SignedIn>

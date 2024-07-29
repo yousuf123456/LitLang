@@ -72,13 +72,19 @@ export const Blog = ({ blog, writer }: { blog: blogs; writer: User }) => {
             </div>
           </header>
 
-          <figure className="w-full aspect-w-16 aspect-h-8 relative mt-4">
-            <Image
-              fill
-              alt="Blog Cover Image"
-              src={blog.coverImage!}
-              className="object-cover"
-            />
+          <figure className="w-full aspect-w-16 aspect-h-8 relative mt-4 bg-zinc-100">
+            {blog.coverImage ? (
+              <Image
+                fill
+                src={blog.coverImage}
+                alt="Blog Cover Image"
+                className="object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex justify-center items-center">
+                <p className="text-zinc-600 text-lg">Cover Image</p>
+              </div>
+            )}
           </figure>
         </div>
 

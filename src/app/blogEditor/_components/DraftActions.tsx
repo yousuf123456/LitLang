@@ -20,32 +20,6 @@ export const DraftActions = ({
   const { content, title, coverImage, updateOrCreateDraft, unsavedChanges } =
     useContext(BlogContext);
 
-  // const unsavedChanges = useMemo((): boolean => {
-  //   if (initialDraft === null) return true;
-
-  //   const unsavedChanges =
-  //     title !== (initialDraft.title || undefined) ||
-  //     content !== (initialDraft.content || undefined) ||
-  //     coverImage !== (initialDraft.coverImage || undefined);
-
-  //   return unsavedChanges;
-  // }, [initialDraft, title, content, coverImage]);
-
-  // useEffect(() => {
-  //   const onbeforeunloadFn = async (e: any) => {
-  //     if (!unsavedChanges) return;
-
-  //     e.preventDefault();
-  //     updateOrCreateDraft({ draftId, content, title, coverImage });
-  //   };
-
-  //   window.addEventListener("beforeunload", onbeforeunloadFn);
-
-  //   return () => {
-  //     window.removeEventListener("beforeunload", onbeforeunloadFn);
-  //   };
-  // }, [unsavedChanges, updateOrCreateDraft]);
-
   return (
     <header className="md:py-6 py-4 lg:px-16 xl:px-20 md:px-8 px-3 border-b border-zinc-300 sticky top-0 left-0 bg-white z-50">
       <div className="flex justify-between items-center w-full gap-3 sm:gap-8">
@@ -75,26 +49,37 @@ export const DraftActions = ({
             variant={"secondary"}
             disabled={!unsavedChanges || !!isLoading}
             onClick={() =>
-              updateOrCreateDraft({ draftId, content, title, coverImage })
+              updateOrCreateDraft({
+                title,
+                draftId,
+                content,
+                coverImage,
+                isPublished: false,
+                pendingForApproval: false,
+                asAnUncompletedDraft: true,
+              })
             }
           >
             {unsavedChanges ? "Save Draft" : "Saved"}
           </Button>
 
           <Button
-            disabled={!!isLoading}
+            disabled={!!isLoading || initialDraft?.pendingForApproval}
             onClick={() =>
               updateOrCreateDraft({
+                title,
                 draftId,
                 content,
-                title,
                 coverImage,
+                isPublished: false,
+                pendingForApproval: true,
                 asAnUncompletedDraft: false,
-                isPublished: true,
               })
             }
           >
-            Publish
+            {initialDraft?.pendingForApproval
+              ? "Waiting For Approval"
+              : "Publish"}
           </Button>
         </div>
       </div>

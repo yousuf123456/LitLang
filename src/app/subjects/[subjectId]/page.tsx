@@ -20,6 +20,7 @@ import { Loader, Plus } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getSubject } from "@/actions/getSubject";
 import { PaddingTopWrapper } from "@/components/PaddingTopWrapper";
+import { redirect } from "next/navigation";
 
 export const revalidate = 3600;
 
@@ -30,7 +31,7 @@ export default async function SubjectPage({
 }) {
   const subject = await getSubject(params.subjectId);
 
-  if (!subject) return <p>Invalid Subject Id</p>;
+  if (!subject) redirect("/subjects");
 
   return (
     <PaddingTopWrapper>

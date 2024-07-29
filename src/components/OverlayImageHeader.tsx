@@ -7,6 +7,7 @@ import { HeroImage } from "@/app/(landingPage)/_components/HeroImage";
 import { LazyMotion, m, useScroll, useTransform } from "framer-motion";
 import { Button } from "./ui/button";
 import { StaticImageData } from "next/image";
+import { scrollToElement } from "@/utils/utils";
 const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
 
@@ -25,19 +26,19 @@ export const OverlayImageHeader = ({
     [key in "tabs" | "desktop" | "mobiles"]?: string;
   };
 }) => {
-  const onClick = () => {
-    const dataContainer = document.getElementById("data-container");
-    if (!dataContainer) return;
+  // const onClick = () => {
+  //   const dataContainer = document.getElementById("data-container");
+  //   if (!dataContainer) return;
 
-    const elementPosition = dataContainer.getBoundingClientRect().top;
+  //   const elementPosition = dataContainer.getBoundingClientRect().top;
 
-    const offsetPosition = elementPosition + window.scrollY - 48;
+  //   const offsetPosition = elementPosition + window.scrollY - 48;
 
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: "smooth",
-    });
-  };
+  //   window.scrollTo({
+  //     top: offsetPosition,
+  //     behavior: "smooth",
+  //   });
+  // };
 
   const targetedRef = useRef<null | HTMLDivElement>(null);
 
@@ -49,14 +50,14 @@ export const OverlayImageHeader = ({
   const y = useTransform(scrollYProgress, [0, 0.5], [0, -48]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.7], [0.5, 0]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.4, 0]);
 
   return (
     <div ref={targetedRef} className="h-screen w-full relative overlay-image">
       <LazyMotion features={loadFeatures} strict>
         <m.div
           style={{ y, opacity }}
-          className="absolute z-20 inset-0 flex flex-col gap-8 justify-center items-center"
+          className="absolute z-20 inset-0 flex flex-col gap-5 justify-center items-center"
         >
           {children}
 
@@ -76,7 +77,11 @@ export const OverlayImageHeader = ({
           </Heading>
 
           {buttonLabel && (
-            <Button size={"lg"} onClick={onClick}>
+            <Button
+              size={"lg"}
+              onClick={() => scrollToElement("data-container", 48)}
+              className="mt-4"
+            >
               {buttonLabel}
             </Button>
           )}

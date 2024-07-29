@@ -43,7 +43,7 @@ export const StandaloneFilesList = () => {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
         <div className="relative p-1.5 sm:p-3 lg:p-4 block">
-          <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5">
+          <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5 flex flex-col gap-4">
             <div className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-1.5">
               <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8"></div>
             </div>
@@ -55,7 +55,7 @@ export const StandaloneFilesList = () => {
         </div>
 
         <div className="relative p-1.5 sm:p-3 lg:p-4 block">
-          <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5">
+          <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5 flex flex-col gap-4">
             <div className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-1.5">
               <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8"></div>
             </div>
@@ -116,11 +116,11 @@ export const StandaloneFilesList = () => {
               <div className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
                 <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8">
                   <Image
-                    src={createImageUrlFromWebViewLink(book.imageUrl)}
-                    alt="subject Cover Image"
-                    className="object-cover"
-                    loading="lazy"
                     fill
+                    loading="lazy"
+                    className="object-cover"
+                    alt="subject Cover Image"
+                    src={createImageUrlFromWebViewLink(book.imageUrl)}
                   />
                 </div>
               </div>

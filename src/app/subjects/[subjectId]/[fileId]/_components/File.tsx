@@ -1,22 +1,14 @@
 import React from "react";
 
+import { redirect } from "next/navigation";
+
 import aws_s3 from "@/app/utils/aws-s3";
 import { PDFViewer } from "./PDFViewer";
 import { GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
-import dynamic from "next/dynamic";
-const AudioPlayer = dynamic(
-  () => import("./AudioPlayer").then((mod) => mod.AudioPlayer),
-  {
-    ssr: false,
-  }
-);
-
 import { getSubject } from "@/actions/getSubject";
 import { findFileById } from "@/utils/utils";
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const File = async ({
   fileId,
@@ -26,10 +18,12 @@ export const File = async ({
   subjectId: string;
 }) => {
   const subject = await getSubject(subjectId);
-  if (!subject) return <p>Invalid Subject Id</p>;
+
+  if (!subject) redirect("/subjects");
 
   const file = findFileById(subject.resources, fileId);
-  if (!file) return <p>Invalid File Id</p>;
+
+  if (!file) redirect(`/subjects/${subjectId}`);
 
   const command = new GetObjectCommand({
     Key: file.key || "",

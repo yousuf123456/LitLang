@@ -36,7 +36,7 @@ export const BlogsList = () => {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
         <div className="relative p-1.5 sm:p-3 lg:p-4 block">
-          <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5">
+          <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5 flex flex-col gap-4">
             <div className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-1.5">
               <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8"></div>
             </div>
@@ -52,7 +52,7 @@ export const BlogsList = () => {
         </div>
 
         <div className="relative p-1.5 sm:p-3 lg:p-4 block">
-          <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5">
+          <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5 flex flex-col gap-4">
             <div className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-1.5">
               <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8"></div>
             </div>
@@ -61,7 +61,7 @@ export const BlogsList = () => {
               <div className="h-14" />
 
               <div className="w-full flex items-center">
-                <div className="h-4" />
+                <div className="h-5" />
               </div>
             </div>
           </Skeleton>
@@ -115,14 +115,20 @@ export const BlogsList = () => {
 
             <div className="w-full h-full rounded-xl bg-zinc-50 hover:bg-white border border-zinc-200 p-1.5 flex flex-col gap-4 group cursor-pointer z-20">
               <div className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
-                <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8">
-                  <Image
-                    fill
-                    loading="lazy"
-                    alt="Blog Cover Image"
-                    src={blog.coverImage!}
-                    className="object-cover"
-                  />
+                <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8 bg-zinc-100">
+                  {blog.coverImage ? (
+                    <Image
+                      fill
+                      loading="lazy"
+                      alt="Blog Cover Image"
+                      src={blog.coverImage}
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex justify-center items-center">
+                      <p className="text-zinc-600">Cover Image</p>
+                    </div>
+                  )}
                 </div>
               </div>
 

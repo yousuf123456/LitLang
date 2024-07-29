@@ -55,7 +55,15 @@ export const BlogEditor = ({
     }>[]
   ) => {
     setCoverImage(res[0].url);
-    updateOrCreateDraft({ draftId, content, title, coverImage: res[0].url });
+    updateOrCreateDraft({
+      title,
+      draftId,
+      content,
+      isPublished: false,
+      coverImage: res[0].url,
+      pendingForApproval: false,
+      asAnUncompletedDraft: true,
+    });
   };
 
   return (

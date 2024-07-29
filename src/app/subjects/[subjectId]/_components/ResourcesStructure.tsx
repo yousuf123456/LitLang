@@ -3,14 +3,7 @@ import React, { useState } from "react";
 
 import Link from "next/link";
 import { ResourceType } from "@/types";
-import {
-  ChevronRight,
-  Folder,
-  Lock,
-  LucideProps,
-  Mic,
-  Mic2,
-} from "lucide-react";
+import { ChevronRight, Folder, Lock, LucideProps } from "lucide-react";
 
 import { AiFillAudio, AiFillFilePdf, AiOutlineFilePdf } from "react-icons/ai";
 import { FaMicrophone } from "react-icons/fa";
@@ -23,13 +16,17 @@ const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
 
 export const ResourcesStructure = ({
+  open,
+  setOpen,
   resources,
   subjectId,
   paddingLeft,
 }: {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   resources: ResourceType[];
   paddingLeft: number;
   subjectId: string;
+  open: boolean;
 }) => {
   return (
     <LazyMotion features={loadFeatures} strict>
@@ -50,6 +47,8 @@ export const ResourcesStructure = ({
             return (
               <FolderStructure
                 key={i}
+                open={open}
+                setOpen={setOpen}
                 resource={resource}
                 subjectId={subjectId}
                 paddingLeft={paddingLeft}
@@ -62,6 +61,8 @@ export const ResourcesStructure = ({
                 paddingLeft={paddingLeft}
                 name={resource.name}
                 Icon={AiFillFilePdf}
+                setOpen={setOpen}
+                open={open}
                 key={i}
               />
             ) : (
@@ -71,6 +72,8 @@ export const ResourcesStructure = ({
                   paddingLeft={paddingLeft}
                   Icon={AiOutlineFilePdf}
                   name={resource.name}
+                  setOpen={setOpen}
+                  open={open}
                 />
               </Link>
             );
@@ -81,6 +84,8 @@ export const ResourcesStructure = ({
                   paddingLeft={paddingLeft}
                   name={resource.name}
                   Icon={FaMicrophone}
+                  setOpen={setOpen}
+                  open={open}
                   isPremium
                 />
               </Link>
@@ -93,13 +98,17 @@ export const ResourcesStructure = ({
 };
 
 const FolderStructure = ({
+  open,
+  setOpen,
   resource,
   subjectId,
   paddingLeft,
 }: {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   resource: ResourceType;
   paddingLeft: number;
   subjectId: string;
+  open: boolean;
 }) => {
   const [isChildsCollapsed, setIsChildsCollapsed] = useState(true);
 
@@ -131,6 +140,8 @@ const FolderStructure = ({
 
       {!isChildsCollapsed && (
         <ResourcesStructure
+          open={open}
+          setOpen={setOpen}
           subjectId={subjectId}
           paddingLeft={paddingLeft + 8}
           resources={resource.resources}
@@ -143,25 +154,32 @@ const FolderStructure = ({
 const File = ({
   paddingLeft,
   isPremium,
+  setOpen,
   Icon,
   name,
+  open,
 }: {
   Icon:
     | IconType
     | React.ForwardRefExoticComponent<
         Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
       >;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   paddingLeft: number;
   isPremium: boolean;
+  open: boolean;
   name: string;
 }) => {
   return (
     <li
       role="treeitem"
+      onClick={() => {
+        if (isPremium) setOpen(true);
+      }}
       style={{ paddingLeft: paddingLeft + 4 }}
       className={cn(
         "flex items-center gap-2 py-3 pr-3 hover:bg-zinc-200/40 transition-colors",
-        isPremium && " opacity-[0.85] pointer-events-none"
+        isPremium && "opacity-[0.85]"
       )}
     >
       {isPremium ? (
