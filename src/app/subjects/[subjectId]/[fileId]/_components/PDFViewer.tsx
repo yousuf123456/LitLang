@@ -26,7 +26,7 @@ import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { absoluteUrl, cn } from "@/utils/utils";
+import { cn } from "@/utils/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -69,10 +69,10 @@ if (typeof Promise.withResolvers === "undefined") {
 // ).toString();
 
 //@ts-ignore
-import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
+// import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
 
-pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
-// pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.js`;
+// pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 // pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
@@ -138,6 +138,10 @@ export const PDFViewer = ({
     setRotation((prev) => prev + 90);
   };
 
+  useEffect(() => {
+    console.log(pageNumber);
+  }, [pageNumber]);
+
   const onLoadError = (e: any) => {
     console.log(e);
     toast.error("Error loading PDF file", {
@@ -149,8 +153,9 @@ export const PDFViewer = ({
     <article
       aria-labelledby="pdf-viewer-heading"
       className={cn(
-        "flex-1 flex flex-col gap-0 overflow-x-hidden bg-[#DDD8C2] items-center print:hidden",
-        isFullscreen ? "fixed inset-0 z-[99999]" : "relative"
+        "flex-1 flex flex-col gap-0 overflow-x-hidden bg-[#DDD8C2] print:hidden",
+        isFullscreen ? "fixed inset-0 z-[99999]" : "relative",
+        scale < 1 && "items-center"
       )}
     >
       <h2 id="pdf-viewer-heading" className="sr-only">
@@ -163,7 +168,7 @@ export const PDFViewer = ({
         aria-label="PDF controls"
         className="flex items-center px-0 justify-between w-full h-14 flex-shrink-0"
       >
-        <div className="flex items-center gap-3 ml-2 sm:ml-4 max-sm:absolute bottom-4 max-sm:-translate-x-1/2 left-1/2 z-50 max-sm:bg-[#DDD8C2] max-sm:drop-shadow-md max-sm:p-0.5 max-sm:rounded-lg">
+        <div className="flex items-center gap-3 ml-2 sm:ml-4 max-sm:absolute bottom-4 max-sm:-translate-x-1/2 left-1/2 z-50 max-sm:bg-[#DDD8C2] max-sm:drop-shadow-lg max-sm:p-0.5 max-sm:rounded-lg">
           <Button
             size={"icon"}
             variant={"ghost"}
@@ -280,14 +285,10 @@ export const PDFViewer = ({
 
       <ScrollArea role="document" aria-label={`PDF document: ${name}`}>
         <Document
-          file={
-            pdfUrl ||
-            "https://s3.amazonaws.com/pdftron/downloads/pl/2gb-sample-file.pdf"
-          }
+          file={pdfUrl}
           options={options}
           onLoadError={onLoadError}
           loading={PDFLoadingState}
-          // onLoadProgress={(data) => console.log(data.loaded, data.total)}
           onLoadSuccess={({ numPages }) => setNumPages(numPages)}
         >
           <Page

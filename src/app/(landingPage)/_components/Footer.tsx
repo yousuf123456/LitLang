@@ -14,7 +14,7 @@ export const Footer = () => {
       className={cn(
         "bg-brown-800",
         !/^\/subjects\/[^\/]+\/[^\/]+$/.test(pathname) &&
-          !/^\/standalones\/[^\/]+\/[^\/]+$/.test(pathname) &&
+          !/^\/standalones\/[\w\d]+$/.test(pathname) &&
           pathname !== "/contact_us" &&
           "mt-28 md:mt-32"
       )}

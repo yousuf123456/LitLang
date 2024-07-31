@@ -11,7 +11,7 @@ export default function BookFilePage({
 }) {
   return (
     <PaddingTopWrapper>
-      <div className="max-h-[calc(100vh-73px)] min-h-[calc(100vh-73px)] flex">
+      <div className="max-h-[calc(100dvh-73px)] min-h-[calc(100dvh-73px)] flex">
         <Suspense
           key={`${params.standaloneId}`}
           fallback={
