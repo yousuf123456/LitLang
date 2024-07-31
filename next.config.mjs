@@ -10,6 +10,22 @@ const nextConfig = {
       { hostname: "utfs.io" },
     ],
   },
+  webpack: (config, { isServer, nextRuntime }) => {
+    if (true) {
+      config.snapshot.managedPaths = [];
+
+      Object.defineProperty(config, "watchOptions", {
+        ...Object.getOwnPropertyDescriptor(config, "watchOptions"),
+        value: {
+          ...config.watchOptions,
+          ignored:
+            /^((?:[^/]*(?:\/|$))*)(\.(git|next))(\/((?:[^/]*(?:\/|$))*)(?:$|\/))?/,
+        },
+      });
+    }
+
+    return config;
+  },
 };
 
 export default nextConfig;

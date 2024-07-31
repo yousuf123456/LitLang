@@ -68,7 +68,11 @@ if (typeof Promise.withResolvers === "undefined") {
 //   import.meta.url
 // ).toString();
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+//@ts-ignore
+import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
+
+pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+// pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.js`;
 
 // pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
@@ -117,19 +121,15 @@ export const PDFViewer = ({
     });
 
   const onZoomIn = () => {
-    const availScales = [1, 1.5, 2, 2.5];
+    if (scale >= 2) return;
 
-    const oldScaleIndex = availScales.indexOf(scale);
-    if (oldScaleIndex === availScales.length - 1) return;
-    else setScale(availScales[oldScaleIndex + 1]);
+    setScale((prev) => prev + 0.25);
   };
 
   const onZoomOut = () => {
-    const availScales = [1, 1.5, 2, 2.5];
+    if (scale <= 0.25) return;
 
-    const oldScaleIndex = availScales.indexOf(scale);
-    if (oldScaleIndex === 0) return;
-    else setScale(availScales[oldScaleIndex - 1]);
+    setScale((prev) => prev - 0.25);
   };
 
   const toggleFullscreen = () => setIsFullscreen((prev) => !prev);
@@ -149,8 +149,8 @@ export const PDFViewer = ({
     <article
       aria-labelledby="pdf-viewer-heading"
       className={cn(
-        "flex-1 flex flex-col gap-0 overflow-x-hidden bg-[#DDD8C2] print:hidden",
-        isFullscreen ? "fixed inset-0 z-50" : "relative"
+        "flex-1 flex flex-col gap-0 overflow-x-hidden bg-[#DDD8C2] items-center print:hidden",
+        isFullscreen ? "fixed inset-0 z-[99999]" : "relative"
       )}
     >
       <h2 id="pdf-viewer-heading" className="sr-only">
@@ -163,13 +163,13 @@ export const PDFViewer = ({
         aria-label="PDF controls"
         className="flex items-center px-0 justify-between w-full h-14 flex-shrink-0"
       >
-        <div className="flex items-center gap-3 ml-2 sm:ml-4 max-sm:absolute bottom-2 max-sm:-translate-x-1/2 left-1/2 z-50 max-sm:bg-[#DDD8C2] max-sm:p-0.5 max-sm:rounded-lg">
+        <div className="flex items-center gap-3 ml-2 sm:ml-4 max-sm:absolute bottom-4 max-sm:-translate-x-1/2 left-1/2 z-50 max-sm:bg-[#DDD8C2] max-sm:drop-shadow-md max-sm:p-0.5 max-sm:rounded-lg">
           <Button
             size={"icon"}
-            aria-label="Previous page"
             variant={"ghost"}
             onClick={goToPrevPage}
-            disabled={pageNumber === 1}
+            aria-label="Previous page"
+            disabled={pageNumber === 1 || numPages === 0}
           >
             <ChevronLeft className="w-5 h-5 text-black sm:text-black/70" />
           </Button>
@@ -177,11 +177,12 @@ export const PDFViewer = ({
           <div className="flex items-center gap-1.5">
             <Input
               type="number"
+              value={inputPageNumber}
+              disabled={numPages === 0}
               onBlur={() => {
                 if (Number.isNaN(inputPageNumber))
                   setInputPageNumber(pageNumber);
               }}
-              value={inputPageNumber}
               onChange={(e) => setInputPageNumber(parseInt(e.target.value))}
               className="w-8 h-6 p-0 text-center font-medium text-black [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent border-black/70"
             />
@@ -191,11 +192,11 @@ export const PDFViewer = ({
           </div>
 
           <Button
-            aria-label="Next page"
-            variant={"ghost"}
             size={"icon"}
+            variant={"ghost"}
+            aria-label="Next page"
             onClick={goToNextPage}
-            disabled={!numPages || pageNumber === numPages}
+            disabled={numPages === 0 || pageNumber === numPages}
           >
             <ChevronRight className="w-5 h-5 text-black sm:text-black/70" />
           </Button>
@@ -204,10 +205,10 @@ export const PDFViewer = ({
         <div className="flex items-center max-sm:justify-around max-sm:w-full gap-1 sm:gap-4 mr-2 sm:mr-4">
           <Button
             size={"icon"}
-            aria-label="Zoom in"
             variant={"ghost"}
             onClick={onZoomIn}
-            disabled={scale === 2.5}
+            aria-label="Zoom in"
+            disabled={scale === 2 || numPages === 0}
           >
             <ZoomIn className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
           </Button>
@@ -217,7 +218,7 @@ export const PDFViewer = ({
             variant={"ghost"}
             onClick={onZoomOut}
             aria-label="Zoom out"
-            disabled={scale === 1}
+            disabled={scale === 0.25 || numPages === 0}
           >
             <ZoomOut className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
           </Button>
@@ -227,6 +228,7 @@ export const PDFViewer = ({
             variant={"ghost"}
             onClick={onRotate}
             aria-label="rotate"
+            disabled={numPages === 0}
           >
             <RotateCcw className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
           </Button>
@@ -235,6 +237,7 @@ export const PDFViewer = ({
             size={"icon"}
             variant={"ghost"}
             aria-label="Fullscreen"
+            disabled={numPages === 0}
             onClick={toggleFullscreen}
           >
             {isFullscreen ? (
@@ -247,8 +250,8 @@ export const PDFViewer = ({
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild className="">
               <Button
-                variant={"ghost"}
                 size={"icon"}
+                variant={"ghost"}
                 aria-label="Go back options"
               >
                 <EllipsisVertical className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
@@ -256,7 +259,7 @@ export const PDFViewer = ({
             </DropdownMenuTrigger>
             <DropdownMenuContent
               sideOffset={5}
-              className="max-w-xl w-72 rounded-xl md:hidden"
+              className="max-w-xl w-72 rounded-xl"
             >
               <DropdownMenuLabel className="py-3" asChild>
                 <p className=" line-clamp-2 text-sm text-zinc-700">{name}</p>

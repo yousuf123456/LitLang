@@ -26,9 +26,11 @@ export const StandaloneFile = async ({
     expiresIn: 900,
   });
 
+  const url = `https://litlang2.s3.amazonaws.com/${standalone.pdfKey}`;
+
   return (
     <PDFViewer
-      pdfUrl={signedUrl}
+      pdfUrl={url || signedUrl}
       backUrl={"/standalones"}
       name={standalone.name}
     />
