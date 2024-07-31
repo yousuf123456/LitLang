@@ -25,22 +25,24 @@ export const File = async ({
 
   if (!file) redirect(`/subjects/${subjectId}`);
 
-  const command = new GetObjectCommand({
-    Key: file.key || "",
-    Bucket: "litlang2",
-  });
+  // const command = new GetObjectCommand({
+  //   Key: file.key || "",
+  //   Bucket: "litlang2",
+  // });
 
-  const signedUrl = await getSignedUrl(aws_s3, command, {
-    expiresIn: 5,
-  });
+  // const signedUrl = await getSignedUrl(aws_s3, command, {
+  //   expiresIn: 3600,
+  // });
+
+  const url = `https://litlang2.s3.amazonaws.com/${file.key}`;
 
   return (
     <>
       {file.type === "PDF" ? (
         <PDFViewer
           backUrl={`/subjects/${subjectId}`}
-          pdfUrl={signedUrl}
           name={file.name}
+          pdfUrl={url}
         />
       ) : (
         <p></p>

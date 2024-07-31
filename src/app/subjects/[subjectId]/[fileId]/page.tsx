@@ -16,7 +16,7 @@ export default function FilePage({
 }) {
   return (
     <PaddingTopWrapper>
-      <div className="max-h-[calc(100vh-73px)] min-h-[calc(100vh-73px)] flex">
+      <div className="max-h-[calc(100dvh-72px)] min-h-[calc(100dvh-72px)] flex">
         <Suspense
           key={`${params.subjectId} ${params.fileId}`}
           fallback={
