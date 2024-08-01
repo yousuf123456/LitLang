@@ -287,7 +287,6 @@ export const PDFViewer = ({
       <ScrollArea role="document" aria-label={`PDF document: ${name}`}>
         <Document
           file={pdfUrl}
-          renderMode="svg"
           options={options}
           onLoadError={onLoadError}
           loading={PDFLoadingState}
