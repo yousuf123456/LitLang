@@ -115,13 +115,13 @@ export const BlogsList = () => {
 
             <div className="w-full h-full rounded-xl bg-zinc-50 hover:bg-white border border-zinc-200 p-1.5 flex flex-col gap-4 group cursor-pointer z-20">
               <div className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
-                <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8 bg-zinc-100">
+                <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8 bg-zinc-50">
                   {blog.coverImage ? (
                     <Image
                       fill
                       loading="lazy"
-                      alt="Blog Cover Image"
                       src={blog.coverImage}
+                      alt="Blog Cover Image"
                       className="object-cover"
                     />
                   ) : (

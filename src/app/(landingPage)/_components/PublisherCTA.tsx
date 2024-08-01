@@ -17,7 +17,6 @@ import {
 } from "framer-motion";
 import { SignedIn, SignedOut, SignUpButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { absoluteUrl } from "@/utils/utils";
 
 const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
@@ -42,10 +41,6 @@ export const PublisherCTA = () => {
   useEffect(() => {
     if (inView) controls.start("animate");
   }, [inView]);
-
-  const request = () => {
-    fetch(absoluteUrl("/api/drive"), { method: "POST" });
-  };
 
   return (
     <section>
@@ -117,11 +112,11 @@ export const RevampedPublisherCTA = () => {
 
   const overlayOpacity = useTransform(
     scrollYProgress,
-    [0.55, 0.7, 1],
-    [0.5, 0, 0]
+    [0.55, 0.65, 1],
+    [0.4, 0, 0]
   );
 
-  const scale = useTransform(scrollYProgress, [0.7, 1], [1, 0.9]);
+  const scale = useTransform(scrollYProgress, [0.7, 1], [1, 0.935]);
 
   const contentRef = useRef<HTMLDivElement>(null);
 

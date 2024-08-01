@@ -77,12 +77,12 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 // pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 export const PDFViewer = ({
-  pdfUrl,
   backUrl,
+  pdfUrl,
   name,
 }: {
-  pdfUrl: string;
   backUrl: string;
+  pdfUrl: string;
   name: string;
 }) => {
   const options = useMemo(() => {
@@ -154,7 +154,7 @@ export const PDFViewer = ({
       aria-labelledby="pdf-viewer-heading"
       className={cn(
         "flex-1 flex flex-col gap-0 overflow-x-hidden bg-[#DDD8C2] print:hidden",
-        isFullscreen ? "fixed inset-0 z-[99999]" : "relative",
+        isFullscreen ? "fixed inset-0 z-[9999]" : "relative",
         scale < 1 && "items-center"
       )}
     >
@@ -253,7 +253,7 @@ export const PDFViewer = ({
           </Button>
 
           <DropdownMenu modal={false}>
-            <DropdownMenuTrigger asChild className="">
+            <DropdownMenuTrigger asChild>
               <Button
                 size={"icon"}
                 variant={"ghost"}
@@ -262,9 +262,10 @@ export const PDFViewer = ({
                 <EllipsisVertical className="sm:w-5 sm:h-5 w-[18px] h-[18px] text-black/70" />
               </Button>
             </DropdownMenuTrigger>
+
             <DropdownMenuContent
               sideOffset={5}
-              className="max-w-xl w-72 rounded-xl"
+              className="max-w-xl w-72 rounded-xl z-[99999]"
             >
               <DropdownMenuLabel className="py-3" asChild>
                 <p className=" line-clamp-2 text-sm text-zinc-700">{name}</p>

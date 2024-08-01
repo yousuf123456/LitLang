@@ -9,6 +9,7 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 import { getSubject } from "@/actions/getSubject";
 import { findFileById } from "@/utils/utils";
+import { headers } from "next/headers";
 
 export const File = async ({
   fileId,
@@ -24,15 +25,6 @@ export const File = async ({
   const file = findFileById(subject.resources, fileId);
 
   if (!file) redirect(`/subjects/${subjectId}`);
-
-  // const command = new GetObjectCommand({
-  //   Key: file.key || "",
-  //   Bucket: "litlang2",
-  // });
-
-  // const signedUrl = await getSignedUrl(aws_s3, command, {
-  //   expiresIn: 3600,
-  // });
 
   const url = `https://litlang2.s3.amazonaws.com/${file.key}`;
 

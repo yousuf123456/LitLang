@@ -1,3 +1,17 @@
+// S3 Folder Structure
+
+//For Subjects
+// litlang2/ -> Litlang/ -> Universities/ -> UniversitySubjectsFolder/ -> SemestersFolders/ -> SubjectsFolders/ -> Here Subject Image and All Subject Files
+
+//For Books
+// litlang2/ -> Litlang/ -> Books/ -> BookFileFolder/ -> Here Book Image and Book pdf file
+
+//For Articles
+// litlang2/ -> Litlang/ -> Articles/ -> ArticleFileFolder/ -> Here Article Image and Book pdf file
+
+//For Texts
+// litlang2/ -> Litlang/ -> Texts/ -> TextFileFolder/ -> Here Text Image and Book pdf file
+
 "use server";
 import ObjectId from "bson-objectid";
 
@@ -209,6 +223,38 @@ export const syncUpWithS3 = async () => {
         name: folder.name || "Untitled",
         imageUrl:
           bookImage?.url ||
+          "https://litlang2.s3.amazonaws.com/Litlang/Books/100 mistakes that changed history backfires and blunders that collapsed empires, crashed economies, and altered the course of our world by Bill Fawcett/WhatsApp Image 2024-07-20 at 2.48.33 PM.jpeg",
+        pdfKey: pdfFile.key,
+      });
+    })
+  );
+
+  const textsFolders = await listObjects("Litlang/Texts/");
+
+  await Promise.all(
+    (textsFolders || []).map(async (folder) => {
+      const textFiles = await listObjects(folder.prefix);
+
+      const textImage = (textFiles || []).filter(
+        (textFile) =>
+          textFile.mimeType === "image/jpeg" ||
+          textFile.mimeType === "image/png" ||
+          textFile.mimeType === "image/gif" ||
+          textFile.mimeType === "image/bmp" ||
+          textFile.mimeType === "image/tiff" ||
+          textFile.mimeType === "image/webp" ||
+          textFile.mimeType === "image/svg+xml"
+      )[0];
+
+      const pdfFile = (textFiles || []).filter(
+        (textFile) => textFile.mimeType === "application/pdf"
+      )[0];
+
+      dbStandalones.push({
+        type: "Text",
+        name: folder.name || "Untitled",
+        imageUrl:
+          textImage?.url ||
           "https://litlang2.s3.amazonaws.com/Litlang/Books/100 mistakes that changed history backfires and blunders that collapsed empires, crashed economies, and altered the course of our world by Bill Fawcett/WhatsApp Image 2024-07-20 at 2.48.33 PM.jpeg",
         pdfKey: pdfFile.key,
       });
