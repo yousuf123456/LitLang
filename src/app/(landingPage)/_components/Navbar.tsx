@@ -4,9 +4,9 @@ import React, { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/utils/utils";
-import { useParams, usePathname } from "next/navigation";
-import { Search_NavMenu } from "./Search_NavMenu";
 import { UserAccount } from "./UserAccount";
+import { usePathname } from "next/navigation";
+import { Search_NavMenu } from "./Search_NavMenu";
 
 export const Navbar = ({}: {}) => {
   const pathname = usePathname();

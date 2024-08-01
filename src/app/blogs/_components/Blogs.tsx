@@ -15,6 +15,7 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
+import Link from "next/link";
 
 export const Blogs = ({
   isUserSpecificBlogs,
@@ -45,10 +46,10 @@ export const Blogs = ({
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink
-                  href="/blogs"
+                  asChild
                   className="sm:text-base text-white/90 hover:text-white/70"
                 >
-                  Blogs
+                  <Link href={"/blogs"}>Blogs</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
 

@@ -6,7 +6,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { cn, getSearchParamsArray, scrollToElement } from "@/utils/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useDebounce } from "use-debounce";
 import { SubjectType } from "@/types";
 
@@ -69,6 +69,24 @@ export const Searchbar = ({
 
   const router = useRouter();
 
+  const onRemoveSearch = () => {
+    const searchParamsArray = getSearchParamsArray(
+      searchParams,
+      [],
+      ["query", "paginationToken", "going", "page"]
+    );
+
+    router.push(`${pathname}?${searchParamsArray.join("&")}`, {
+      scroll: false,
+    });
+
+    setQuery("");
+    setShowingAutocompletes(false);
+    document.getElementById(id || "search-input")?.blur();
+
+    scrollToElement("data-container", 48);
+  };
+
   const onSearch = (e?: any, autocompleteValue?: string) => {
     if (e) e.preventDefault();
 
@@ -88,8 +106,8 @@ export const Searchbar = ({
       scroll: false,
     });
 
-    document.getElementById(id || "search-input")?.blur();
     setShowingAutocompletes(false);
+    document.getElementById(id || "search-input")?.blur();
     if (searchParamQuery !== query) setQuery(searchParamQuery);
 
     scrollToElement("data-container", 48);
@@ -118,6 +136,8 @@ export const Searchbar = ({
     if (e.key === "ArrowUp") onArrowUp();
     if (e.key === "ArrowDown") onArrowDown();
   };
+
+  const isOldSearch = query === searchParams.get("query");
 
   return (
     <form className="w-full relative">
@@ -159,24 +179,47 @@ export const Searchbar = ({
         {...inputProps}
       />
 
-      <Button
-        size={"icon"}
-        type="submit"
-        variant={"ghost"}
-        onClick={onSearch}
-        className={cn(
-          "absolute top-1/2 -translate-y-1/2 right-2 p-2",
-          imageTheme && "hover:bg-themeSecondary/20"
-        )}
-      >
-        <span className="sr-only">Submit search</span>
-        <Search
+      {!isOldSearch && (
+        <Button
+          size={"icon"}
+          type="submit"
+          variant={"ghost"}
+          onClick={onSearch}
           className={cn(
-            "w-[18px] h-[18px]",
-            imageTheme ? "text-[#F6F5AE]" : "text-gray-400"
+            "absolute top-1/2 -translate-y-1/2 right-2 p-2",
+            imageTheme && "hover:bg-themeSecondary/20"
           )}
-        />
-      </Button>
+        >
+          <span className="sr-only">Submit search</span>
+          <Search
+            className={cn(
+              "w-[18px] h-[18px]",
+              imageTheme ? "text-[#F6F5AE]" : "text-gray-400"
+            )}
+          />
+        </Button>
+      )}
+
+      {isOldSearch && (
+        <Button
+          size={"icon"}
+          type="submit"
+          variant={"ghost"}
+          onClick={onRemoveSearch}
+          className={cn(
+            "absolute top-1/2 -translate-y-1/2 right-2 p-2",
+            imageTheme && "hover:bg-themeSecondary/20"
+          )}
+        >
+          <span className="sr-only">Remove search</span>
+          <X
+            className={cn(
+              "w-[18px] h-[18px]",
+              imageTheme ? "text-[#F6F5AE]" : "text-gray-400"
+            )}
+          />
+        </Button>
+      )}
 
       {autocompletes.length > 0 && showingAutocompletes && (
         <div

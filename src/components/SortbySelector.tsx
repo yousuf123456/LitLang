@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Select,
@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { getSearchParamsArray } from "@/utils/utils";
+import { getSearchParamsArray, scrollToElement } from "@/utils/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export const SortbySelector = ({
@@ -25,6 +25,8 @@ export const SortbySelector = ({
   sortByOptions: { label: string; value: string }[];
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
 }) => {
+  const [open, setOpen] = useState(false);
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -40,11 +42,23 @@ export const SortbySelector = ({
     router.push(`${pathname}?${searchParamsArray.join("&")}`, {
       scroll: false,
     });
+
+    scrollToElement("data-container", 48);
   };
 
   useEffect(() => {
     // Do not sort when user searches for blogs
     if (sortBy === "best_matched") return;
+
+    // Do not sort if sort is default and user has not done any other sorting
+    if (
+      sortBy.split("-")[2] === "default" &&
+      searchParams.get("sortBy") === null
+    )
+      return;
+
+    // Do not sort if current sort is equals to the prev sort
+    if (sortBy === searchParams.get("sortBy")) return;
 
     onSort();
   }, [sortBy]);
@@ -67,13 +81,17 @@ export const SortbySelector = ({
 
   return (
     <Select
+      open={open}
       value={sortBy}
+      onOpenChange={setOpen}
       onValueChange={setSortBy}
       defaultValue={"_id-desc-default"}
     >
       <SelectTrigger
-        className="min-[480px]:w-32 md:w-48"
+        onClick={() => setOpen(true)}
         aria-label="Sort By Select Button"
+        className="min-[480px]:w-32 md:w-48"
+        onPointerDown={(e) => e.preventDefault()}
       >
         <SelectValue placeholder="Sort By" />
       </SelectTrigger>

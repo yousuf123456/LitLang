@@ -17,10 +17,10 @@ export const HeroImage = ({
   };
 
   const common = {
+    priority: !!priority,
     fill: true,
     sizes: "100vw",
     alt: "Hero Image",
-    priority: !!priority,
     style: { objectFit: "cover" },
   } as any;
 

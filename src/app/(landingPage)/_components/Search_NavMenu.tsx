@@ -34,18 +34,24 @@ export const Search_NavMenu = ({
   const { mutateAsync: getAutocompletes } =
     trpc.subjects.getSubjectsAutocompletes.useMutation();
 
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const router = useRouter();
+  const offset = searchParams.get("offset");
   const goTo = searchParams.get("goTo");
 
   useEffect(() => {
     if (!goTo) return;
 
-    scrollToElement(goTo);
+    scrollToElement(goTo, parseInt(offset || "0"));
 
-    // setTimeout(()=> ,)
-    const searchParamsArray = getSearchParamsArray(searchParams, [], ["goTo"]);
+    const searchParamsArray = getSearchParamsArray(
+      searchParams,
+      [],
+      ["goTo", "offset"]
+    );
+
     router.push(`${pathname}?${searchParamsArray.join("&")}`, {
       scroll: false,
     });

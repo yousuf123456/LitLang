@@ -11,86 +11,77 @@ import React, {
 import { MdPauseCircleFilled, MdPlayCircleFilled } from "react-icons/md";
 
 import { Progress } from "@/components/ui/progress";
-import {
-  BsFillSkipStartFill,
-  BsSkipEndFill,
-  BsSoundwave,
-} from "react-icons/bs";
+import { BsFillSkipStartFill, BsSkipEndFill } from "react-icons/bs";
 
 import { AnimatePresence, LazyMotion, m } from "framer-motion";
-import { ChevronLeft, Mic, Mic2 } from "lucide-react";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { ChevronLeft, Mic } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+
 import Link from "next/link";
 const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
 
 export const AudioPlayer = ({
-  bufferArray,
   subjectId,
+  audioUrl,
   name,
 }: {
-  bufferArray: number[];
   subjectId: string;
+  audioUrl: string;
   name: string;
 }) => {
-  //   const getAudioPlayer()f<HTMLAudioElement>(null);
-  const getAudioPlayer = useCallback((): HTMLAudioElement | null => {
-    return document.getElementById("audioPlayer") as any;
-  }, [document.getElementById]);
+  const audioPlayerRef = useRef<HTMLAudioElement>(null);
 
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
 
   const togglePlayPause = () => {
-    const audioPlayer = getAudioPlayer();
-    if (!audioPlayer) return;
+    if (!audioPlayerRef.current) return;
 
     if (isPlaying) {
-      audioPlayer.pause();
+      audioPlayerRef.current.pause();
     } else {
-      audioPlayer.play();
+      audioPlayerRef.current.play();
     }
 
     setIsPlaying((prev) => !prev);
   };
 
   const skipForward = () => {
-    const audioPlayer = getAudioPlayer();
-    if (!audioPlayer) return;
+    if (!audioPlayerRef.current) return;
 
-    audioPlayer.currentTime += 10;
+    setCurrentTime((prev) => prev + 10);
+    audioPlayerRef.current.currentTime += 10;
   };
 
   const skipBackward = () => {
-    const audioPlayer = getAudioPlayer();
-    if (!audioPlayer) return;
+    if (!audioPlayerRef.current) return;
 
-    audioPlayer.currentTime -= 10;
+    setCurrentTime((prev) => prev - 10);
+    audioPlayerRef.current.currentTime -= 10;
   };
 
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const audioPlayer = getAudioPlayer();
-    if (!audioPlayer) return;
+    if (!audioPlayerRef.current) return;
 
     let seekTime = (parseInt(e.target.value) / 100) * duration;
     if (seekTime >= duration) seekTime = duration - 1;
 
-    audioPlayer.currentTime = seekTime;
+    setCurrentTime(seekTime);
+    audioPlayerRef.current.currentTime = seekTime;
   };
 
   const onMouseUp = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    const audioPlayer = getAudioPlayer();
-    if (!audioPlayer) return;
+    if (!audioPlayerRef.current) return;
 
-    if (isPlaying) audioPlayer.play();
+    if (isPlaying) audioPlayerRef.current.play();
   };
 
   const onMouseDown = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    const audioPlayer = getAudioPlayer();
-    if (!audioPlayer) return;
+    if (!audioPlayerRef.current) return;
 
-    if (isPlaying) audioPlayer.pause();
+    if (isPlaying) audioPlayerRef.current.pause();
   };
 
   const onAudioEnded = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
@@ -104,20 +95,21 @@ export const AudioPlayer = ({
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
-  const url = useMemo(() => {
-    return URL.createObjectURL(new Blob([Buffer.from(bufferArray)]));
-  }, [bufferArray]);
-
   return (
     <div className="flex-1 flex flex-col gap-12 justify-center items-center overflow-x-hidden px-3 md:px-6">
       <div className="bg-gray-50 p-2 sm:p-4 rounded-lg shadow-md flex flex-col items-center gap-6 w-full max-w-lg">
         <audio
           id="audioPlayer"
+          ref={audioPlayerRef}
           onEnded={onAudioEnded}
           onLoadedMetadata={(e: any) => setDuration(e.target.duration)}
-          onTimeUpdate={(e: any) => setCurrentTime(e.target.currentTime)}
+          onTimeUpdate={(e: any) => {
+            if (e.target.currentTime === currentTime) return;
+
+            setCurrentTime(e.target.currentTime);
+          }}
         >
-          <source src={url} />
+          <source src={audioUrl} />
         </audio>
 
         <div className="w-full flex gap-4 items-center">
@@ -227,7 +219,7 @@ export const AudioPlayer = ({
           className: "flex gap-2 items-center md:hidden",
         })}
       >
-        <ChevronLeft className="w-4 h-4" /> Go Back
+        <ChevronLeft className="w-4 h-4" /> Go Back To Files
       </Link>
     </div>
   );
