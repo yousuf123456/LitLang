@@ -10,6 +10,11 @@ const nextConfig = {
       { hostname: "utfs.io" },
     ],
   },
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    config.resolve.alias.canvas = false;
+    config.resolve.alias.encoding = false;
+    return config;
+  },
   // webpack: (config, { isServer, nextRuntime }) => {
   //   if (true) {
   //     config.snapshot.managedPaths = [];
