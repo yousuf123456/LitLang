@@ -106,7 +106,7 @@ export const subjectsRouter = router({
       const pipeline_noSearch = [
         {
           $match: {
-            ...(university ? { university } : {}),
+            ...(university ? { universityShort: university } : {}),
           },
         },
         {
@@ -175,8 +175,6 @@ export const subjectsRouter = router({
         {
           $project: {
             name: 1,
-            semester: 1,
-            universityShort: 1,
           },
         },
       ];

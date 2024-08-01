@@ -35,6 +35,7 @@ export default function RootLayout({
         className={`${satoshi.className} ${satoshi.variable} ${clashGrotesk.variable} bg-white `}
       >
         <NextTopLoader color="#A86541" showSpinner={false} shadow={false} />
+
         <Providers>
           <Navbar />
 

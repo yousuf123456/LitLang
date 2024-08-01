@@ -11,8 +11,6 @@ import { Toaster } from "./ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 
-import Lenis from "lenis";
-
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(
     () =>

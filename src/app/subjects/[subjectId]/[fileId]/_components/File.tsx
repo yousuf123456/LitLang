@@ -2,14 +2,16 @@ import React from "react";
 
 import { redirect } from "next/navigation";
 
-import aws_s3 from "@/app/utils/aws-s3";
 import { PDFViewer } from "./PDFViewer";
-import { GetObjectCommand } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 import { getSubject } from "@/actions/getSubject";
 import { findFileById } from "@/utils/utils";
-import { headers } from "next/headers";
+
+import dynamic from "next/dynamic";
+const AudioPlayer = dynamic(
+  () => import("./AudioPlayer").then((mod) => mod.AudioPlayer),
+  { ssr: false }
+);
 
 export const File = async ({
   fileId,
@@ -37,12 +39,7 @@ export const File = async ({
           pdfUrl={url}
         />
       ) : (
-        <p></p>
-        // <AudioPlayer
-        //   bufferArray={Array.from(uint8ArrayData)}
-        //   subjectId={subjectId}
-        //   name={file.name}
-        // />
+        <AudioPlayer subjectId={subjectId} name={file.name} audioUrl={url} />
       )}
     </>
   );

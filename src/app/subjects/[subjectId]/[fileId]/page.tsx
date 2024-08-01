@@ -18,7 +18,7 @@ export default function FilePage({
     <PaddingTopWrapper>
       <div className="max-h-[calc(100dvh-72px)] min-h-[calc(100dvh-72px)] flex">
         <Suspense
-          key={`${params.subjectId} ${params.fileId}`}
+          key={`${params.subjectId} ${params.fileId} sidebar`}
           fallback={
             <Skeleton
               aria-busy
@@ -31,7 +31,7 @@ export default function FilePage({
         </Suspense>
 
         <Suspense
-          key={`${params.subjectId} ${params.fileId}`}
+          key={`${params.subjectId} ${params.fileId} content`}
           fallback={
             <div
               aria-busy

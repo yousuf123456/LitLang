@@ -13,6 +13,7 @@ import {
 
 import { SubjectsList } from "./SubjectsList";
 import { OverlayImageHeader } from "@/components/OverlayImageHeader";
+import Link from "next/link";
 
 export const Subjects = ({
   university,
@@ -35,17 +36,18 @@ export const Subjects = ({
         }}
       >
         {university && (
-          <Breadcrumb className="w-full">
+          <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/blogs" className="sm:text-base">
-                  Subjects
+                <BreadcrumbLink className="sm:text-base text-white/90 hover:text-white/70">
+                  <Link href={"/subjects"}>Subjects</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
 
-              <BreadcrumbSeparator />
+              <BreadcrumbSeparator className="text-white/50" />
+
               <BreadcrumbItem>
-                <BreadcrumbPage className="max-w-56 sm:max-w-80 line-clamp-1 sm:text-base">
+                <BreadcrumbPage className="max-w-56 sm:max-w-80 line-clamp-1 sm:text-base text-white/90">
                   {university}
                 </BreadcrumbPage>
               </BreadcrumbItem>

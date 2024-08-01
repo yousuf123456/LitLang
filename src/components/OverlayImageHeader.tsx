@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { Heading } from "./Heading";
 import { HeroImage } from "@/app/(landingPage)/_components/HeroImage";
 
-import { m, easeOut, LazyMotion, useScroll, useTransform } from "framer-motion";
+import { m, LazyMotion, useScroll, useTransform } from "framer-motion";
 
 import { Button } from "./ui/button";
 import { scrollToElement } from "@/utils/utils";
@@ -33,9 +33,7 @@ export const OverlayImageHeader = ({
     offset: ["0 0", "1 0"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, -48], {
-    ease: easeOut,
-  });
+  const y = useTransform(scrollYProgress, [0, 0.5], [0, -48]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.4, 0]);
@@ -80,7 +78,8 @@ export const OverlayImageHeader = ({
           className="bg-black z-10 absolute inset-0"
         />
       </LazyMotion>
-      <HeroImage images={overlayImages} priority />
+
+      <HeroImage images={overlayImages} priority={true} />
     </div>
   );
 };
