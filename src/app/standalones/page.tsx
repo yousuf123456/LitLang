@@ -1,11 +1,11 @@
 import React from "react";
 import { StandaloneFiles } from "./_components/StandaloneFiles";
-import { PaddingTopWrapper } from "@/components/PaddingTopWrapper";
+import { StandaloneFileType } from "@prisma/client";
 
 export default function BooksListingPage({
   searchParams,
 }: {
-  searchParams: { type: string };
+  searchParams: { type: StandaloneFileType };
 }) {
   return <StandaloneFiles type={searchParams.type} />;
 }

@@ -117,13 +117,13 @@ export const SubjectsList = () => {
 
             <div className="w-full h-full rounded-xl bg-zinc-50 hover:bg-white transition-colors border border-zinc-200 p-1.5 flex flex-col gap-2 group cursor-pointer z-20">
               <div className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
-                <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8">
+                <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8 bg-zinc-50">
                   <Image
-                    src={createImageUrlFromWebViewLink(subject.imageUrl)}
-                    alt="subject Cover Image"
-                    className="object-cover"
-                    loading="lazy"
                     fill
+                    loading="lazy"
+                    className="object-cover"
+                    alt="subject Cover Image"
+                    src={createImageUrlFromWebViewLink(subject.imageUrl)}
                   />
                 </div>
               </div>

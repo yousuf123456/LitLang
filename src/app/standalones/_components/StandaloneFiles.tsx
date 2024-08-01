@@ -4,22 +4,48 @@ import { StandaloneFilesList } from "./StandaloneFilesList";
 import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
 import { OverlayImageHeader } from "@/components/OverlayImageHeader";
 import { Search_SortInputs } from "./Search_SortInputs";
+import { StandaloneFileType } from "@prisma/client";
+import { redirect } from "next/navigation";
 
-export const StandaloneFiles = ({ type }: { type: string }) => {
+export const StandaloneFiles = ({ type }: { type: StandaloneFileType }) => {
+  if (type !== "Book" && type !== "Article" && type !== "Text")
+    redirect("/standalones?type=Book");
+
+  const overlayImages = {
+    Article: {
+      desktop: "/desktop_articles.jpg",
+      mobiles: "/mobiles_articles.jpg",
+    },
+    Book: {
+      desktop: "/desktop_books.jpg",
+      mobiles: "/mobiles_books.jpg",
+    },
+    Text: {
+      desktop: "/desktop_texts.jpg",
+      mobiles: "/mobiles_texts.jpg",
+    },
+  };
+
+  const overlayHeadings = {
+    Article: "Our Articles",
+    Book: "Our Books",
+    Text: "Our Texts",
+  };
+
+  const overlaySubHeadings = {
+    Article:
+      "Discover a wealth of knowledge, explore our articles to inspire and inform your journey",
+    Book: "Discover a wealth of knowledge, explore our books to inspire and inform your journey",
+    Text: "Discover a wealth of knowledge, explore our texts to inspire and inform your journey",
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <OverlayImageHeader
         buttonLabel={`Browse ${type}s`}
-        heading={type === "Book" ? "Our Books" : "Our Articles"}
-        subHeading={`Discover a wealth of knowledge, explore our ${
-          type === "Book" ? "books" : "articles"
-        } to inspire and inform your journey.`}
-        overlayImages={{
-          desktop:
-            type === "Book" ? "/desktop_books.jpg" : "/desktop_articles.jpg",
-          mobiles:
-            type === "Book" ? "/mobiles_books.jpg" : "/mobiles_articles.jpg",
-        }}
+        heading={overlayHeadings[type]}
+        overlayImages={overlayImages[type]}
+        subHeading={overlaySubHeadings[type]}
       />
 
       <div

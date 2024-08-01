@@ -56,15 +56,16 @@ model subject {
 
 enum StandaloneFileType {
   Book
+  Text
   Article
 }
 
 model standaloneFile {
   id String   @id @default(auto()) @map("_id") @db.ObjectId
   name String
-  pdfKey String?
+  pdfKey String
   imageUrl String
-  type StandaloneFileType?
+  type StandaloneFileType
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }

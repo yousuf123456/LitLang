@@ -32,6 +32,8 @@ import {
   Newspaper,
   Contact,
   PersonStanding,
+  Star,
+  Text,
 } from "lucide-react";
 
 import { IoBookOutline } from "react-icons/io5";
@@ -122,10 +124,24 @@ export const UserMenu = () => {
               </DropdownMenuItem>
             </Link>
 
+            <Link href={"/standalones?type=Book"} className="sm:hidden">
+              <DropdownMenuItem>
+                <Star className="mr-4 h-4 w-4 text-zinc-700" />
+                <span>Books Reviews</span>
+              </DropdownMenuItem>
+            </Link>
+
             <Link href={"/standalones?type=Article"} className="sm:hidden">
               <DropdownMenuItem>
                 <Newspaper className="mr-4 h-4 w-4 text-zinc-700" />
                 <span>Articles</span>
+              </DropdownMenuItem>
+            </Link>
+
+            <Link href={"/standalones?type=Text"} className="sm:hidden">
+              <DropdownMenuItem>
+                <Text className="mr-4 h-4 w-4 text-zinc-700" />
+                <span>Texts</span>
               </DropdownMenuItem>
             </Link>
 

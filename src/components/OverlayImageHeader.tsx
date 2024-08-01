@@ -4,9 +4,9 @@ import React, { useRef } from "react";
 import { Heading } from "./Heading";
 import { HeroImage } from "@/app/(landingPage)/_components/HeroImage";
 
-import { LazyMotion, m, useScroll, useTransform } from "framer-motion";
+import { m, easeOut, LazyMotion, useScroll, useTransform } from "framer-motion";
+
 import { Button } from "./ui/button";
-import { StaticImageData } from "next/image";
 import { scrollToElement } from "@/utils/utils";
 const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
@@ -26,20 +26,6 @@ export const OverlayImageHeader = ({
     [key in "tabs" | "desktop" | "mobiles"]?: string;
   };
 }) => {
-  // const onClick = () => {
-  //   const dataContainer = document.getElementById("data-container");
-  //   if (!dataContainer) return;
-
-  //   const elementPosition = dataContainer.getBoundingClientRect().top;
-
-  //   const offsetPosition = elementPosition + window.scrollY - 48;
-
-  //   window.scrollTo({
-  //     top: offsetPosition,
-  //     behavior: "smooth",
-  //   });
-  // };
-
   const targetedRef = useRef<null | HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -47,7 +33,9 @@ export const OverlayImageHeader = ({
     offset: ["0 0", "1 0"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, -48]);
+  const y = useTransform(scrollYProgress, [0, 0.5], [0, -48], {
+    ease: easeOut,
+  });
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.4, 0]);
@@ -57,7 +45,7 @@ export const OverlayImageHeader = ({
       <LazyMotion features={loadFeatures} strict>
         <m.div
           style={{ y, opacity }}
-          className="absolute z-20 inset-0 flex flex-col gap-5 justify-center items-center"
+          className="absolute z-20 inset-0 flex flex-col gap-5 justify-center items-center will-change-transform"
         >
           {children}
 
@@ -91,9 +79,8 @@ export const OverlayImageHeader = ({
           style={{ opacity: overlayOpacity }}
           className="bg-black z-10 absolute inset-0"
         />
-
-        <HeroImage images={overlayImages} priority />
       </LazyMotion>
+      <HeroImage images={overlayImages} priority />
     </div>
   );
 };

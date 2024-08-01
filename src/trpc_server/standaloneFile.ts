@@ -12,7 +12,11 @@ export const standaloneFileRouter = router({
   get: publicProcedure
     .input(
       z.object({
-        type: z.union([z.literal("Book"), z.literal("Article")]),
+        type: z.union([
+          z.literal("Book"),
+          z.literal("Article"),
+          z.literal("Text"),
+        ]),
         paginationToken: z.union([z.string(), z.null()]),
         sortBy: z.union([z.string(), z.null()]),
         query: z.union([z.string(), z.null()]),
@@ -121,12 +125,12 @@ export const standaloneFileRouter = router({
         ? data[0]?.metadata.count.total || 0
         : data[0]?.metadata[0]?.total || 0;
 
-      const books = transformRawResultsToPrisma(
+      const standaloneFiles = transformRawResultsToPrisma(
         query ? data : (data[0].data as any)
       ) as (standaloneFile & { paginationToken?: string })[];
 
       return {
-        books,
+        standaloneFiles,
         totalCount,
       };
     }),
@@ -135,7 +139,11 @@ export const standaloneFileRouter = router({
     .input(
       z.object({
         query: z.optional(z.string()),
-        type: z.union([z.literal("Book"), z.literal("Article")]),
+        type: z.union([
+          z.literal("Book"),
+          z.literal("Article"),
+          z.literal("Text"),
+        ]),
       })
     )
     .mutation(async ({ ctx, input }) => {

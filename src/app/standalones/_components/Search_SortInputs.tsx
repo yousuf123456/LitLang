@@ -5,6 +5,7 @@ import { Searchbar } from "@/components/Searchbar";
 import { SortbySelector } from "@/components/SortbySelector";
 import { useSearchParams } from "next/navigation";
 import { trpc } from "@/app/_trpc/client";
+import { StandaloneFileType } from "@prisma/client";
 
 export const Search_SortInputs = () => {
   const searchParams = useSearchParams();
@@ -29,7 +30,7 @@ export const Search_SortInputs = () => {
     },
   ];
 
-  const type = searchParams.get("type") as "Book" | "Article";
+  const type = searchParams.get("type") as StandaloneFileType;
 
   return (
     <div className="flex min-[480px]:flex-row flex-col items-center gap-3 md:gap-6 ">
@@ -39,9 +40,7 @@ export const Search_SortInputs = () => {
           pathname="/standalones"
           getAutocompletes={getAutocompletes}
           autocompleteProps={{ type: searchParams.get("type") }}
-          placeholder={`Search for ${
-            type === "Book" ? "books" : "articles"
-          } here.`}
+          placeholder={`Search for ${type + "s"} here.`}
         />
       </div>
 

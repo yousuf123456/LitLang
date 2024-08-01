@@ -13,6 +13,7 @@ import { sortSearchParamType } from "@/types";
 import { BooksListPerPageSize, SubjectsListPageSize } from "@/pagination";
 import { PaginationControls } from "@/components/PaginationControls";
 import { createImageUrlFromWebViewLink } from "@/utils/utils";
+import { StandaloneFileType } from "@prisma/client";
 
 export const StandaloneFilesList = () => {
   const searchParams = useSearchParams();
@@ -24,10 +25,10 @@ export const StandaloneFilesList = () => {
     trpc.standaloneFiles.get.useQuery({
       sortBy: searchParams.get("sortBy") as sortSearchParamType | null,
       paginationToken: searchParams.get("paginationToken"),
+      type: type as StandaloneFileType,
       going: searchParams.get("going"),
       query: searchParams.get("query"),
       page: currentPage,
-      type: type as "Book" | "Article",
     });
 
   useEffect(() => {
@@ -35,9 +36,6 @@ export const StandaloneFilesList = () => {
   }, [isError, error]);
 
   const [hoveredIndex, setHoveredIndex] = useState<null | number>(null);
-
-  if (type !== "Book" && type !== "Article")
-    return <p>Invalid Resource Type</p>;
 
   if (isFetching || !data) {
     return (
@@ -69,7 +67,7 @@ export const StandaloneFilesList = () => {
     );
   }
 
-  if (data.books.length === 0) {
+  if (data.standaloneFiles.length === 0) {
     return (
       <div className="flex w-full flex-col items-center gap-5 mt-12 ">
         <div className="w-[180px] md:w-[250px] aspect-1 h-auto relative">
@@ -77,7 +75,7 @@ export const StandaloneFilesList = () => {
         </div>
 
         <h2 className="text-xl md:text-2xl font-medium text-zinc-500 text-center">
-          No Books To Show
+          No {type + "s"} To Show
         </h2>
       </div>
     );
@@ -86,7 +84,7 @@ export const StandaloneFilesList = () => {
   return (
     <div className="w-full flex flex-col gap-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
-        {data.books.map((book, i) => (
+        {data.standaloneFiles.map((book, i) => (
           <Link
             key={i}
             href={`/standalones/${book.id}`}
@@ -114,7 +112,7 @@ export const StandaloneFilesList = () => {
 
             <div className="w-full h-full rounded-xl bg-zinc-50 hover:bg-white transition-colors border border-zinc-200 p-1.5 flex flex-col gap-2 group cursor-pointer z-20">
               <div className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
-                <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8">
+                <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8 bg-zinc-50">
                   <Image
                     fill
                     loading="lazy"
@@ -136,8 +134,10 @@ export const StandaloneFilesList = () => {
       </div>
 
       <PaginationControls
-        nextPaginationToken={data.books[data.books.length - 1]?.paginationToken}
-        prevPaginationToken={data.books[0]?.paginationToken}
+        nextPaginationToken={
+          data.standaloneFiles[data.standaloneFiles.length - 1]?.paginationToken
+        }
+        prevPaginationToken={data.standaloneFiles[0]?.paginationToken}
         itemsPerPage={BooksListPerPageSize}
         totalCount={data.totalCount}
       />

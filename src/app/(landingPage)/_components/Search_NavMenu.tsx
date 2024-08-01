@@ -91,17 +91,27 @@ export const Search_NavMenu = ({
                     Resources
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="flex flex-col p-4 gap-3 w-[150px] ">
-                      <ListItem href="/subjects">Subjects</ListItem>
+                    <div className="grid grid-cols-2 p-4 gap-3 w-[360px]">
+                      <ul className="flex flex-col gap-3">
+                        <ListItem href="/subjects">Subjects</ListItem>
 
-                      <ListItem href="/standalones?type=Book">Books</ListItem>
+                        <ListItem href="/standalones?type=Book">Books</ListItem>
 
-                      <ListItem href="/standalones?type=Article">
-                        Articles
-                      </ListItem>
+                        <ListItem href="/standalones?type=Book">
+                          Books Reviews
+                        </ListItem>
+                      </ul>
 
-                      <ListItem href="/blogs">Blogs</ListItem>
-                    </ul>
+                      <ul className="flex flex-col gap-3">
+                        <ListItem href="/standalones?type=Article">
+                          Articles
+                        </ListItem>
+
+                        <ListItem href="/standalones?type=Text">Texts</ListItem>
+
+                        <ListItem href="/blogs">Blogs</ListItem>
+                      </ul>
+                    </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
@@ -264,14 +274,15 @@ export const Search_NavMenu = ({
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
+>(({ className, title, href, children, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink asChild>
-        <a
+        <Link
+          href={href || "/"}
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            "flex select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
           )}
           {...props}
@@ -279,7 +290,7 @@ const ListItem = React.forwardRef<
           <p className="line-clamp-2 text-start text-sm leading-snug text-zinc-700">
             {children}
           </p>
-        </a>
+        </Link>
       </NavigationMenuLink>
     </li>
   );
