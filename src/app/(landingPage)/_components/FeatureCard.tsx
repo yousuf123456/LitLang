@@ -1,11 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 
-import { useInView } from "react-intersection-observer";
-import { m, useAnimation, LazyMotion } from "framer-motion";
 import Link from "next/link";
-
-const loadFeatures = () =>
-  import("@/app/utils/features").then((res) => res.default);
 
 export default function FeatureCard({
   href,
