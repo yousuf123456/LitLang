@@ -30,7 +30,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
   );
 
   return (
-    <ClerkProvider>
+    <ClerkProvider appearance={{ variables: { colorPrimary: "#934E29" } }}>
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
           <Toaster />

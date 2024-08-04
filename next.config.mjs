@@ -3,7 +3,8 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { hostname: "encrypted-tbn0.gstatic.com" },
-      { hostname: "litlang2.s3.amazonaws.com" },
+      // { hostname: "litlang2.s3.amazonaws.com" },
+      { hostname: "drwjw5urvo0gp.cloudfront.net" },
       { hostname: "images.unsplash.com" },
       { hostname: "drive.google.com" },
       { hostname: "img.clerk.com" },

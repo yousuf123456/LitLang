@@ -58,9 +58,9 @@ export const Features = () => {
   ];
 
   return (
-    <section className="py-14 md:py-24 bg-brown-900 flex flex-col gap-16 items-center overlay-image">
+    <section className="py-14 md:py-24 bg-brown-800 flex flex-col gap-16 items-center overlay-image">
       <BlurFade duration={0.5} inViewMargin="-72px" yOffset={18} inView>
-        <h2 className="text-[42px] sm:text-[54px] leading-[1] font-semibold font-brand text-center text-transparent bg-clip-text bg-gradient-to-b from-themeSecondary to-[#A44200]">
+        <h2 className="text-[42px] sm:text-[54px] leading-[1] font-semibold font-brand text-center text-transparent bg-clip-text bg-gradient-to-b from-themeSecondary to-primary">
           Literature at Your <br /> Finger Tips
         </h2>
       </BlurFade>

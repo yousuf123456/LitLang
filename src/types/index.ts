@@ -1,4 +1,4 @@
-import { blogs, subject } from "@prisma/client";
+import { blogs, standaloneFile, subject } from "@prisma/client";
 
 export type sortSearchParamType = `${string}-${string}`;
 
@@ -18,4 +18,9 @@ export type ResourceType = {
 export type SubjectType = subject & {
   resources: ResourceType[];
   paginationToken?: string;
+};
+
+export type FullStandaloneFileType = standaloneFile & {
+  book: standaloneFile | null;
+  bookReviews: standaloneFile[];
 };

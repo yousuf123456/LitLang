@@ -26,7 +26,7 @@ export const Pricing = () => {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-4 w-full sm:justify-center max-w-lg sm:max-w-2xl lg:max-w-full">
-        <div className="to-primary via-gray-800 from-gray-900 bg-gradient-to-br p-6 sm:min-w-96 rounded-lg">
+        <div className="to-primary via-gray-900 from-gray-900 bg-gradient-to-b p-6 sm:min-w-96 rounded-lg">
           <div className="flex flex-col gap-2 sm:gap-4 mx-auto sm:items-center lg:items-start w-full max-sm:max-w-full max-lg:max-w-sm">
             <p className="text-base text-gray-200 font-medium">Pro</p>
             <div className="flex items-end gap-1">

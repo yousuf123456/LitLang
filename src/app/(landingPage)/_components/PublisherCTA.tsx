@@ -171,7 +171,6 @@ export const RevampedPublisherCTA = () => {
 
           <Image
             fill
-            priority
             src={"/book.jpg"}
             alt="Background Image"
             className="object-cover object-center"

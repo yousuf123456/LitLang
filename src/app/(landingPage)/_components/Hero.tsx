@@ -205,6 +205,8 @@ export const ParallaxRevampedHero = () => {
     }
 
     requestAnimationFrame(raf);
+
+    return () => lenis.destroy();
   }, []);
 
   return (
@@ -269,7 +271,7 @@ export const ParallaxRevampedHero = () => {
             />
 
             <HeroImage
-              priority
+              priority={true}
               images={{
                 tabs: "/tabs_bg.jpg",
                 mobiles: "/mobiles_bg.jpg",

@@ -1,3 +1,4 @@
+import { isDesktop } from "react-device-detect";
 import { ResourceType } from "@/types";
 import { type ClassValue, clsx } from "clsx";
 import { ReadonlyURLSearchParams } from "next/navigation";
@@ -40,7 +41,22 @@ export function getSortbyDirection(sortByDirStr: string) {
 }
 
 export function transformRawResultsToPrisma(results: any[]) {
-  return results.map((result) => ({ ...result, id: result._id.$oid }));
+  return results.map((result) => {
+    const mongoId = result._id;
+    const mongoCreatedAt = result.createdAt;
+    const mongoUpdatedAt = result.createdAt;
+
+    delete result._id;
+    delete result.createdAt;
+    delete result.updatedAt;
+
+    return {
+      ...result,
+      id: mongoId.$oid,
+      ...(mongoCreatedAt ? { createdAt: mongoCreatedAt.$date } : {}),
+      ...(mongoUpdatedAt ? { updatedAt: mongoUpdatedAt.$date } : {}),
+    };
+  });
 }
 
 export const scrollToElement = (elementId: string, topOffset?: number) => {

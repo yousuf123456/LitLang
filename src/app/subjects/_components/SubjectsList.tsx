@@ -10,10 +10,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { trpc } from "@/app/_trpc/client";
-import { sortSearchParamType } from "@/types";
+import { sortSearchParamType, SubjectType } from "@/types";
 import { SubjectsListPageSize } from "@/pagination";
 import { PaginationControls } from "@/components/PaginationControls";
 import { createImageUrlFromWebViewLink } from "@/utils/utils";
+import { SubjectCard } from "./SubjectCard";
 
 export const SubjectsList = () => {
   const searchParams = useSearchParams();
@@ -115,7 +116,7 @@ export const SubjectsList = () => {
               )}
             </AnimatePresence>
 
-            <div className="w-full h-full rounded-xl bg-zinc-50 hover:bg-white transition-colors border border-zinc-200 p-1.5 flex flex-col gap-2 group cursor-pointer z-20">
+            {/* <div className="w-full h-full rounded-xl bg-zinc-50 hover:bg-white transition-colors border border-zinc-200 p-1.5 flex flex-col gap-2 group cursor-pointer z-20">
               <div className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
                 <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8 bg-zinc-50">
                   <Image
@@ -142,7 +143,8 @@ export const SubjectsList = () => {
                   </Badge>
                 </div>
               </div>
-            </div>
+            </div> */}
+            <SubjectCard subject={subject as unknown as SubjectType} />
           </Link>
         ))}
       </div>

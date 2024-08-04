@@ -69,7 +69,7 @@ export const Blogs = ({
         id="data-container"
         className="flex flex-col w-full gap-3 mt-5 md:mt-8"
       >
-        <div className="sticky z-50 top-[72px] w-full bg-white pt-2 pb-5 backdrop-filter backdrop-blur-sm bg-opacity-70">
+        <div className="sticky z-50 top-[72px] w-full bg-white pt-2 pb-5 backdrop-filter backdrop-blur-sm bg-opacity-[0.75]">
           <MaxWidthWrapper className="px-3 sm:px-8 w-full">
             <Search_SortInputs />
           </MaxWidthWrapper>

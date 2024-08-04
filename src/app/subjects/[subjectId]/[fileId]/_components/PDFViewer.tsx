@@ -36,6 +36,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import { StandaloneFileType } from "@prisma/client";
+import { IoBookOutline } from "react-icons/io5";
 
 if (typeof Promise.withResolvers === "undefined") {
   if (typeof window !== undefined) {
@@ -78,9 +80,13 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 export const PDFViewer = ({
   backUrl,
+  bookId,
   pdfUrl,
   name,
+  type,
 }: {
+  type?: StandaloneFileType;
+  bookId?: string | null;
   backUrl: string;
   pdfUrl: string;
   name: string;
@@ -270,6 +276,17 @@ export const PDFViewer = ({
               <DropdownMenuLabel className="py-3" asChild>
                 <p className=" line-clamp-2 text-sm text-zinc-700">{name}</p>
               </DropdownMenuLabel>
+
+              {type === "BookReview" && bookId && <DropdownMenuSeparator />}
+
+              {type === "BookReview" && bookId && (
+                <Link href={`/standalones/${bookId}`}>
+                  <DropdownMenuItem>
+                    <IoBookOutline className="mr-4 h-4 w-4 text-zinc-700" />
+                    <span>Read Actual Book</span>
+                  </DropdownMenuItem>
+                </Link>
+              )}
 
               <DropdownMenuSeparator />
 
