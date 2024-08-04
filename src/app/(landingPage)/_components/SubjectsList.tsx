@@ -26,8 +26,8 @@ export const SubjectsList = ({ subjects }: { subjects: SubjectType[] }) => {
         loop: true,
       }}
     >
-      <CarouselNext />
-      <CarouselPrevious />
+      <CarouselNext className="hidden sm:block" />
+      <CarouselPrevious className="hidden sm:block" />
       <CarouselContent>
         {subjects.map((subject, i) => (
           <CarouselItem className="min-[840px]:basis-1/2" key={i}>

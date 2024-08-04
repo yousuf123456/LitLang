@@ -92,7 +92,10 @@ export const PDFViewer = ({
   name: string;
 }) => {
   const options = useMemo(() => {
-    return { disableAutoFetch: true, disableStream: true };
+    return {
+      disableStream: true,
+      disableAutoFetch: true,
+    };
   }, []);
 
   const { ref, width } = useResizeDetector();
@@ -143,10 +146,6 @@ export const PDFViewer = ({
   const onRotate = () => {
     setRotation((prev) => prev + 90);
   };
-
-  useEffect(() => {
-    console.log(pageNumber);
-  }, [pageNumber]);
 
   const onLoadError = (e: any) => {
     console.log(e);
