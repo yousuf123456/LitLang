@@ -28,8 +28,8 @@ export const File = async ({
 
   if (!file) redirect(`/subjects/${subjectId}`);
 
-  // const url = `https://litlang2.s3.amazonaws.com/${file.key}`;
-  const url = `https://drwjw5urvo0gp.cloudfront.net/${file.key}`;
+  const pdfUrl = `https://litlang2.s3.amazonaws.com/${file.key}`;
+  const audioUrl = `https://drwjw5urvo0gp.cloudfront.net/${file.key}`;
 
   return (
     <>
@@ -37,10 +37,14 @@ export const File = async ({
         <PDFViewer
           backUrl={`/subjects/${subjectId}`}
           name={file.name}
-          pdfUrl={url}
+          pdfUrl={pdfUrl}
         />
       ) : (
-        <AudioPlayer subjectId={subjectId} name={file.name} audioUrl={url} />
+        <AudioPlayer
+          subjectId={subjectId}
+          name={file.name}
+          audioUrl={audioUrl}
+        />
       )}
     </>
   );

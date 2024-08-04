@@ -54,16 +54,6 @@ export const standaloneFileRouter = router({
                     path: "type",
                   },
                 },
-                {
-                  ...(bookId
-                    ? {
-                        equals: {
-                          value: { $oid: bookId },
-                          path: "bookId",
-                        },
-                      }
-                    : {}),
-                },
               ],
             },
 
@@ -102,6 +92,15 @@ export const standaloneFileRouter = router({
           },
         },
       ];
+
+      if (bookId) {
+        pipeline_search[0].$search?.compound.filter.push({
+          equals: {
+            value: { $oid: bookId },
+            path: "bookId",
+          },
+        } as any);
+      }
 
       const pipeline_noSearch = [
         {
