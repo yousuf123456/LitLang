@@ -1,9 +1,12 @@
+import { PaddingTopWrapper } from "@/components/PaddingTopWrapper";
 import { SignUp } from "@clerk/nextjs";
 
 export default function Page() {
   return (
-    <div className="flex w-full h-screen justify-center items-center">
-      <SignUp />
-    </div>
+    <PaddingTopWrapper>
+      <div className="flex w-full h-[calc(100vh-72px)] justify-center items-center">
+        <SignUp />
+      </div>
+    </PaddingTopWrapper>
   );
 }
