@@ -103,7 +103,7 @@ export const Search_NavMenu = ({
 
                         <ListItem href="/standalones?type=Book">Books</ListItem>
 
-                        <ListItem href="/standalones?type=Book">
+                        <ListItem href="/standalones?type=BookReview">
                           Books Reviews
                         </ListItem>
                       </ul>

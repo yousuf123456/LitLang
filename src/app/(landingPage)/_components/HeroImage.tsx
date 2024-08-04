@@ -17,7 +17,7 @@ export const HeroImage = ({
   };
 
   const common = {
-    priority: !!priority,
+    priority: true,
     fill: true,
     sizes: "100vw",
     alt: "Hero Image",

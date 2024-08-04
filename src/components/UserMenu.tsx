@@ -124,7 +124,7 @@ export const UserMenu = () => {
               </DropdownMenuItem>
             </Link>
 
-            <Link href={"/standalones?type=Book"} className="sm:hidden">
+            <Link href={"/standalones?type=BookReview"} className="sm:hidden">
               <DropdownMenuItem>
                 <Star className="mr-4 h-4 w-4 text-zinc-700" />
                 <span>Books Reviews</span>

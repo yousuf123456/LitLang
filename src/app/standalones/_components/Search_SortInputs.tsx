@@ -39,7 +39,10 @@ export const Search_SortInputs = () => {
           imageTheme={false}
           pathname="/standalones"
           getAutocompletes={getAutocompletes}
-          autocompleteProps={{ type: searchParams.get("type") }}
+          autocompleteProps={{
+            type: searchParams.get("type"),
+            bookId: searchParams.get("bookId"),
+          }}
           placeholder={`Search for ${type + "s"} here.`}
         />
       </div>

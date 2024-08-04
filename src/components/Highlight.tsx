@@ -11,7 +11,7 @@ export const Highlight = ({
   return (
     <span
       className={cn(
-        "text-white bg-gradient-to-br from-gray-900 to-primary via-gray-800 rounded-lg px-6 py-1",
+        "text-white bg-gradient-to-b via-gray-900 from-gray-900 to-primary rounded-lg px-6 py-1",
         className
       )}
     >

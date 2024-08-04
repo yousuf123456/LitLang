@@ -12,7 +12,7 @@ export const Footer = () => {
   return (
     <footer
       className={cn(
-        "bg-brown-800",
+        "bg-[#934E29]",
         !/^\/subjects\/[^\/]+\/[^\/]+$/.test(pathname) &&
           !/^\/standalones\/[\w\d]+$/.test(pathname) &&
           pathname !== "/contact_us" &&
@@ -22,8 +22,8 @@ export const Footer = () => {
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <Link href="/" aria-label="Home" className="flex items-center gap-4">
-            <div className="relative w-8 h-8 fill-white">
-              <Image src={"/logo2.svg"} alt="Company Logo" fill />
+            <div className="relative w-12 h-12 fill-white">
+              <Image src={"/logo_light.png"} alt="Company Logo" fill />
             </div>
 
             <p className="text-lg font-medium text-themeSecondary font-brand">

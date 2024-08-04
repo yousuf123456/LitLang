@@ -28,7 +28,8 @@ export const File = async ({
 
   if (!file) redirect(`/subjects/${subjectId}`);
 
-  const url = `https://litlang2.s3.amazonaws.com/${file.key}`;
+  // const url = `https://litlang2.s3.amazonaws.com/${file.key}`;
+  const url = `https://drwjw5urvo0gp.cloudfront.net/${file.key}`;
 
   return (
     <>

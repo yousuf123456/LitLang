@@ -10,15 +10,17 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import { trpc } from "@/app/_trpc/client";
 import { sortSearchParamType } from "@/types";
-import { BooksListPerPageSize, SubjectsListPageSize } from "@/pagination";
+import { StandalonesListPerPageSize, SubjectsListPageSize } from "@/pagination";
 import { PaginationControls } from "@/components/PaginationControls";
 import { createImageUrlFromWebViewLink } from "@/utils/utils";
 import { StandaloneFileType } from "@prisma/client";
+import { buttonVariants } from "@/components/ui/button";
 
 export const StandaloneFilesList = () => {
   const searchParams = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "1");
 
+  const bookId = searchParams.get("bookId");
   const type = searchParams.get("type");
 
   const { data, isFetching, error, isError } =
@@ -29,6 +31,7 @@ export const StandaloneFilesList = () => {
       going: searchParams.get("going"),
       query: searchParams.get("query"),
       page: currentPage,
+      bookId,
     });
 
   useEffect(() => {
@@ -75,7 +78,7 @@ export const StandaloneFilesList = () => {
         </div>
 
         <h2 className="text-xl md:text-2xl font-medium text-zinc-500 text-center">
-          No {type + "s"} To Show
+          No {type === "BookReview" ? "Book Reviews" : type + "s"} To Show
         </h2>
       </div>
     );
@@ -84,10 +87,10 @@ export const StandaloneFilesList = () => {
   return (
     <div className="w-full flex flex-col gap-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
-        {data.standaloneFiles.map((book, i) => (
+        {data.standaloneFiles.map((standalone, i) => (
           <Link
             key={i}
-            href={`/standalones/${book.id}`}
+            href={`/standalones/${standalone.id}`}
             className="relative p-1.5 sm:p-3 lg:p-4 block"
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
@@ -118,15 +121,34 @@ export const StandaloneFilesList = () => {
                     loading="lazy"
                     className="object-cover"
                     alt="subject Cover Image"
-                    src={createImageUrlFromWebViewLink(book.imageUrl)}
+                    src={createImageUrlFromWebViewLink(standalone.imageUrl)}
                   />
                 </div>
               </div>
 
-              <div className="w-full p-2">
+              <div className="w-full p-2 flex flex-col gap-4">
                 <p className="text-base md:text-lg text-zinc-700 font-medium line-clamp-2 w-full text-start h-14">
-                  {book.name}
+                  {standalone.name}
                 </p>
+
+                {standalone.bookReviewIds?.length > 0 && (
+                  <Link
+                    href={`/standalones?type=BookReview&bookId=${standalone.id}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.nativeEvent.stopImmediatePropagation();
+                    }}
+                    onMouseLeave={() => setHoveredIndex(i)}
+                    onMouseEnter={() => setHoveredIndex(null)}
+                    className={buttonVariants({
+                      size: "sm",
+                      variant: "outline",
+                      className: "w-full bg-white text-zinc-700",
+                    })}
+                  >
+                    Read Reviews
+                  </Link>
+                )}
               </div>
             </div>
           </Link>
@@ -138,7 +160,7 @@ export const StandaloneFilesList = () => {
           data.standaloneFiles[data.standaloneFiles.length - 1]?.paginationToken
         }
         prevPaginationToken={data.standaloneFiles[0]?.paginationToken}
-        itemsPerPage={BooksListPerPageSize}
+        itemsPerPage={StandalonesListPerPageSize}
         totalCount={data.totalCount}
       />
     </div>

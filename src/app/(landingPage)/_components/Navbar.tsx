@@ -67,25 +67,25 @@ export const Navbar = ({}: {}) => {
       <div
         className={cn(
           "py-4 xl:px-12 md:px-6 px-3 fixed top-0 left-0 right-0 z-[999] transition-all backdrop-blur-sm backdrop-filter h-[72px]",
-          !imageTheme ? "bg-white bg-opacity-70" : "bg-primary/10",
+          !imageTheme ? "bg-white bg-opacity-[0.75]" : "bg-primary/10",
           imageTheme === null && "bg-transparent"
         )}
       >
-        <div className="flex justify-between items-center w-full gap-3 sm:gap-8 h-full min-h-[40px] ">
+        <div className="flex justify-between items-center w-full gap-3 sm:gap-8 h-full min-h-[40px]">
           <Link href={"/"} aria-label="Home">
             <div className="flex items-center gap-4 lg:w-[182.5px]">
-              <div className="relative w-8 h-8">
+              <div className="relative w-12 h-12">
                 <Image
-                  alt="Company Logo"
-                  src={"/logo2.svg"}
-                  className="object-cover"
                   fill
+                  alt="Company Logo"
+                  src={"/logo.png"}
+                  className="object-cover"
                 />
               </div>
 
               <p
                 className={cn(
-                  "text-2xl font-medium font-brand hidden lg:block text-white transition-colors",
+                  "text-[26px] font-medium font-brand hidden lg:block text-white transition-colors",
                   imageTheme ? "text-white" : "text-black",
                   imageTheme === null && "opacity-0"
                 )}

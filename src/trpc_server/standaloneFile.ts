@@ -4,30 +4,34 @@ import { z } from "zod";
 
 import prisma from "@/app/utils/prismadb";
 
-import { BooksListPerPageSize } from "@/pagination";
-import { getSortbyDirection, transformRawResultsToPrisma } from "@/utils/utils";
 import { standaloneFile } from "@prisma/client";
+import { StandalonesListPerPageSize } from "@/pagination";
+import { getSortbyDirection, transformRawResultsToPrisma } from "@/utils/utils";
+import { FullStandaloneFileType } from "@/types";
 
 export const standaloneFileRouter = router({
   get: publicProcedure
     .input(
       z.object({
         type: z.union([
+          z.literal("Text"),
           z.literal("Book"),
           z.literal("Article"),
-          z.literal("Text"),
+          z.literal("BookReview"),
         ]),
         paginationToken: z.union([z.string(), z.null()]),
         sortBy: z.union([z.string(), z.null()]),
+        bookId: z.union([z.string(), z.null()]),
         query: z.union([z.string(), z.null()]),
         going: z.union([z.string(), z.null()]),
         page: z.number(),
       })
     )
     .query(async ({ ctx, input }) => {
-      const { query, sortBy, page, paginationToken, going, type } = input;
+      const { query, sortBy, page, paginationToken, going, type, bookId } =
+        input;
 
-      const toSkip = (page - 1) * BooksListPerPageSize;
+      const toSkip = (page - 1) * StandalonesListPerPageSize;
 
       const pipeline_search = [
         {
@@ -49,6 +53,16 @@ export const standaloneFileRouter = router({
                     query: type,
                     path: "type",
                   },
+                },
+                {
+                  ...(bookId
+                    ? {
+                        equals: {
+                          value: { $oid: bookId },
+                          path: "bookId",
+                        },
+                      }
+                    : {}),
                 },
               ],
             },
@@ -75,12 +89,13 @@ export const standaloneFileRouter = router({
           },
         },
         {
-          $limit: BooksListPerPageSize,
+          $limit: StandalonesListPerPageSize,
         },
         {
           $project: {
             name: 1,
             imageUrl: 1,
+            bookReviewIds: 1,
             metadata: "$$SEARCH_META",
             scoreDetails: { $meta: "searchScoreDetails" },
             paginationToken: { $meta: "searchSequenceToken" },
@@ -92,6 +107,7 @@ export const standaloneFileRouter = router({
         {
           $match: {
             type,
+            ...(bookId ? { bookId: { $oid: bookId } } : {}),
           },
         },
         {
@@ -112,7 +128,7 @@ export const standaloneFileRouter = router({
         {
           $facet: {
             metadata: [{ $count: "total" }],
-            data: [{ $skip: toSkip }, { $limit: BooksListPerPageSize }],
+            data: [{ $skip: toSkip }, { $limit: StandalonesListPerPageSize }],
           },
         },
       ];
@@ -127,7 +143,7 @@ export const standaloneFileRouter = router({
 
       const standaloneFiles = transformRawResultsToPrisma(
         query ? data : (data[0].data as any)
-      ) as (standaloneFile & { paginationToken?: string })[];
+      ) as (FullStandaloneFileType & { paginationToken?: string })[];
 
       return {
         standaloneFiles,
@@ -138,11 +154,13 @@ export const standaloneFileRouter = router({
   getStandalonesAutocompletes: publicProcedure
     .input(
       z.object({
+        bookId: z.union([z.string(), z.null()]),
         query: z.optional(z.string()),
         type: z.union([
           z.literal("Book"),
           z.literal("Article"),
           z.literal("Text"),
+          z.literal("BookReview"),
         ]),
       })
     )

@@ -59,9 +59,9 @@ export const UserAccount = ({ imageTheme }: { imageTheme: boolean | null }) => {
             "flex items-center lg:w-32 justify-center flex-shrink-0"
           )}
         >
-          {/* <Button variant={"secondary"} className="mr-4" onClick={syncUp}>
+          <Button variant={"secondary"} className="mr-4" onClick={syncUp}>
             Sync Up
-          </Button> */}
+          </Button>
 
           <UserMenu />
         </div>

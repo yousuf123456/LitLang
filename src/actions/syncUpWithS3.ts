@@ -4,7 +4,7 @@
 // litlang2/ -> Litlang/ -> Universities/ -> UniversitySubjectsFolder/ -> SemestersFolders/ -> SubjectsFolders/ -> Here Subject Image and All Subject Files
 
 //For Books
-// litlang2/ -> Litlang/ -> Books/ -> BookFileFolder/ -> Here Book Image and Book pdf file
+// litlang2/ -> Litlang/ -> Books/ -> BookFileFolder/ -> Here Book Image and Book pdf file -> Book Reviews/ -> Here book reviews pdf files
 
 //For Articles
 // litlang2/ -> Litlang/ -> Articles/ -> ArticleFileFolder/ -> Here Article Image and Book pdf file
@@ -162,8 +162,10 @@ export const syncUpWithS3 = async () => {
     })
   );
 
-  let dbStandalones: Omit<standaloneFile, "id" | "createdAt" | "updatedAt">[] =
-    [];
+  let dbStandalones: Omit<
+    standaloneFile,
+    "id" | "createdAt" | "updatedAt" | "bookId"
+  >[] = [];
 
   const booksFolders = await listObjects("Litlang/Books/");
 
@@ -171,27 +173,17 @@ export const syncUpWithS3 = async () => {
     (booksFolders || []).map(async (folder) => {
       const bookFiles = await listObjects(folder.prefix);
 
-      const bookImage = (bookFiles || []).filter(
-        (bookFile) =>
-          bookFile.mimeType === "image/jpeg" ||
-          bookFile.mimeType === "image/png" ||
-          bookFile.mimeType === "image/gif" ||
-          bookFile.mimeType === "image/bmp" ||
-          bookFile.mimeType === "image/tiff" ||
-          bookFile.mimeType === "image/webp" ||
-          bookFile.mimeType === "image/svg+xml"
-      )[0];
+      const bookImage = getImage(bookFiles);
 
-      const pdfFile = (bookFiles || []).filter(
-        (bookFile) => bookFile.mimeType === "application/pdf"
-      )[0];
+      const pdfFile = getPDF(bookFiles);
 
       dbStandalones.push({
         type: "Book",
+        bookReviewIds: [],
         name: folder.name || "Untitled",
         imageUrl:
           bookImage?.url ||
-          "https://litlang2.s3.amazonaws.com/Litlang/Books/100 mistakes that changed history backfires and blunders that collapsed empires, crashed economies, and altered the course of our world by Bill Fawcett/WhatsApp Image 2024-07-20 at 2.48.33 PM.jpeg",
+          "https://drwjw5urvo0gp.cloudfront.net/Litlang/Books/100 mistakes that changed history backfires and blunders that collapsed empires, crashed economies, and altered the course of our world by Bill Fawcett/WhatsApp Image 2024-07-20 at 2.48.33 PM.jpeg",
         pdfKey: pdfFile.key,
       });
     })
@@ -203,27 +195,17 @@ export const syncUpWithS3 = async () => {
     (articlesFolders || []).map(async (folder) => {
       const articleFiles = await listObjects(folder.prefix);
 
-      const bookImage = (articleFiles || []).filter(
-        (articleFiles) =>
-          articleFiles.mimeType === "image/jpeg" ||
-          articleFiles.mimeType === "image/png" ||
-          articleFiles.mimeType === "image/gif" ||
-          articleFiles.mimeType === "image/bmp" ||
-          articleFiles.mimeType === "image/tiff" ||
-          articleFiles.mimeType === "image/webp" ||
-          articleFiles.mimeType === "image/svg+xml"
-      )[0];
+      const articleImage = getImage(articleFiles);
 
-      const pdfFile = (articleFiles || []).filter(
-        (articleFiles) => articleFiles.mimeType === "application/pdf"
-      )[0];
+      const pdfFile = getPDF(articleFiles);
 
       dbStandalones.push({
         type: "Article",
+        bookReviewIds: [],
         name: folder.name || "Untitled",
         imageUrl:
-          bookImage?.url ||
-          "https://litlang2.s3.amazonaws.com/Litlang/Books/100 mistakes that changed history backfires and blunders that collapsed empires, crashed economies, and altered the course of our world by Bill Fawcett/WhatsApp Image 2024-07-20 at 2.48.33 PM.jpeg",
+          articleImage?.url ||
+          "https://drwjw5urvo0gp.cloudfront.net/Litlang/Books/100 mistakes that changed history backfires and blunders that collapsed empires, crashed economies, and altered the course of our world by Bill Fawcett/WhatsApp Image 2024-07-20 at 2.48.33 PM.jpeg",
         pdfKey: pdfFile.key,
       });
     })
@@ -235,55 +217,128 @@ export const syncUpWithS3 = async () => {
     (textsFolders || []).map(async (folder) => {
       const textFiles = await listObjects(folder.prefix);
 
-      const textImage = (textFiles || []).filter(
-        (textFile) =>
-          textFile.mimeType === "image/jpeg" ||
-          textFile.mimeType === "image/png" ||
-          textFile.mimeType === "image/gif" ||
-          textFile.mimeType === "image/bmp" ||
-          textFile.mimeType === "image/tiff" ||
-          textFile.mimeType === "image/webp" ||
-          textFile.mimeType === "image/svg+xml"
-      )[0];
+      const textImage = getImage(textFiles);
 
-      const pdfFile = (textFiles || []).filter(
-        (textFile) => textFile.mimeType === "application/pdf"
-      )[0];
+      const pdfFile = getPDF(textFiles);
 
       dbStandalones.push({
         type: "Text",
+        bookReviewIds: [],
         name: folder.name || "Untitled",
         imageUrl:
           textImage?.url ||
-          "https://litlang2.s3.amazonaws.com/Litlang/Books/100 mistakes that changed history backfires and blunders that collapsed empires, crashed economies, and altered the course of our world by Bill Fawcett/WhatsApp Image 2024-07-20 at 2.48.33 PM.jpeg",
+          "https://drwjw5urvo0gp.cloudfront.net/Litlang/Books/100 mistakes that changed history backfires and blunders that collapsed empires, crashed economies, and altered the course of our world by Bill Fawcett/WhatsApp Image 2024-07-20 at 2.48.33 PM.jpeg",
         pdfKey: pdfFile.key,
       });
     })
   );
 
+  await prisma.standaloneFile.deleteMany({ where: { type: "BookReview" } });
   await prisma.standaloneFile.deleteMany();
-  const existingDBStandalones = await prisma.standaloneFile.findMany();
 
   await Promise.all(
     dbStandalones.map(async (dbStandalone) => {
-      const standaloneAlreadyExisting = existingDBStandalones.filter(
-        (existingBook) => existingBook.pdfKey === dbStandalone.pdfKey
-      );
-
-      if (standaloneAlreadyExisting.length > 0) {
-        return await prisma.standaloneFile.update({
-          where: { id: standaloneAlreadyExisting[0].id },
-          data: dbStandalone,
-        });
-      } else {
-        return await prisma.standaloneFile.create({
-          data: dbStandalone,
-        });
-      }
+      return await prisma.standaloneFile.create({
+        data: dbStandalone,
+      });
     })
   );
 
-  console.log("Synced with drive");
+  dbStandalones = [];
+
+  const allBooks = await prisma.standaloneFile.findMany({
+    where: { type: "Book" },
+  });
+
+  await Promise.all(
+    allBooks.map(async (book) => {
+      const bookReviewsFolders = await listObjects(
+        `${getFolderPrefix(book.pdfKey)}Book Reviews/`
+      );
+
+      await Promise.all(
+        bookReviewsFolders.map(async (bookReviewFolder) => {
+          const bookReviewFolderFiles = await listObjects(
+            bookReviewFolder.prefix
+          );
+
+          const pdf = getPDF(bookReviewFolderFiles);
+          const coverImage = getImage(bookReviewFolderFiles);
+
+          dbStandalones.push({
+            // @ts-ignore
+            book: { connect: { id: book.id } },
+            bookReviewIds: [],
+            pdfKey: pdf.key,
+            type: "BookReview",
+            imageUrl: coverImage.url,
+            name: bookReviewFolder.name || "Untitled",
+          });
+        })
+      );
+    })
+  );
+
+  const outsideBooksReviewsFolders = await listObjects(
+    "Litlang/Outside Book Reviews/"
+  );
+
+  await Promise.all(
+    outsideBooksReviewsFolders.map(async (outsideBooksReviewsFolder) => {
+      const outsideBookReviewFolderFiles = await listObjects(
+        outsideBooksReviewsFolder.prefix
+      );
+
+      const pdf = getPDF(outsideBookReviewFolderFiles);
+      const coverImage = getImage(outsideBookReviewFolderFiles);
+
+      dbStandalones.push({
+        pdfKey: pdf.key,
+        bookReviewIds: [],
+        type: "BookReview",
+        imageUrl: coverImage.url,
+        name: outsideBooksReviewsFolder.name || "Untitled",
+      });
+    })
+  );
+
+  await Promise.all(
+    dbStandalones.map(async (dbStandalone) => {
+      return await prisma.standaloneFile.create({
+        data: dbStandalone,
+      });
+    })
+  );
+
+  const bookReviews = await prisma.standaloneFile.findMany({
+    where: { type: "BookReview" },
+  });
+
+  let booksReviewIds: { [key: string]: string[] } = {};
+
+  bookReviews.map((bookReview) => {
+    if (!bookReview.bookId) return;
+
+    if (booksReviewIds[bookReview.bookId])
+      booksReviewIds[bookReview.bookId].push(bookReview.id);
+    else booksReviewIds[bookReview.bookId] = [bookReview.id];
+  });
+
+  await Promise.all(
+    Object.keys(booksReviewIds).map(async (bookId) => {
+      await prisma.standaloneFile.update({
+        where: {
+          type: "Book",
+          id: bookId,
+        },
+        data: {
+          bookReviewIds: booksReviewIds[bookId],
+        },
+      });
+    })
+  );
+
+  console.log("Synced with s3");
 };
 
 const listObjects = async (prefix: string) => {
@@ -302,7 +357,7 @@ const listObjects = async (prefix: string) => {
       prefix: prefixObj.Prefix!,
       id: ObjectId().toHexString(),
       name: (prefixObj.Prefix || "").split("/").slice(-2, -1)[0], // Extract folder name
-      url: `https://litlang2.s3.amazonaws.com/${prefixObj.Prefix}`,
+      url: `https://drwjw5urvo0gp.cloudfront.net/${prefixObj.Prefix}`, // Serve files through cloudfront districution
       mimeType: "application/x-directory",
     }));
 
@@ -314,7 +369,7 @@ const listObjects = async (prefix: string) => {
         prefix: contentObj.Key!,
         id: ObjectId().toHexString(),
         name: (contentObj.Key || "").split("/").pop(), // Extract file name
-        url: `https://litlang2.s3.amazonaws.com/${contentObj.Key}`,
+        url: `https://drwjw5urvo0gp.cloudfront.net/${contentObj.Key}`,
         mimeType:
           mime.lookup(contentObj.Key || "") || "application/octet-stream", // Simple mimeType determination by file extension
       }));
@@ -330,3 +385,48 @@ const listObjects = async (prefix: string) => {
     throw err;
   }
 };
+
+const getImage = (
+  files: {
+    key: string;
+    prefix: string;
+    id: string;
+    name: string | undefined;
+    url: string;
+    mimeType: string;
+  }[]
+) => {
+  return (files || []).filter(
+    (files) =>
+      files.mimeType === "image/jpeg" ||
+      files.mimeType === "image/png" ||
+      files.mimeType === "image/gif" ||
+      files.mimeType === "image/bmp" ||
+      files.mimeType === "image/tiff" ||
+      files.mimeType === "image/webp" ||
+      files.mimeType === "image/svg+xml"
+  )[0];
+};
+
+const getPDF = (
+  files: {
+    key: string;
+    prefix: string;
+    id: string;
+    name: string | undefined;
+    url: string;
+    mimeType: string;
+  }[]
+) => {
+  return (files || []).filter((file) => file.mimeType === "application/pdf")[0];
+};
+
+function getFolderPrefix(s3Key: string) {
+  // Split the key by '/'
+  const parts = s3Key.split("/");
+
+  // Remove the last part (filename) and join the rest
+  const folderPrefix = parts.slice(0, -1).join("/") + "/";
+
+  return folderPrefix;
+}

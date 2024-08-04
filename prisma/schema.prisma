@@ -58,6 +58,7 @@ enum StandaloneFileType {
   Book
   Text
   Article
+  BookReview
 }
 
 model standaloneFile {
@@ -68,4 +69,10 @@ model standaloneFile {
   type StandaloneFileType
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
+
+  bookId      String?            @db.ObjectId
+  book        standaloneFile?    @relation("BookReviews", fields: [bookId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  bookReviewIds String[] @db.ObjectId
+  bookReviews standaloneFile[]   @relation("BookReviews")
 }
