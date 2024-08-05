@@ -73,7 +73,7 @@ export const Navbar = ({}: {}) => {
       >
         <div className="flex justify-between items-center w-full gap-3 sm:gap-8 h-full min-h-[40px]">
           <Link href={"/"} aria-label="Home">
-            <div className="flex items-center gap-4 lg:w-[182.5px]">
+            <div className="flex items-center gap-4 lg:w-[182px]">
               <div className="relative w-12 h-12">
                 <Image
                   fill
