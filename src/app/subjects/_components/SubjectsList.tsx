@@ -5,16 +5,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, LazyMotion, m } from "framer-motion";
 
 import { trpc } from "@/app/_trpc/client";
-import { sortSearchParamType, SubjectType } from "@/types";
-import { SubjectsListPageSize } from "@/pagination";
-import { PaginationControls } from "@/components/PaginationControls";
-import { createImageUrlFromWebViewLink } from "@/utils/utils";
 import { SubjectCard } from "./SubjectCard";
+import { SubjectsListPageSize } from "@/pagination";
+import { sortSearchParamType, SubjectType } from "@/types";
+import { PaginationControls } from "@/components/PaginationControls";
+
+const loadFeatures = () =>
+  import("@/app/utils/features").then((res) => res.default);
 
 export const SubjectsList = () => {
   const searchParams = useSearchParams();
@@ -98,52 +99,26 @@ export const SubjectsList = () => {
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            <AnimatePresence>
-              {hoveredIndex === i && (
-                <motion.span
-                  className="absolute inset-0 h-full w-full bg-zinc-100 dark:bg-slate-800/[0.8] block  rounded-3xl -z-10"
-                  layoutId="hoverBackground"
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: 1,
-                    transition: { duration: 0.15 },
-                  }}
-                  exit={{
-                    opacity: 0,
-                    transition: { duration: 0.15, delay: 0.2 },
-                  }}
-                />
-              )}
-            </AnimatePresence>
-
-            {/* <div className="w-full h-full rounded-xl bg-zinc-50 hover:bg-white transition-colors border border-zinc-200 p-1.5 flex flex-col gap-2 group cursor-pointer z-20">
-              <div className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
-                <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8 bg-zinc-50">
-                  <Image
-                    fill
-                    loading="lazy"
-                    className="object-cover"
-                    alt="subject Cover Image"
-                    src={createImageUrlFromWebViewLink(subject.imageUrl)}
+            <LazyMotion features={loadFeatures} strict>
+              <AnimatePresence>
+                {hoveredIndex === i && (
+                  <m.span
+                    className="absolute inset-0 h-full w-full bg-zinc-100 dark:bg-slate-800/[0.8] block  rounded-3xl -z-10"
+                    layoutId="hoverBackground"
+                    initial={{ opacity: 0 }}
+                    animate={{
+                      opacity: 1,
+                      transition: { duration: 0.15 },
+                    }}
+                    exit={{
+                      opacity: 0,
+                      transition: { duration: 0.15, delay: 0.2 },
+                    }}
                   />
-                </div>
-              </div>
+                )}
+              </AnimatePresence>
+            </LazyMotion>
 
-              <div className="p-2 flex flex-col items-end gap-2">
-                <p className="text-base md:text-lg text-zinc-700 font-medium line-clamp-2 w-full text-start h-14">
-                  {subject.name}
-                </p>
-
-                <div className="flex items-center gap-3">
-                  <Badge className="bg-white text-sm font-medium text-zinc-600 border border-zinc-200 rounded-lg hover:bg-white">
-                    {subject.universityShort}
-                  </Badge>
-                  <Badge className="bg-white text-sm text-zinc-600 font-medium border border-zinc-200 rounded-lg hover:bg-white">
-                    Semester {subject.semester}
-                  </Badge>
-                </div>
-              </div>
-            </div> */}
             <SubjectCard subject={subject as unknown as SubjectType} />
           </Link>
         ))}
