@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
 
-import Autoplay from "embla-carousel-autoplay";
-
 import {
   Carousel,
   CarouselContent,

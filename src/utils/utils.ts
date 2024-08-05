@@ -1,4 +1,3 @@
-import { isDesktop } from "react-device-detect";
 import { ResourceType } from "@/types";
 import { type ClassValue, clsx } from "clsx";
 import { ReadonlyURLSearchParams } from "next/navigation";
