@@ -75,7 +75,7 @@ export const OverlayImageHeader = ({
 
       <div
         // style={{ opacity: overlayOpacity }}
-        className="bg-black z-10 absolute inset-0"
+        className="bg-black z-10 absolute inset-0 bg-opacity-40"
       />
       {/* </LazyMotion> */}
 
