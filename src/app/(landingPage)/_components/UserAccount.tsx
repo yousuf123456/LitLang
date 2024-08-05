@@ -18,7 +18,7 @@ export const UserAccount = ({ imageTheme }: { imageTheme: boolean | null }) => {
 
   if (!isLoaded)
     return (
-      <div className="flex items-center lg:w-[182.5px] justify-center flex-shrink-0">
+      <div className="flex items-center lg:w-[182px] justify-center flex-shrink-0">
         <Skeleton className="w-9 h-9 rounded-full" />
       </div>
     );
@@ -56,13 +56,9 @@ export const UserAccount = ({ imageTheme }: { imageTheme: boolean | null }) => {
       {user ? (
         <div
           className={cn(
-            "flex items-center lg:w-32 justify-center flex-shrink-0"
+            "flex items-center lg:w-[182px] justify-center flex-shrink-0"
           )}
         >
-          {/* <Button variant={"secondary"} className="mr-4" onClick={syncUp}>
-            Sync Up
-          </Button> */}
-
           <UserMenu />
         </div>
       ) : (

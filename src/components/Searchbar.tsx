@@ -5,10 +5,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { cn, getSearchParamsArray, scrollToElement } from "@/utils/utils";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Search, X } from "lucide-react";
 import { useDebounce } from "use-debounce";
-import { SubjectType } from "@/types";
 
 interface SearchbarProps extends React.InputHTMLAttributes<HTMLInputElement> {
   pathname: string;
@@ -27,9 +26,13 @@ export const Searchbar = ({
   autocompleteFieldName,
   ...inputProps
 }: SearchbarProps) => {
+  const urlPathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [query, setQuery] = useState(searchParams.get("query") || "");
+  const defaultSearchQuery =
+    pathname === urlPathname ? searchParams.get("query") || "" : "";
+
+  const [query, setQuery] = useState(defaultSearchQuery);
   const [debouncedQueryValue] = useDebounce(query, 500);
 
   const autocompletesContRef = useRef<HTMLDivElement | null>(null);
