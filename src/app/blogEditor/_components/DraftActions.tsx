@@ -21,14 +21,14 @@ export const DraftActions = ({
     useContext(BlogContext);
 
   return (
-    <header className="md:py-6 py-4 lg:px-16 xl:px-20 md:px-8 px-3 border-b border-zinc-300 sticky top-0 left-0 bg-white z-50">
+    <header className="md:py-6 py-4 lg:px-16 xl:px-20 md:px-8 px-3 border-b border-zinc-300 sticky top-0 left-0 bg-white z-50 h-[72px]">
       <div className="flex justify-between items-center w-full gap-3 sm:gap-8">
         <Link href={"/"} aria-label="Home">
           <div className="flex items-center gap-4 lg:w-[182.5px]">
-            <div className="relative w-8 h-8">
+            <div className="relative w-12 h-12">
               <Image
+                src={"/logo.png"}
                 alt="Company Logo"
-                src={"/logo2.svg"}
                 className="object-cover"
                 fill
               />
