@@ -16,9 +16,10 @@
 import ObjectId from "bson-objectid";
 
 import mime from "mime-types";
-import aws_s3 from "@/app/utils/aws-s3";
 
+import aws_s3 from "@/app/utils/aws-s3";
 import prisma from "@/app/utils/prismadb";
+
 import { ResourceType, SubjectType } from "@/types";
 import { standaloneFile } from "@prisma/client";
 import { ListObjectsCommand } from "@aws-sdk/client-s3";
