@@ -36,7 +36,7 @@ export const OverlayImageHeader = ({
   const y = useTransform(scrollYProgress, [0, 0.5], [0, -48]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.4, 0]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.45, 0]);
 
   return (
     <div ref={targetedRef} className="h-screen w-full relative overlay-image">
