@@ -80,9 +80,11 @@ export function createImageUrlFromWebViewLink(webViewLink: string) {
 }
 
 export const findFileById = (
-  resources: ResourceType[],
+  resources: ResourceType[] | undefined | null,
   id: string
 ): ResourceType | null => {
+  if (!resources) return null;
+
   for (const resource of resources) {
     if (resource.type !== "Folder" && resource.id === id) {
       return resource;

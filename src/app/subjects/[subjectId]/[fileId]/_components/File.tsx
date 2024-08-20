@@ -31,10 +31,14 @@ export const File = async ({
   const pdfUrl = `https://litlang2.s3.amazonaws.com/${file.key}`;
   const audioUrl = `https://drwjw5urvo0gp.cloudfront.net/${file.key}`;
 
+  // Check for subscription
+  if (file.isPremium && false) redirect(`/subjects/${subjectId}`);
+
   return (
     <>
       {file.type === "PDF" ? (
         <PDFViewer
+          aiChatAvailable={!file.isHandwritten}
           backUrl={`/subjects/${subjectId}`}
           name={file.name}
           pdfUrl={pdfUrl}

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ResourceType } from "@/types";
 import { ChevronRight, Folder, Lock, LucideProps } from "lucide-react";
 
-import { AiFillAudio, AiFillFilePdf, AiOutlineFilePdf } from "react-icons/ai";
+import { AiFillFilePdf, AiOutlineFilePdf } from "react-icons/ai";
 import { FaMicrophone } from "react-icons/fa";
 
 import { cn } from "@/utils/utils";
@@ -36,8 +36,8 @@ export const ResourcesStructure = ({
         transition={{
           type: "keyframes",
           ease: "easeOut",
-          duration: 0.35,
-          delay: 0.1,
+          duration: 0.3,
+          delay: 0.3,
         }}
         role="tree"
         className="flex flex-col"
@@ -79,16 +79,15 @@ export const ResourcesStructure = ({
             );
           else if (resource.type === "Audio") {
             return (
-              <Link key={i} href={`/subjects/${subjectId}/${resource.id}`}>
-                <File
-                  paddingLeft={paddingLeft}
-                  name={resource.name}
-                  Icon={FaMicrophone}
-                  setOpen={setOpen}
-                  open={open}
-                  isPremium
-                />
-              </Link>
+              <File
+                paddingLeft={paddingLeft}
+                name={resource.name}
+                Icon={FaMicrophone}
+                setOpen={setOpen}
+                open={open}
+                isPremium
+                key={i}
+              />
             );
           } else return null;
         })}
@@ -124,8 +123,8 @@ const FolderStructure = ({
         onClick={toggleChildsCollapsed}
         style={{ paddingLeft }}
         className={cn(
-          "flex items-center gap-2 py-3 pr-3 hover:bg-zinc-200/40 transition-colors",
-          !isChildsCollapsed && "bg-zinc-200/40"
+          "flex items-center gap-2 py-3 pr-3 hover:bg-[#DED8C4] transition-colors",
+          !isChildsCollapsed && "bg-[#DED8C4]"
         )}
       >
         <ChevronRight
@@ -134,8 +133,10 @@ const FolderStructure = ({
             !isChildsCollapsed && "rotate-90"
           )}
         />
-        <Folder className="text-zinc-500 w-4 h-4 flex-shrink-0" />
-        <p className="text-zinc-800 text-sm line-clamp-1">{resource.name}</p>
+        <Folder className="text-zinc-600 w-4 h-4 flex-shrink-0" />
+        <p className="text-zinc-900 font-medium text-sm line-clamp-1">
+          {resource.name}
+        </p>
       </div>
 
       {!isChildsCollapsed && (
@@ -178,26 +179,26 @@ const File = ({
       }}
       style={{ paddingLeft: paddingLeft + 4 }}
       className={cn(
-        "flex items-center gap-2 py-3 pr-3 hover:bg-zinc-200/40 transition-colors",
+        "flex items-center gap-2 py-3 pr-3 hover:bg-[#DED8C4] transition-colors",
         isPremium && "opacity-[0.85]"
       )}
     >
       {isPremium ? (
-        <Icon className="text-brown-600  w-[18px] h-[18px] flex-shrink-0" />
+        <Icon className="text-primary w-4 h-4 flex-shrink-0" />
       ) : (
-        <Icon className="text-zinc-500 w-[18px] h-[18px] flex-shrink-0" />
+        <Icon className="text-zinc-600 w-4 h-4 flex-shrink-0" />
       )}
 
       <p
         className={cn(
-          "text-zinc-900 text-sm line-clamp-1 flex-1",
+          "text-zinc-900 text-sm line-clamp-1 flex-1 font-medium",
           isPremium &&
-            "text-transparent bg-clip-text bg-gradient-to-r from-brown-900 via-amber-800 to-brown-900 font-medium"
+            "text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-700 to-primary font-medium"
         )}
       >
         {name}
       </p>
-      {isPremium && <Lock className="w-[14px] h-[14px] text-zinc-600" />}
+      {isPremium && <Lock className="w-[14px] h-[14px] text-zinc-800" />}
     </li>
   );
 };

@@ -21,6 +21,7 @@ export const paymentsRouter = router({
         const user = (await currentUser()) as User;
         await prisma.user.create({
           data: {
+            prefrences: { showMultipleQuotaUsageModal: true },
             clerkId: ctx.userId,
             email: user.primaryEmailAddress?.emailAddress || "",
           },

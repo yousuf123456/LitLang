@@ -18,5 +18,12 @@ export const FileNavigation = async ({
 
   if (!file) return <p>Invalid File Id</p>;
 
-  return <Sidebar subject={subject} showSubject className="hidden md:block" />;
+  return (
+    <Sidebar
+      subject={subject}
+      className="hidden md:block"
+      showSubject
+      isCollapsible
+    />
+  );
 };

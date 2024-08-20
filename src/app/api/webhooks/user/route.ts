@@ -1,17 +1,13 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import {
-  clerkClient,
-  User,
-  UserJSON,
-  WebhookEvent,
-} from "@clerk/nextjs/server";
+import { clerkClient, UserJSON, WebhookEvent } from "@clerk/nextjs/server";
 
 import prisma from "@/app/utils/prismadb";
 
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET_KEY;
 
+  console.log("WEBHOOKS CALLED");
   if (!WEBHOOK_SECRET) {
     throw new Error(
       "Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local"
@@ -64,6 +60,9 @@ export async function POST(req: Request) {
 
     await prisma.user.create({
       data: {
+        prefrences: {
+          showMultipleQuotaUsageModal: true,
+        },
         clerkId: user.id,
         email: user.primaryEmailAddress?.emailAddress || "",
       },

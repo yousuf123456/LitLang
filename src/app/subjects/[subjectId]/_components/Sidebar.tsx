@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 
 import Image from "next/image";
-import { Resizer } from "./Resizer";
-import { Gem, Text } from "lucide-react";
+import { IoIosMenu } from "react-icons/io";
+import { Gem, Menu, Text } from "lucide-react";
 import { SubjectType } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { ResourcesStructure } from "./ResourcesStructure";
@@ -14,62 +14,87 @@ import { DialogContent, Dialog, DialogClose } from "@/components/ui/dialog";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 
+import { LazyMotion, m } from "framer-motion";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+const loadFeatures = () =>
+  import("@/app/utils/features").then((res) => res.default);
+
 export const Sidebar = ({
   subject,
-  showSubject,
   className,
+  showSubject,
+  isCollapsible,
 }: {
+  isCollapsible?: boolean;
   showSubject?: boolean;
   subject: SubjectType;
   className?: string;
 }) => {
   const [open, setOpen] = useState(false);
+  const [isCollapsed, setisCollapsed] = useState(isCollapsible!!);
 
   return (
     <>
       <aside
         id="sidebar"
         className={cn(
-          "min-w-56 w-full md:w-64 lg:w-80 max-w-full md:max-w-96 bg-zinc-50 relative group overflow-x-hidden select-none",
-          className
+          "w-full md:w-64 lg:w-80 flex-shrink-0 bg-[#F2F0E8] relative group overflow-x-hidden select-none transition-all duration-300",
+          className,
+          isCollapsed && "w-14 md:w-16 lg:w-16"
         )}
       >
-        <Resizer />
+        {/* <Resizer /> */}
 
         <ScrollArea className="h-full">
           <section
             aria-label="Subject Information"
             className={cn("w-full block md:hidden", showSubject && "md:block")}
           >
-            <div className="w-full h-44 relative">
-              <Image
-                src={createImageUrlFromWebViewLink(subject.imageUrl)}
-                className="object-cover "
-                alt="Subject Picture"
-                priority={true}
-                fill
-              />
-
-              <div className="absolute inset-0 p-4 bg-black/50 z-10 flex flex-col justify-between">
-                <h1 className="line-clamp-2 text-lg font-medium text-white">
-                  {subject.name}
-                </h1>
-
-                <div className="w-full flex justify-end gap-4">
-                  <Badge
-                    variant={"outline"}
-                    className="text-xs text-zinc-200 font-medium rounded-lg "
+            <div className="relative h-44">
+              {!isCollapsed && (
+                <LazyMotion features={loadFeatures}>
+                  <m.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4, duration: 0.3 }}
+                    className="w-full h-44"
                   >
-                    {subject.universityShort}
-                  </Badge>
-                  <Badge
-                    variant={"outline"}
-                    className="text-xs text-zinc-200 font-medium rounded-lg "
-                  >
-                    Semester {subject.semester}
-                  </Badge>
-                </div>
-              </div>
+                    <Image
+                      src={createImageUrlFromWebViewLink(subject.imageUrl)}
+                      className="object-cover object-center"
+                      alt="Subject Picture"
+                      priority={true}
+                      fill
+                    />
+
+                    <div className="absolute inset-0 p-4 bg-black/50 z-10 flex flex-col justify-between">
+                      <h1 className="line-clamp-2 text-lg font-medium text-white">
+                        {subject.name}
+                      </h1>
+
+                      <div className="w-full flex justify-end gap-4">
+                        <Badge
+                          variant={"outline"}
+                          className="text-xs text-zinc-200 font-medium rounded-lg "
+                        >
+                          {subject.universityShort}
+                        </Badge>
+                        <Badge
+                          variant={"outline"}
+                          className="text-xs text-zinc-200 font-medium rounded-lg "
+                        >
+                          Semester {subject.semester}
+                        </Badge>
+                      </div>
+                    </div>
+                  </m.div>
+                </LazyMotion>
+              )}
             </div>
           </section>
 
@@ -77,26 +102,50 @@ export const Sidebar = ({
             aria-label="File explorer"
             className="py-8 flex flex-col gap-6"
           >
-            <div className="px-3 flex items-center gap-4">
-              <Text className="w-5 h-5 text-zinc-700" />
+            <div className="px-3 flex items-center gap-6">
+              <TooltipProvider>
+                <Tooltip delayDuration={150}>
+                  <TooltipTrigger asChild>
+                    <Button
+                      size={"icon"}
+                      variant={"ghost"}
+                      onClick={() => setisCollapsed((prev) => !prev)}
+                      className=" rounded-full hover:bg-[#DED8C4] p-2.5 duration-200"
+                    >
+                      <Menu className="w-5 h-5 text-primary" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <div className="p-0.5 rounded-md">
+                      <p className="text-xs text-black">
+                        {isCollapsed ? "Open Menu" : "Collapse Menu"}
+                      </p>
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
 
-              <h2 className="text-zinc-800 text-lg font-medium">Resources</h2>
+              {!isCollapsed && (
+                <h2 className="text-zinc-800 text-lg font-medium">Resources</h2>
+              )}
             </div>
 
-            {subject.resources.length === 0 && (
+            {subject.resources.length === 0 && !isCollapsed && (
               <p className="mx-5 mt-8">
                 We are working hard to provide material very soon for this
                 subject.
               </p>
             )}
 
-            <ResourcesStructure
-              open={open}
-              paddingLeft={8}
-              setOpen={setOpen}
-              subjectId={subject.id}
-              resources={subject.resources}
-            />
+            {!isCollapsed && (
+              <ResourcesStructure
+                open={open}
+                paddingLeft={8}
+                setOpen={setOpen}
+                subjectId={subject.id}
+                resources={subject.resources}
+              />
+            )}
           </section>
         </ScrollArea>
       </aside>
