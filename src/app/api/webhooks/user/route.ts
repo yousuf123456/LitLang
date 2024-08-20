@@ -7,7 +7,6 @@ import prisma from "@/app/utils/prismadb";
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET_KEY;
 
-  console.log("WEBHOOKS CALLED");
   if (!WEBHOOK_SECRET) {
     throw new Error(
       "Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local"
