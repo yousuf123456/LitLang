@@ -4,7 +4,7 @@ export const SubjectsListPageSize = 15;
 
 export const StandalonesListPerPageSize = 10;
 
-export const MessagesPerPage = 4;
+export const MessagesPerPage = 14;
 
 export const MessagePagesLimit = 1;
 
