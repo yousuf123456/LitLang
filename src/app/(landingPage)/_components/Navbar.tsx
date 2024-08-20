@@ -85,8 +85,8 @@ export const Navbar = ({}: {}) => {
 
               <p
                 className={cn(
-                  "text-[26px] font-medium font-brand hidden lg:block text-white transition-colors",
-                  imageTheme ? "text-white" : "text-black",
+                  "text-[26px] font-[570] font-brand hidden lg:block  text-white transition-colors",
+                  imageTheme ? "text-themeSecondary" : "text-primary",
                   imageTheme === null && "opacity-0"
                 )}
               >

@@ -19,11 +19,19 @@ type PlanInfo {
   subscriptionPlanId String
 }
 
+type UserPrefrences {
+  showMultipleQuotaUsageModal Boolean @default(true)
+}
+
 model user {
   id String   @id @default(auto()) @map("_id") @db.ObjectId
   clerkId String @unique
   email String @unique
 
+  messagesQuota Int @default(0)
+  maxMessagesQuotaLimit Int @default(500)
+
+  prefrences UserPrefrences
   planInfo PlanInfo?
 }
 
@@ -76,4 +84,26 @@ model standaloneFile {
 
   bookReviewIds String[] @db.ObjectId
   bookReviews standaloneFile[]   @relation("BookReviews")
+}
+
+type Message {
+  id String
+  text String
+  createdAt DateTime @default(now())
+  isUserMessage Boolean
+
+  gotRejected Boolean
+}
+
+model messagesPage {
+  id String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  page Message[]
+  messagesCount Int @default(0)
+
+  fileId String
+  userClerkId String
 }

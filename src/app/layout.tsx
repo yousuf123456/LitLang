@@ -1,6 +1,8 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
+
+import { Inter, Roboto } from "next/font/google";
 import localfont from "next/font/local";
 import { Providers } from "@/components/Providers";
 import { Navbar } from "./(landingPage)/_components/Navbar";
@@ -8,7 +10,13 @@ import { Navbar } from "./(landingPage)/_components/Navbar";
 import NextTopLoader from "nextjs-toploader";
 import { Footer } from "./(landingPage)/_components/Footer";
 
-const clashGrotesk = localfont({
+const inter = Roboto({
+  variable: "--font-inter",
+  weight: "400",
+  subsets: ["latin"],
+});
+
+const clash_grotesk = localfont({
   src: "./ClashGrotesk-Variable.ttf",
   variable: "--font-clash_grotesk",
 });
@@ -32,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${satoshi.className} ${satoshi.variable} ${clashGrotesk.variable} bg-white `}
+        className={`${satoshi.className} ${satoshi.variable} ${inter.variable} ${clash_grotesk.variable} bg-white `}
       >
         <NextTopLoader color="#A86541" showSpinner={false} shadow={false} />
 

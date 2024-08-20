@@ -27,6 +27,7 @@ const config = {
       fontFamily: {
         brand: "var(--font-clash_grotesk)",
         secondary: "var(--font-satoshi)",
+        inter: "var(--font-inter)",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -117,6 +118,21 @@ const config = {
             "background-position": "calc(100% + var(--shimmer-width)) 0",
           },
         },
+        write: {
+          "0%": { transform: "translateX(0) translateY(0) rotate(0deg)" },
+          "15%": { transform: "translateX(2px) translateY(2px) rotate(-4deg)" },
+          "20%": { transform: "translateX(3px) translateY(4px) rotate(0deg)" },
+          "35%": { transform: "translateX(-3px) translateY(2px) rotate(3deg)" },
+          "50%": { transform: "translateX(1px) translateY(0) rotate(0deg)" },
+          "65%": {
+            transform: "translateX(-1px) translateY(2px) rotate(-3deg)",
+          },
+          "75%": { transform: "translateX(2px) translateY(3px) rotate(0deg)" },
+          "90%": { transform: "translateX(2px) translateY(3px) rotate(-6deg)" },
+          "100%": {
+            transform: "translateX(0px) translateY(0px) rotate(0deg)",
+          },
+        },
       },
       animation: {
         "spin-around": "spin-around calc(var(--speed) * 2) infinite linear",
@@ -124,6 +140,7 @@ const config = {
         shimmer: "shimmer 8s infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        write: "write 2s ease-in-out infinite",
       },
     },
   },

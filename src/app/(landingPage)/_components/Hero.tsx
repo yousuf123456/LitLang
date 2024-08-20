@@ -215,7 +215,7 @@ export const ParallaxRevampedHero = () => {
         >
           <div className="w-full flex flex-col gap-8 items-center">
             <BlurFade duration={0.5}>
-              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-semibold font-brand text-[#F6F5AE] text-center">
+              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-[550] font-brand text-[#F6F5AE] text-center">
                 Explore Literary <br /> Treasures
               </h1>
             </BlurFade>

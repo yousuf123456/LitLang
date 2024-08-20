@@ -38,30 +38,8 @@ import {
 import Link from "next/link";
 import { StandaloneFileType } from "@prisma/client";
 import { IoBookOutline } from "react-icons/io5";
-
-if (typeof Promise.withResolvers === "undefined") {
-  if (typeof window !== undefined) {
-    // @ts-expect-error This does not exist outside of polyfill which this is doing
-    window.Promise.withResolvers = function () {
-      let resolve, reject;
-      const promise = new Promise((res, rej) => {
-        resolve = res;
-        reject = rej;
-      });
-      return { promise, resolve, reject };
-    };
-  } else {
-    // @ts-expect-error This does not exist outside of polyfill which this is doing
-    global.Promise.withResolvers = function () {
-      let resolve, reject;
-      const promise = new Promise((res, rej) => {
-        resolve = res;
-        reject = rej;
-      });
-      return { promise, resolve, reject };
-    };
-  }
-}
+import ShinyButton from "@/components/magicui/shiny-button";
+import { useParams, useSearchParams } from "next/navigation";
 
 // there is your `/legacy/build/pdf.worker.min.mjs` url
 // pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -79,18 +57,26 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 // pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 export const PDFViewer = ({
+  aiChatAvailable,
   backUrl,
   bookId,
   pdfUrl,
   name,
   type,
 }: {
+  aiChatAvailable?: boolean;
   type?: StandaloneFileType;
   bookId?: string | null;
   backUrl: string;
   pdfUrl: string;
   name: string;
 }) => {
+  const componentType = useSearchParams().get("type") as
+    | "Chat"
+    | "Viewer"
+    | "Both";
+  const { subjectId, fileId } = useParams();
+
   const options = useMemo(() => {
     return {
       disableStream: true,
@@ -158,7 +144,7 @@ export const PDFViewer = ({
     <article
       aria-labelledby="pdf-viewer-heading"
       className={cn(
-        "flex-1 flex flex-col gap-0 overflow-x-hidden bg-[#DDD8C2] print:hidden",
+        "flex-1 col-span-4 flex flex-col gap-0 overflow-x-hidden bg-[#DDD8C2] print:hidden",
         isFullscreen ? "fixed inset-0 z-[9999]" : "relative",
         scale < 1 && "items-center"
       )}
@@ -213,6 +199,30 @@ export const PDFViewer = ({
         </div>
 
         <div className="flex items-center max-sm:justify-around max-sm:w-full gap-1 sm:gap-4 mr-2 sm:mr-4">
+          {aiChatAvailable && componentType !== "Both" && (
+            <>
+              <Link
+                href={`/subjects/${subjectId}/${fileId}?type=Both`}
+                className="hidden xl:block"
+              >
+                <ShinyButton
+                  text="Litera Ai"
+                  className="shadow-primary border border-primary"
+                />
+              </Link>
+
+              <Link
+                href={`/subjects/${subjectId}/${fileId}?type=Chat`}
+                className="xl:hidden"
+              >
+                <ShinyButton
+                  text="Litera Ai"
+                  className="shadow-primary border border-primary"
+                />
+              </Link>
+            </>
+          )}
+
           <Button
             size={"icon"}
             variant={"ghost"}
