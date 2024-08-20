@@ -271,9 +271,8 @@ export async function POST(request: Request) {
       }),
     });
 
-    return new NextResponse(aiMsg, { headers });
+    return new NextResponse(aiMsg, { headers, status: 200 });
   } catch (e) {
-    console.log("Server Error: ", e);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
