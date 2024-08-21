@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 import { cn } from "@/utils/utils";
 
 import prisma from "@/app/utils/prismadb";
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import { ChatContext } from "./_components/AiChat/ChatContext";
 import { Messages } from "./_components/AiChat/Messages";
 import { ChatInput } from "./_components/AiChat/ChatInput";
