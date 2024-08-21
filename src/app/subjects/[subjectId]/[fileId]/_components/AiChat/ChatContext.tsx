@@ -94,6 +94,7 @@ export const ChatContext = ({
       utils.chat.getMessagePages.setInfiniteData(
         { fileId, limit: 1 },
         (oldData) => {
+          console.log(oldData);
           if (!oldData) return oldData;
 
           let latestPage = oldData.pages[0];
@@ -224,7 +225,7 @@ export const ChatContext = ({
       <chatContext.Provider
         value={{ isLoading, createMessage, messagesQuota: currentQuota }}
       >
-        <div className="flex col-span-3 flex-col w-full h-full min-h-[calc(100vh-72px)] max-[calc(100vh-72px)] relative">
+        <div className="flex col-span-3 flex-col w-full h-full min-h-[calc(100dvh-72px)] max-[calc(100dvh-72px)] relative">
           {children}
         </div>
       </chatContext.Provider>
