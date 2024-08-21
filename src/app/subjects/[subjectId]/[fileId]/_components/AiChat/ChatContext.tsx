@@ -83,6 +83,12 @@ export const ChatContext = ({
       return response;
     },
     onMutate: async (newMessage) => {
+      await utils.chat.getMessagePages.cancel();
+
+      const previousMessages = utils.chat.getMessagePages.getInfiniteData({
+        fileId,
+      });
+
       utils.chat.getMessagePages.setInfiniteData(
         { fileId, limit: 1 },
         (oldData) => {
@@ -118,6 +124,11 @@ export const ChatContext = ({
       );
 
       setIsLoading(true);
+
+      return {
+        prevMessages:
+          previousMessages?.pages.flatMap((page) => page.messages) ?? [],
+      };
     },
     onSuccess: async (response) => {
       if (!response.body)
