@@ -89,6 +89,8 @@ export const ChatContext = ({
         fileId,
       });
 
+      console.log("Adding new message");
+
       utils.chat.getMessagePages.setInfiniteData(
         { fileId, limit: 1 },
         (oldData) => {
