@@ -45,7 +45,7 @@ export const Sidebar = ({
         className={cn(
           "w-full md:w-64 lg:w-80 flex-shrink-0 bg-[#F2F0E8] relative group overflow-x-hidden select-none transition-all duration-300",
           className,
-          isCollapsed && "w-14 md:w-16 lg:w-16"
+          isCollapsed && "md:w-16 lg:w-16"
         )}
       >
         {/* <Resizer /> */}

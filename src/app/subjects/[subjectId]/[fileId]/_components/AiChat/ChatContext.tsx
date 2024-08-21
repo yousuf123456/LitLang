@@ -174,7 +174,28 @@ export const ChatContext = ({
       }
     },
     onError: (e) => {
-      console.log(e);
+      utils.chat.getMessagePages.setInfiniteData(
+        { fileId, limit: 1 },
+        (oldData) => {
+          if (!oldData) return oldData;
+
+          const updatedPages = oldData.pages.map((page, i) => {
+            if (i === 0) {
+              const updatedMessages = page.messages.filter(
+                (msg, i) => i !== 0 && i !== 1
+              );
+
+              return { ...page, messages: updatedMessages };
+            } else return page;
+          });
+
+          return {
+            pages: updatedPages,
+            pageParams: oldData.pageParams,
+          };
+        }
+      );
+
       toast.error(
         "There was some error sending your message. Try again later."
       );
