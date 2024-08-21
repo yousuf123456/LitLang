@@ -1,5 +1,7 @@
 export const maxDuration = 30;
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 import { NextResponse } from "next/server";
 
 import llm from "@/app/utils/llm";
