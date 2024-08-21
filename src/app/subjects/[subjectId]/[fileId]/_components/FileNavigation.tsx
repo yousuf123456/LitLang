@@ -20,10 +20,10 @@ export const FileNavigation = async ({
 
   return (
     <Sidebar
-      subject={subject}
       className="hidden md:block"
-      showSubject
+      subject={subject}
       isCollapsible
+      showSubject
     />
   );
 };

@@ -57,9 +57,9 @@ export const Message = forwardRef<
 
       {message.isAiThinking && (
         <div className="mt-4 flex flex-col w-full gap-3">
-          <Skeleton className="w-full h-5 bg-primary/20" />
-          <Skeleton className="w-full h-5 bg-primary/20" />
-          <Skeleton className="w-full h-5 bg-primary/20" />
+          <Skeleton className="w-full h-5 bg-primary/25" />
+          <Skeleton className="w-full h-5 bg-primary/25" />
+          <Skeleton className="w-full h-5 bg-primary/25" />
         </div>
       )}
     </div>
