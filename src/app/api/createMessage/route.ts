@@ -1,3 +1,4 @@
+export const maxDuration = 30;
 export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 
@@ -8,10 +9,12 @@ import embeddings from "@/app/utils/embeddings";
 import { PineconeClient } from "@/app/utils/pinecone";
 
 import { ChatPromptTemplate } from "@langchain/core/prompts";
+
 import {
   RunnableSequence,
   RunnablePassthrough,
 } from "@langchain/core/runnables";
+
 import { PineconeStore } from "@langchain/pinecone";
 
 import { StructuredOutputParser } from "langchain/output_parsers";
@@ -20,13 +23,13 @@ import { StringOutputParser } from "@langchain/core/output_parsers";
 import ObjectID from "bson-objectid";
 import prisma from "@/app/utils/prismadb";
 
+import { z } from "zod";
 import { SubjectType } from "@/types";
 import { findFileById } from "@/utils/utils";
-import { MAX_HISTORY_MESSAGES, MessagesPerPage } from "@/pagination";
 import { currentUser } from "@clerk/nextjs/server";
+import { MAX_HISTORY_MESSAGES, MessagesPerPage } from "@/pagination";
 import { MultiQueryRetriever } from "langchain/retrievers/multi_query";
 import { contextualizeQSystemPrompt, qaSystemPrompt } from "@/app/utils/prompt";
-import { z } from "zod";
 
 export async function POST(request: Request) {
   try {

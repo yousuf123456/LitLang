@@ -196,9 +196,12 @@ export const ChatContext = ({
         }
       );
 
-      toast.error(
-        "There was some error sending your message. Try again later."
-      );
+      if (e.message === "Messages Quota Reached") {
+        toast.error("You have used all of your messages.");
+      } else
+        toast.error(
+          "There was some error sending your message. Try again later."
+        );
     },
     onSettled: (response) => {
       setIsLoading(false);

@@ -108,7 +108,7 @@ export const PricingPlanFeatures = () => {
           <div
             key={i}
             className={cn(
-              "border-b border-b-zinc-400 flex gap-6 justify-between items-center px-4 py-2",
+              "border-b border-b-zinc-400 flex gap-6 justify-between items-center p-4",
               i === features.length - 1 && "border-b-0",
               features.length % 2 === 0 && i === features.length - 2
                 ? "sm:border-b-0"

@@ -48,7 +48,7 @@ export const Pricing = () => {
 
         <PricingPlanFeatures />
 
-        <Subscribe btnClassName="from-gray-900 bg-gradient-to-br to-primary hover:bg-gray-900/90 w-full lg:hidden" />
+        <Subscribe btnClassName="from-gray-900 bg-gradient-to-b to-primary hover:bg-gray-900/90 w-full lg:hidden" />
       </div>
     </section>
   );
