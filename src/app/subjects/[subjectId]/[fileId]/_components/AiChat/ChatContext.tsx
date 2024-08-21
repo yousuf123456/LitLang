@@ -94,35 +94,60 @@ export const ChatContext = ({
       utils.chat.getMessagePages.setInfiniteData(
         { fileId, limit: 1 },
         (oldData) => {
-          console.log(oldData);
           if (!oldData) return oldData;
 
-          let latestPage = oldData.pages[0];
+          const oldPages = oldData.pages;
+          const newPages = [...oldPages];
 
-          const newUserMessage: ExtendedMessageType = {
-            createdAt: new Date().toString(),
-            id: ObjectID().toHexString(),
-            isUserMessage: true,
-            gotRejected: false,
-            text: newMessage,
+          let latestPage = newPages[0];
+
+          // const newUserMessage: ExtendedMessageType = {
+          //   createdAt: new Date().toString(),
+          //   id: ObjectID().toHexString(),
+          //   isUserMessage: true,
+          //   gotRejected: false,
+          //   text: newMessage,
+          // };
+
+          // const newAiMessage: ExtendedMessageType = {
+          //   id: "ai-streaming-response",
+          //   isAiWriting: true,
+          //   gotRejected: false,
+          //   isAiThinking: true,
+          //   isUserMessage: false,
+          //   createdAt: new Date().toString(),
+          //   text: "Litera is processing your query...",
+          // };
+
+          latestPage.messages = [
+            {
+              createdAt: new Date().toString(),
+              id: ObjectID().toHexString(),
+              isUserMessage: true,
+              gotRejected: false,
+              text: newMessage,
+            },
+            {
+              id: "ai-streaming-response",
+              isAiWriting: true,
+              gotRejected: false,
+              isAiThinking: true,
+              isUserMessage: false,
+              createdAt: new Date().toString(),
+              text: "Litera is processing your query...",
+            },
+            ...latestPage.messages,
+          ];
+
+          // latestPage.messages.unshift(newUserMessage);
+          // latestPage.messages.unshift(newAiMessage);
+
+          newPages[0] = latestPage;
+
+          return {
+            pages: newPages,
+            pageParams: oldData.pageParams,
           };
-
-          const newAiMessage: ExtendedMessageType = {
-            id: "ai-streaming-response",
-            isAiWriting: true,
-            gotRejected: false,
-            isAiThinking: true,
-            isUserMessage: false,
-            createdAt: new Date().toString(),
-            text: "Litera is processing your query...",
-          };
-
-          latestPage.messages.unshift(newUserMessage);
-          latestPage.messages.unshift(newAiMessage);
-
-          oldData.pages[0] = latestPage;
-
-          return oldData;
         }
       );
 
