@@ -100,9 +100,8 @@ export const StandaloneFilesList = () => {
     <div className="w-full flex flex-col gap-8">
       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
         {data.standaloneFiles.map((standalone, i) => (
-          <li>
+          <li key={i}>
             <Link
-              key={i}
               href={`/standalones/${standalone.id}`}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}

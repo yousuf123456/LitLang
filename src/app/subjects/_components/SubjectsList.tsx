@@ -102,9 +102,8 @@ export const SubjectsList = () => {
     <div className="w-full flex flex-col gap-8">
       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
         {data.subjects.map((subject, i) => (
-          <li>
+          <li key={i}>
             <Link
-              key={i}
               href={`/subjects/${subject.id}`}
               className="relative p-1.5 sm:p-3 lg:p-4 block"
               onMouseEnter={() => setHoveredIndex(i)}

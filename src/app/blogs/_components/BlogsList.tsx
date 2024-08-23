@@ -98,9 +98,8 @@ export const BlogsList = () => {
     <div className="w-full flex flex-col gap-8">
       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
         {data.blogs.map((blog, i) => (
-          <li>
+          <li key={i}>
             <Link
-              key={i}
               href={`/blogs/${blog.id}`}
               className="relative p-1.5 sm:p-3 lg:p-4 block"
               onMouseEnter={() => setHoveredIndex(i)}
