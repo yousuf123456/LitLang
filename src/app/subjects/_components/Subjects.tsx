@@ -57,8 +57,9 @@ export const Subjects = ({
       </OverlayImageHeader>
 
       <MaxWidthWrapper
+        as="section"
         id="data-container"
-        className="mt-10 md:mt-16 px-3 sm:px-8 flex flex-col gap-6"
+        className="mt-10 md:mt-16 px-3 sm:px-8"
       >
         {query && (
           <p className="font-medium text-zinc-600">

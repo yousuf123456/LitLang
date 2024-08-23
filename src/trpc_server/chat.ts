@@ -55,4 +55,20 @@ export const chatRouter = router({
         cursor: newCursor,
       };
     }),
+
+  clear: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      const fileId = input;
+      const { userId } = ctx;
+
+      await prisma.messagesPage.deleteMany({
+        where: {
+          userClerkId: userId,
+          fileId,
+        },
+      });
+
+      return "Succesfully cleared the chat history.";
+    }),
 });

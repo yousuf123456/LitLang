@@ -80,28 +80,27 @@ export const ContactForm = () => {
             {isLoading && <Loader2 className="ml-4 w-4 h-4 animate-spin" />}
           </Button>
         </form>
+        <Dialog open={success} onOpenChange={setSuccess}>
+          <DialogContent className="flex flex-col gap-8">
+            <div className="w-full flex justify-center">
+              <FaEnvelopeCircleCheck className="w-12 h-12 text-primary" />
+            </div>
+
+            <h2 className="text-3xl font-[550] font-brand text-center text-gray-900">
+              We have recieved your message.
+            </h2>
+
+            <p className="mb-8">
+              Our team will soon contact you on your provided email, please be
+              patient.
+            </p>
+
+            <DialogClose asChild>
+              <Button size={"lg"}>Continue</Button>
+            </DialogClose>
+          </DialogContent>
+        </Dialog>
       </article>
-
-      <Dialog open={success} onOpenChange={setSuccess}>
-        <DialogContent className="flex flex-col gap-8">
-          <div className="w-full flex justify-center">
-            <FaEnvelopeCircleCheck className="w-12 h-12 text-primary" />
-          </div>
-
-          <h2 className="text-3xl font-[550] font-brand text-center text-gray-900">
-            We have recieved your message.
-          </h2>
-
-          <p className="mb-8">
-            Our team will soon contact you on your provided email, please be
-            patient.
-          </p>
-
-          <DialogClose asChild>
-            <Button size={"lg"}>Continue</Button>
-          </DialogClose>
-        </DialogContent>
-      </Dialog>
     </>
   );
 };

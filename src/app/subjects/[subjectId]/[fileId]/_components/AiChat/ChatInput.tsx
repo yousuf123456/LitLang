@@ -50,9 +50,14 @@ export const ChatInput = () => {
   return (
     <div className="absolute bottom-0 inset-x-3 pb-2 bg-white flex flex-col">
       <div className="relative px-3 pt-3 w-full h-fit max-w-screen-lg mx-auto">
+        <label htmlFor="chat-input" className="sr-only">
+          Enter your question here
+        </label>
         <Textarea
+          id="chat-input"
           value={message}
           onKeyDown={onKeyDown}
+          aria-label="Chat input"
           placeholder="Enter your question here"
           onChange={(e) => setMessage(e.target.value)}
           className={cn(
@@ -67,6 +72,7 @@ export const ChatInput = () => {
               size={"icon"}
               variant={"secondary"}
               disabled={isLoading || !isLoaded}
+              aria-label="Sign in to send message"
               className="right-6 bottom-[14px] absolute hover:bg-[#DED8C4] rounded-full bg-transparent p-3 h-fit w-fit duration-200"
             >
               <IoMdSend className="w-[22px] h-[22px] text-primary" />
@@ -77,6 +83,7 @@ export const ChatInput = () => {
             size={"icon"}
             onClick={send}
             variant={"secondary"}
+            aria-label="Send message"
             disabled={isLoading || !isLoaded}
             className="right-6 bottom-[14px] absolute hover:bg-[#DED8C4] rounded-full bg-transparent p-3 h-fit w-fit duration-200"
           >
@@ -84,11 +91,6 @@ export const ChatInput = () => {
           </Button>
         )}
       </div>
-
-      {/* <p className="text-xs text-black text-center">
-        Litera Ai has a short memory of only previous 8 messages so avoid
-        refrencing old messages in your questions for best results.
-      </p> */}
     </div>
   );
 };

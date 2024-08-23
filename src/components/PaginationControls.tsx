@@ -71,8 +71,12 @@ export const PaginationControls = ({
   }, [currentPage]);
 
   return (
-    <div className="flex w-full justify-center gap-4 mt-6">
+    <nav
+      aria-label="Pagination"
+      className="flex w-full justify-center gap-4 mt-6"
+    >
       <Button
+        aria-label="Go to previous page"
         disabled={currentPage === 1}
         variant={"secondary"}
         onClick={onPrev}
@@ -82,11 +86,12 @@ export const PaginationControls = ({
 
       <Button
         disabled={!isNextPageAvailable}
+        aria-label="Go to next page"
         variant={"secondary"}
         onClick={onNext}
       >
         Next Page
       </Button>
-    </div>
+    </nav>
   );
 };

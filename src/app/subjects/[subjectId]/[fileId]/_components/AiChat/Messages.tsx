@@ -47,7 +47,10 @@ export const Messages = () => {
   ] as ExtendedMessageType[];
 
   return (
-    <div className="flex-1 flex-col-reverse pb-36 pt-4 gap-12 flex h-full max-h-full overflow-y-auto scrollbar-none">
+    <section
+      aria-label="Chat messages"
+      className="flex-1 flex-col-reverse pb-36 pt-4 gap-12 flex h-full max-h-full overflow-y-auto scrollbar-none"
+    >
       {messages.length === 0 && (
         <div className="flex flex-col h-full gap-12 px-6 py-4 mx-auto w-full max-w-screen-lg">
           <div className="flex flex-col h-full justify-center items-center">
@@ -84,10 +87,17 @@ export const Messages = () => {
         })}
 
       {isFetchingNextPage && (
-        <div className="w-full flex justify-center">
-          <Loader className="w-5 h-5 animate-spin " />
+        <div
+          aria-live="polite"
+          aria-atomic="true"
+          className="w-full flex justify-center"
+        >
+          <Loader
+            className="w-5 h-5 animate-spin "
+            aria-label="Loading more messages"
+          />
         </div>
       )}
-    </div>
+    </section>
   );
 };

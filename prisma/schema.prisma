@@ -89,8 +89,8 @@ model standaloneFile {
 type Message {
   id String
   text String
-  createdAt DateTime @default(now())
   isUserMessage Boolean
+  createdAt DateTime @default(now())
 
   gotRejected Boolean
 }

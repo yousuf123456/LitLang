@@ -65,7 +65,7 @@ export const Blogs = ({
         )}
       </OverlayImageHeader>
 
-      <div
+      <section
         id="data-container"
         className="flex flex-col w-full gap-3 mt-5 md:mt-8"
       >
@@ -78,7 +78,7 @@ export const Blogs = ({
         <MaxWidthWrapper className="px-3 sm:px-8 w-full">
           <BlogsList />
         </MaxWidthWrapper>
-      </div>
+      </section>
     </div>
   );
 };

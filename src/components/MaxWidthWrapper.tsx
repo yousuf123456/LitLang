@@ -1,18 +1,21 @@
+import React, { ElementType, PropsWithChildren } from "react";
 import { cn } from "@/lib/utils";
-import React from "react";
 
-export const MaxWidthWrapper = ({
-  id,
+type WrapperProps<T extends ElementType> = {
+  as?: T;
+} & PropsWithChildren<React.ComponentPropsWithoutRef<T>>;
+
+export const MaxWidthWrapper = <T extends ElementType = "div">({
+  as,
   children,
   className,
-}: {
-  id?: string;
-  className?: string;
-  children: React.ReactNode;
-}) => {
+  ...rest
+}: WrapperProps<T>) => {
+  const Tag = as || "div";
+
   return (
-    <div id={id} className={cn("mx-auto max-w-screen-xl w-full", className)}>
+    <Tag className={cn("mx-auto max-w-screen-xl w-full", className)} {...rest}>
       {children}
-    </div>
+    </Tag>
   );
 };

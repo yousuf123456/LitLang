@@ -13,10 +13,8 @@ export const StandaloneFile = async ({
 
   if (!standalone) return redirect("/standalones?type=Book");
 
-  const url = `https://litlang2.s3.amazonaws.com/${standalone.pdfKey}`;
-  // const url = `https://drwjw5urvo0gp.cloudfront.net/${
-  //   standalone.pdfKey
-  // }?unique=${Date.now()}`;
+  // const url = `https://litlang2.s3.amazonaws.com/${standalone.pdfKey}`;
+  const url = `https://drwjw5urvo0gp.cloudfront.net/${standalone.pdfKey}`;
 
   return (
     <PDFViewer

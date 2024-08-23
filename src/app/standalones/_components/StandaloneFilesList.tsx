@@ -42,7 +42,11 @@ export const StandaloneFilesList = () => {
 
   if (isFetching || !data) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
+      <div
+        aria-live="polite"
+        aria-atomic="true"
+        className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6"
+      >
         <div className="relative p-1.5 sm:p-3 lg:p-4 block">
           <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5 flex flex-col gap-4">
             <div className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-1.5">
@@ -72,8 +76,16 @@ export const StandaloneFilesList = () => {
 
   if (data.standaloneFiles.length === 0) {
     return (
-      <div className="flex w-full flex-col items-center gap-5 mt-12 ">
-        <div className="w-[180px] md:w-[250px] aspect-1 h-auto relative">
+      <div
+        aria-label={`No ${
+          type === "BookReview" ? "Book Reviews" : type + "s"
+        } available`}
+        className="flex w-full flex-col items-center gap-5 mt-12 "
+      >
+        <div
+          aria-label="Illustration for no data"
+          className="w-[180px] md:w-[250px] aspect-1 h-auto relative"
+        >
           <Image alt="No Data Illustration" src={"/noData.svg"} fill />
         </div>
 
@@ -86,74 +98,76 @@ export const StandaloneFilesList = () => {
 
   return (
     <div className="w-full flex flex-col gap-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
         {data.standaloneFiles.map((standalone, i) => (
-          <Link
-            key={i}
-            href={`/standalones/${standalone.id}`}
-            className="relative p-1.5 sm:p-3 lg:p-4 block"
-            onMouseEnter={() => setHoveredIndex(i)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            <AnimatePresence>
-              {hoveredIndex === i && (
-                <motion.span
-                  className="absolute inset-0 h-full w-full bg-zinc-100 dark:bg-slate-800/[0.8] block  rounded-3xl -z-10"
-                  layoutId="hoverBackground"
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: 1,
-                    transition: { duration: 0.15 },
-                  }}
-                  exit={{
-                    opacity: 0,
-                    transition: { duration: 0.15, delay: 0.2 },
-                  }}
-                />
-              )}
-            </AnimatePresence>
-
-            <div className="w-full h-full rounded-xl bg-zinc-50 hover:bg-white transition-colors border border-zinc-200 p-1.5 flex flex-col gap-2 group cursor-pointer z-20">
-              <div className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
-                <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8 bg-zinc-50">
-                  <Image
-                    fill
-                    loading="lazy"
-                    className="object-cover"
-                    alt="subject Cover Image"
-                    src={createImageUrlFromWebViewLink(standalone.imageUrl)}
-                  />
-                </div>
-              </div>
-
-              <div className="w-full p-2 flex flex-col gap-4">
-                <p className="text-base md:text-lg text-zinc-700 font-medium line-clamp-2 w-full text-start h-14">
-                  {standalone.name}
-                </p>
-
-                {standalone.bookReviewIds?.length > 0 && (
-                  <Link
-                    href={`/standalones?type=BookReview&bookId=${standalone.id}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.nativeEvent.stopImmediatePropagation();
+          <li>
+            <Link
+              key={i}
+              href={`/standalones/${standalone.id}`}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              className="relative p-1.5 sm:p-3 lg:p-4 block"
+            >
+              <AnimatePresence>
+                {hoveredIndex === i && (
+                  <motion.span
+                    className="absolute inset-0 h-full w-full bg-zinc-100 dark:bg-slate-800/[0.8] block  rounded-3xl -z-10"
+                    layoutId="hoverBackground"
+                    initial={{ opacity: 0 }}
+                    animate={{
+                      opacity: 1,
+                      transition: { duration: 0.15 },
                     }}
-                    onMouseLeave={() => setHoveredIndex(i)}
-                    onMouseEnter={() => setHoveredIndex(null)}
-                    className={buttonVariants({
-                      size: "sm",
-                      variant: "outline",
-                      className: "w-full bg-white text-zinc-700",
-                    })}
-                  >
-                    Read Reviews
-                  </Link>
+                    exit={{
+                      opacity: 0,
+                      transition: { duration: 0.15, delay: 0.2 },
+                    }}
+                  />
                 )}
-              </div>
-            </div>
-          </Link>
+              </AnimatePresence>
+
+              <article className="w-full h-full rounded-xl bg-zinc-50 hover:bg-white transition-colors border border-zinc-200 p-1.5 flex flex-col gap-2 group cursor-pointer z-20">
+                <div className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
+                  <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8 bg-zinc-50">
+                    <Image
+                      fill
+                      loading="lazy"
+                      className="object-cover"
+                      alt="subject Cover Image"
+                      src={createImageUrlFromWebViewLink(standalone.imageUrl)}
+                    />
+                  </div>
+                </div>
+
+                <div className="w-full p-2 flex flex-col gap-4">
+                  <p className="text-base md:text-lg text-zinc-700 font-medium line-clamp-2 w-full text-start h-14">
+                    {standalone.name}
+                  </p>
+
+                  {standalone.bookReviewIds?.length > 0 && (
+                    <Link
+                      href={`/standalones?type=BookReview&bookId=${standalone.id}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.nativeEvent.stopImmediatePropagation();
+                      }}
+                      onMouseLeave={() => setHoveredIndex(i)}
+                      onMouseEnter={() => setHoveredIndex(null)}
+                      className={buttonVariants({
+                        size: "sm",
+                        variant: "outline",
+                        className: "w-full bg-white text-zinc-700",
+                      })}
+                    >
+                      Read Reviews
+                    </Link>
+                  )}
+                </div>
+              </article>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
 
       <PaginationControls
         nextPaginationToken={

@@ -56,7 +56,7 @@ export const UserAccount = ({ imageTheme }: { imageTheme: boolean | null }) => {
       {user ? (
         <div
           className={cn(
-            "flex items-center lg:w-[182px] justify-center flex-shrink-0"
+            "flex items-center lg:w-[182px] justify-end flex-shrink-0"
           )}
         >
           <UserMenu />
