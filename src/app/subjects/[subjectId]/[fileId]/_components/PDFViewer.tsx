@@ -141,7 +141,7 @@ export const PDFViewer = ({
   };
 
   return (
-    <article
+    <section
       aria-labelledby="pdf-viewer-heading"
       className={cn(
         "flex-1 col-span-4 flex flex-col gap-0 overflow-x-hidden bg-[#DDD8C2] print:hidden",
@@ -312,7 +312,10 @@ export const PDFViewer = ({
 
       <ScrollArea role="document" aria-label={`PDF document: ${name}`}>
         <Document
-          file={pdfUrl}
+          file={
+            // "https://s3.amazonaws.com/pdftron/downloads/pl/2gb-sample-file.pdf" ||
+            pdfUrl
+          }
           options={options}
           onLoadError={onLoadError}
           loading={PDFLoadingState}
@@ -327,7 +330,7 @@ export const PDFViewer = ({
         </Document>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-    </article>
+    </section>
   );
 };
 

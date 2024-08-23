@@ -38,7 +38,11 @@ export const SubjectsList = () => {
 
   if (isFetching || !data) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
+      <div
+        aria-live="polite"
+        aria-atomic
+        className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6"
+      >
         <div className="relative p-1.5 sm:p-3 lg:p-4 block">
           <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5">
             <div className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-1.5 flex flex-col gap-4">
@@ -76,8 +80,14 @@ export const SubjectsList = () => {
 
   if (data.subjects.length === 0) {
     return (
-      <div className="flex w-full flex-col items-center gap-5 mt-12 ">
-        <div className="w-[180px] md:w-[250px] aspect-1 h-auto relative">
+      <div
+        aria-label="No subjects available"
+        className="flex w-full flex-col items-center gap-5 mt-12 "
+      >
+        <div
+          aria-label="No data illustration"
+          className="w-[180px] md:w-[250px] aspect-1 h-auto relative"
+        >
           <Image alt="No Data Illustration" src={"/noData.svg"} fill />
         </div>
 
@@ -90,39 +100,41 @@ export const SubjectsList = () => {
 
   return (
     <div className="w-full flex flex-col gap-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
         {data.subjects.map((subject, i) => (
-          <Link
-            key={i}
-            href={`/subjects/${subject.id}`}
-            className="relative p-1.5 sm:p-3 lg:p-4 block"
-            onMouseEnter={() => setHoveredIndex(i)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            <LazyMotion features={loadFeatures} strict>
-              <AnimatePresence>
-                {hoveredIndex === i && (
-                  <m.span
-                    className="absolute inset-0 h-full w-full bg-zinc-100 dark:bg-slate-800/[0.8] block  rounded-3xl -z-10"
-                    layoutId="hoverBackground"
-                    initial={{ opacity: 0 }}
-                    animate={{
-                      opacity: 1,
-                      transition: { duration: 0.15 },
-                    }}
-                    exit={{
-                      opacity: 0,
-                      transition: { duration: 0.15, delay: 0.2 },
-                    }}
-                  />
-                )}
-              </AnimatePresence>
-            </LazyMotion>
+          <li>
+            <Link
+              key={i}
+              href={`/subjects/${subject.id}`}
+              className="relative p-1.5 sm:p-3 lg:p-4 block"
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <LazyMotion features={loadFeatures} strict>
+                <AnimatePresence>
+                  {hoveredIndex === i && (
+                    <m.span
+                      className="absolute inset-0 h-full w-full bg-zinc-100 dark:bg-slate-800/[0.8] block  rounded-3xl -z-10"
+                      layoutId="hoverBackground"
+                      initial={{ opacity: 0 }}
+                      animate={{
+                        opacity: 1,
+                        transition: { duration: 0.15 },
+                      }}
+                      exit={{
+                        opacity: 0,
+                        transition: { duration: 0.15, delay: 0.2 },
+                      }}
+                    />
+                  )}
+                </AnimatePresence>
+              </LazyMotion>
 
-            <SubjectCard subject={subject as unknown as SubjectType} />
-          </Link>
+              <SubjectCard subject={subject as unknown as SubjectType} />
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
 
       <PaginationControls
         nextPaginationToken={

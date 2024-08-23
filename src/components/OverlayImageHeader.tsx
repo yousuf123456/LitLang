@@ -39,7 +39,10 @@ export const OverlayImageHeader = ({
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.45, 0]);
 
   return (
-    <div ref={targetedRef} className="h-screen w-full relative overlay-image">
+    <section
+      ref={targetedRef}
+      className="h-screen w-full relative overlay-image"
+    >
       <LazyMotion features={loadFeatures} strict>
         <m.div
           style={{ y, opacity }}
@@ -65,8 +68,9 @@ export const OverlayImageHeader = ({
           {buttonLabel && (
             <Button
               size={"lg"}
-              onClick={() => scrollToElement("data-container", 48)}
               className="mt-4"
+              aria-label="Scroll to content"
+              onClick={() => scrollToElement("data-container", 48)}
             >
               {buttonLabel}
             </Button>
@@ -74,12 +78,13 @@ export const OverlayImageHeader = ({
         </m.div>
 
         <m.div
+          aria-hidden
           style={{ opacity: overlayOpacity }}
           className="bg-black z-10 absolute inset-0 bg-opacity-40"
         />
       </LazyMotion>
 
       <HeroImage images={overlayImages} priority={true} />
-    </div>
+    </section>
   );
 };

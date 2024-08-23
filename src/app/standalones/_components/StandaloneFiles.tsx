@@ -60,7 +60,7 @@ export const StandaloneFiles = ({ type }: { type: StandaloneFileType }) => {
         subHeading={overlaySubHeadings[type]}
       />
 
-      <div
+      <section
         className="flex flex-col w-full gap-3 mt-5 md:mt-8"
         id="data-container"
       >
@@ -73,7 +73,7 @@ export const StandaloneFiles = ({ type }: { type: StandaloneFileType }) => {
         <MaxWidthWrapper id="data" className="px-3 sm:px-8 w-full">
           <StandaloneFilesList />
         </MaxWidthWrapper>
-      </div>
+      </section>
     </div>
   );
 };

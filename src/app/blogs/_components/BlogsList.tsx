@@ -34,7 +34,11 @@ export const BlogsList = () => {
 
   if (isFetching || !data) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
+      <div
+        aria-atomic="true"
+        aria-live="polite"
+        className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6"
+      >
         <div className="relative p-1.5 sm:p-3 lg:p-4 block">
           <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5 flex flex-col gap-4">
             <div className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-1.5">
@@ -72,8 +76,14 @@ export const BlogsList = () => {
 
   if (data.blogs.length === 0) {
     return (
-      <div className="flex w-full flex-col items-center gap-5 mt-12 ">
-        <div className="w-[180px] md:w-[250px] aspect-1 h-auto relative">
+      <div
+        aria-label="No blogs available"
+        className="flex w-full flex-col items-center gap-5 mt-12 "
+      >
+        <div
+          aria-label="No data illustration"
+          className="w-[180px] md:w-[250px] aspect-1 h-auto relative"
+        >
           <Image alt="No Data Illustration" src={"/noData.svg"} fill />
         </div>
 
@@ -86,84 +96,86 @@ export const BlogsList = () => {
 
   return (
     <div className="w-full flex flex-col gap-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
         {data.blogs.map((blog, i) => (
-          <Link
-            key={i}
-            href={`/blogs/${blog.id}`}
-            className="relative p-1.5 sm:p-3 lg:p-4 block"
-            onMouseEnter={() => setHoveredIndex(i)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            <AnimatePresence>
-              {hoveredIndex === i && (
-                <motion.span
-                  className="absolute inset-0 h-full w-full bg-zinc-100 dark:bg-slate-800/[0.8] block  rounded-3xl -z-10"
-                  layoutId="hoverBackground"
-                  initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: 1,
-                    transition: { duration: 0.15 },
-                  }}
-                  exit={{
-                    opacity: 0,
-                    transition: { duration: 0.15, delay: 0.2 },
-                  }}
-                />
-              )}
-            </AnimatePresence>
+          <li>
+            <Link
+              key={i}
+              href={`/blogs/${blog.id}`}
+              className="relative p-1.5 sm:p-3 lg:p-4 block"
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <AnimatePresence>
+                {hoveredIndex === i && (
+                  <motion.span
+                    className="absolute inset-0 h-full w-full bg-zinc-100 dark:bg-slate-800/[0.8] block  rounded-3xl -z-10"
+                    layoutId="hoverBackground"
+                    initial={{ opacity: 0 }}
+                    animate={{
+                      opacity: 1,
+                      transition: { duration: 0.15 },
+                    }}
+                    exit={{
+                      opacity: 0,
+                      transition: { duration: 0.15, delay: 0.2 },
+                    }}
+                  />
+                )}
+              </AnimatePresence>
 
-            <div className="w-full h-full rounded-xl bg-zinc-50 hover:bg-white border border-zinc-200 p-1.5 flex flex-col gap-4 group cursor-pointer z-20">
-              <div className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
-                <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8 bg-zinc-50">
-                  {blog.coverImage ? (
-                    <Image
-                      fill
-                      loading="lazy"
-                      src={blog.coverImage}
-                      alt="Blog Cover Image"
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex justify-center items-center">
-                      <p className="text-zinc-600">Cover Image</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="p-2 flex flex-col items-end gap-2">
-                <p className="text-base md:text-lg text-zinc-700 font-medium line-clamp-2 w-full text-start h-14">
-                  {blog.title}
-                </p>
-
-                <div className="w-full flex items-center">
-                  {searchParams.get("userId") && (
-                    <Link
-                      href={`/blogEditor?draftId=${blog.id}`}
-                      className={buttonVariants({
-                        size: "sm",
-                        variant: "outline",
-                        className: "bg-white text-xs",
-                      })}
-                    >
-                      Edit{" "}
-                      <Edit className="w-[14px] h-[14px] ml-2 text-zinc-600" />
-                    </Link>
-                  )}
-
-                  <div className="flex-1 flex justify-end">
-                    <Badge className="bg-white text-zinc-600 border border-zinc-200 rounded-lg hover:bg-white pr-4">
-                      Read Blog{" "}
-                      <HiArrowRight className="w-3 h-3  ml-3 group-hover:translate-x-2 transition-transform" />
-                    </Badge>
+              <article className="w-full h-full rounded-xl bg-zinc-50 hover:bg-white border border-zinc-200 p-1.5 flex flex-col gap-4 group cursor-pointer z-20">
+                <div className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
+                  <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8 bg-zinc-50">
+                    {blog.coverImage ? (
+                      <Image
+                        fill
+                        loading="lazy"
+                        src={blog.coverImage}
+                        alt="Blog Cover Image"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex justify-center items-center">
+                        <p className="text-zinc-600">Cover Image</p>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
-            </div>
-          </Link>
+
+                <div className="p-2 flex flex-col items-end gap-2">
+                  <p className="text-base md:text-lg text-zinc-700 font-medium line-clamp-2 w-full text-start h-14">
+                    {blog.title}
+                  </p>
+
+                  <div className="w-full flex items-center">
+                    {searchParams.get("userId") && (
+                      <Link
+                        href={`/blogEditor?draftId=${blog.id}`}
+                        className={buttonVariants({
+                          size: "sm",
+                          variant: "outline",
+                          className: "bg-white text-xs",
+                        })}
+                      >
+                        Edit{" "}
+                        <Edit className="w-[14px] h-[14px] ml-2 text-zinc-600" />
+                      </Link>
+                    )}
+
+                    <div className="flex-1 flex justify-end">
+                      <Badge className="bg-white text-zinc-600 border border-zinc-200 rounded-lg hover:bg-white pr-4">
+                        Read Blog{" "}
+                        <HiArrowRight className="w-3 h-3  ml-3 group-hover:translate-x-2 transition-transform" />
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
 
       <PaginationControls
         nextPaginationToken={data.blogs[data.blogs.length - 1]?.paginationToken}

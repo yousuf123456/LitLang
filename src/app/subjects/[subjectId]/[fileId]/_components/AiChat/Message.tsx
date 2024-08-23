@@ -16,8 +16,9 @@ export const Message = forwardRef<
   const { user } = useUser();
 
   return (
-    <div
+    <article
       ref={ref}
+      aria-labelledby={`message-${message.id}-label`}
       className="flex max-sm:flex-col items-start gap-2 sm:gap-4 w-full max-w-screen-lg mx-auto px-6"
     >
       {message.isUserMessage ? (
@@ -42,7 +43,12 @@ export const Message = forwardRef<
       )}
 
       {message.isUserMessage ? (
-        <p className="mt-1.5 text-gray-900 font-inter">{message.text}</p>
+        <p
+          id={`message-${message.id}-label`}
+          className="mt-1.5 text-gray-900 font-inter"
+        >
+          {message.text}
+        </p>
       ) : (
         !message.isAiThinking && (
           <ReactMarkdown
@@ -56,13 +62,18 @@ export const Message = forwardRef<
       )}
 
       {message.isAiThinking && (
-        <div className="mt-4 flex flex-col w-full gap-3">
+        <div
+          aria-busy="true"
+          aria-atomic="true"
+          aria-live="polite"
+          className="mt-4 flex flex-col w-full gap-3"
+        >
           <Skeleton className="w-full h-5 bg-primary/25" />
           <Skeleton className="w-full h-5 bg-primary/25" />
           <Skeleton className="w-full h-5 bg-primary/25" />
         </div>
       )}
-    </div>
+    </article>
   );
 });
 
