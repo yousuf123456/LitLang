@@ -24,7 +24,7 @@
         "ExposeHeaders": [
             "Accept-Ranges",
             "Content-Length",
-            "Content-Range"
+            "Content-Range hello"
         ]
     }
 ]
