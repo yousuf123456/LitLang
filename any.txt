@@ -6,3 +6,25 @@
 					]
 				}
 			}
+
+			[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "PUT",
+            "GET",
+            "POST",
+            "HEAD"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": [
+            "Accept-Ranges",
+            "Content-Length",
+            "Content-Range"
+        ]
+    }
+]

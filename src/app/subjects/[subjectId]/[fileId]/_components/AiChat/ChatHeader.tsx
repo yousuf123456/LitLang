@@ -91,7 +91,7 @@ export const ChatHeader = ({
         <div className="flex gap-3 items-center">
           <TooltipProvider delayDuration={100}>
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <Link
                   href={`/subjects/${subjectId}/${fileId}?type=Viewer`}
                   className={buttonVariants({
@@ -117,7 +117,7 @@ export const ChatHeader = ({
             </Tooltip>
 
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 {isLoaded && !user ? (
                   <SignInButton>
                     <Button size={"icon"} variant={"destructive"}>

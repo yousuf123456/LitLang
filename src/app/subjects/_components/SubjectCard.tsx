@@ -26,14 +26,14 @@ export const SubjectCard = ({ subject }: { subject: SubjectType }) => {
           {subject.name}
         </p>
 
-        <div className="flex items-center gap-3">
+        {/* <div className="flex items-center gap-3">
           <Badge className="bg-white text-sm font-medium text-zinc-600 border border-zinc-200 rounded-lg hover:bg-white">
             {subject.universityShort}
           </Badge>
           <Badge className="bg-white text-sm text-zinc-600 font-medium border border-zinc-200 rounded-lg hover:bg-white">
             Semester {subject.semester}
           </Badge>
-        </div>
+        </div> */}
       </div>
     </article>
   );

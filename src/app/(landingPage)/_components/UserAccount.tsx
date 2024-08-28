@@ -7,14 +7,9 @@ import { cn } from "@/utils/utils";
 import { Button } from "@/components/ui/button";
 import { UserMenu } from "@/components/UserMenu";
 import { Skeleton } from "@/components/ui/skeleton";
-import { syncUpWithS3 } from "@/actions/syncUpWithS3";
 
 export const UserAccount = ({ imageTheme }: { imageTheme: boolean | null }) => {
   const { user, isLoaded } = useUser();
-
-  const syncUp = () => {
-    syncUpWithS3();
-  };
 
   if (!isLoaded)
     return (
@@ -41,9 +36,6 @@ export const UserAccount = ({ imageTheme }: { imageTheme: boolean | null }) => {
                 </Button>
               </SignInButton>
             </li>
-            {/* <Button variant={"secondary"} className="mr-4" onClick={syncUp}>
-              Sync Up
-            </Button> */}
             <li>
               <SignUpButton>
                 <Button>Get Started</Button>

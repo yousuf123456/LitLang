@@ -236,7 +236,7 @@ export const ChatContext = ({
   };
 
   return (
-    <section className="flex col-span-3 flex-col w-full h-full min-h-[calc(100dvh-72px)] max-[calc(100dvh-72px)] relative">
+    <section className="flex col-span-3 flex-col w-full h-full min-h-[calc(100dvh-72.5px)] max-[calc(100dvh-72.5px)] relative">
       <chatContext.Provider
         value={{ isLoading, createMessage, messagesQuota: currentQuota }}
       >

@@ -179,8 +179,9 @@ const File = ({
       }}
       style={{ paddingLeft: paddingLeft + 4 }}
       className={cn(
-        "flex items-center gap-2 py-3 pr-3 hover:bg-[#DED8C4] transition-colors",
-        isPremium && "opacity-[0.85]"
+        "max-w-full grid items-center gap-2 py-3 pr-3 hover:bg-[#DED8C4] transition-colors",
+        isPremium && "opacity-[0.85] grid-cols-[auto_1fr_auto]",
+        !isPremium && "grid-cols-[auto_1fr]"
       )}
     >
       {isPremium ? (
@@ -191,14 +192,17 @@ const File = ({
 
       <p
         className={cn(
-          "text-zinc-900 text-sm line-clamp-1 flex-1 font-medium",
+          "text-zinc-900 text-sm line-clamp-1 text-ellipsis font-medium",
           isPremium &&
             "text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-700 to-primary font-medium"
         )}
       >
         {name}
       </p>
-      {isPremium && <Lock className="w-[14px] h-[14px] text-zinc-800" />}
+
+      {isPremium && (
+        <Lock className="w-[14px] h-[14px] text-zinc-800 flex-shrink-0" />
+      )}
     </li>
   );
 };

@@ -83,7 +83,7 @@ export async function POST(request: Request) {
 
     const store = await PineconeStore.fromExistingIndex(embeddings, {
       pineconeIndex,
-      namespace: `Litlang/Universities/${subject.university}/`,
+      namespace: `Litlang/Subjects/${subject.name}/`,
       filter: {
         fileKey: file.key,
       },

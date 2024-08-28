@@ -43,7 +43,7 @@ export default async function FilePage({
 
   return (
     <PaddingTopWrapper>
-      <div className="max-h-[calc(100dvh-72px)] min-h-[calc(100dvh-72px)] flex">
+      <div className="max-h-[calc(100dvh-72.5px)] min-h-[calc(100dvh-72.5px)] flex">
         <Suspense
           key={`${params.subjectId} ${params.fileId} sidebar`}
           fallback={
