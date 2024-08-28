@@ -24,7 +24,6 @@ export const SubjectsList = () => {
   const { data, isFetching, error, isError } = trpc.subjects.get.useQuery({
     sortBy: searchParams.get("sortBy") as sortSearchParamType | null,
     paginationToken: searchParams.get("paginationToken"),
-    university: searchParams.get("university"),
     going: searchParams.get("going"),
     query: searchParams.get("query"),
     page: currentPage,
@@ -52,9 +51,9 @@ export const SubjectsList = () => {
             <div className="p-2 flex flex-col items-end gap-2">
               <div className="h-14" />
 
-              <div className="w-full flex items-center">
+              {/* <div className="w-full flex items-center">
                 <div className="h-7" />
-              </div>
+              </div> */}
             </div>
           </Skeleton>
         </div>
@@ -68,9 +67,9 @@ export const SubjectsList = () => {
             <div className="p-2 flex flex-col items-end gap-2">
               <div className="h-14" />
 
-              <div className="w-full flex items-center">
+              {/* <div className="w-full flex items-center">
                 <div className="h-7" />
-              </div>
+              </div> */}
             </div>
           </Skeleton>
         </div>

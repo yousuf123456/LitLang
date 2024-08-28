@@ -48,7 +48,7 @@ export const ChatInput = () => {
   };
 
   return (
-    <div className="absolute bottom-0 inset-x-3 pb-2 bg-white flex flex-col">
+    <footer className="absolute bottom-0 inset-x-3 pb-2 bg-white flex flex-col">
       <div className="relative px-3 pt-3 w-full h-fit max-w-screen-lg mx-auto">
         <label htmlFor="chat-input" className="sr-only">
           Enter your question here
@@ -91,6 +91,6 @@ export const ChatInput = () => {
           </Button>
         )}
       </div>
-    </div>
+    </footer>
   );
 };

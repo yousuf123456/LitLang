@@ -9,12 +9,15 @@ import { cn } from "@/utils/utils";
 export const Footer = () => {
   const pathname = usePathname();
 
+  if (/^\/standalones\/[\w\d]+$/.test(pathname)) return;
+
+  if (/^\/subjects\/[^/]+\/[^/]+$/.test(pathname)) return;
+
   return (
     <footer
       className={cn(
         "bg-[#934E29]",
-        !/^\/subjects\/[^\/]+\/[^\/]+$/.test(pathname) &&
-          !/^\/standalones\/[\w\d]+$/.test(pathname) &&
+        !/^\/subjects\/[^/]+$/.test(pathname) &&
           pathname !== "/contact_us" &&
           "mt-28 md:mt-32"
       )}

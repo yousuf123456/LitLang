@@ -14,7 +14,6 @@ export const subjectsRouter = router({
     .input(
       z.object({
         paginationToken: z.union([z.string(), z.null()]),
-        university: z.union([z.string(), z.null()]),
         sortBy: z.union([z.string(), z.null()]),
         query: z.union([z.string(), z.null()]),
         going: z.union([z.string(), z.null()]),
@@ -22,7 +21,7 @@ export const subjectsRouter = router({
       })
     )
     .query(async ({ ctx, input }) => {
-      const { query, sortBy, page, paginationToken, going, university } = input;
+      const { query, sortBy, page, paginationToken, going } = input;
 
       const toSkip = (page - 1) * SubjectsListPageSize;
 
@@ -53,18 +52,18 @@ export const subjectsRouter = router({
                 },
               ],
               minimumShouldMatch: 1,
-              ...(university
-                ? {
-                    filter: [
-                      {
-                        text: {
-                          path: "universityShort",
-                          query: university,
-                        },
-                      },
-                    ],
-                  }
-                : {}),
+              // ...(university
+              //   ? {
+              //       filter: [
+              //         {
+              //           text: {
+              //             path: "universityShort",
+              //             query: university,
+              //           },
+              //         },
+              //       ],
+              //     }
+              //   : {}),
             },
             count: {
               type: "total",
@@ -104,11 +103,11 @@ export const subjectsRouter = router({
       ];
 
       const pipeline_noSearch = [
-        {
-          $match: {
-            ...(university ? { universityShort: university } : {}),
-          },
-        },
+        // {
+        //   $match: {
+        //     ...(university ? { universityShort: university } : {}),
+        //   },
+        // },
         {
           ...(sortBy
             ? {
@@ -183,7 +182,7 @@ export const subjectsRouter = router({
         pipeline,
       })) as unknown as Omit<
         SubjectType,
-        "createdAt" | "updatedAt" | "resources" | "university"
+        "createdAt" | "updatedAt" | "resources"
       >[];
 
       return data;

@@ -31,7 +31,7 @@ export const StandaloneFiles = ({ type }: { type: StandaloneFileType }) => {
     },
     BookReview: {
       desktop: "/desktop_bookReviews.jpg",
-      mobiles: "/mobiles_bookReviews.jpg",
+      mobiles: "/mobiles_bookReviews.png",
     },
   };
 

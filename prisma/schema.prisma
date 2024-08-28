@@ -51,16 +51,11 @@ model blogs {
 model subject {
   id String   @id @default(auto()) @map("_id") @db.ObjectId
   name String
-  semester Int
   imageUrl String
-  university String
-  universityShort String?
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 
   resources Json[]
-
-  @@unique([name, semester, university])
 }
 
 enum StandaloneFileType {

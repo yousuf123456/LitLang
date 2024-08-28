@@ -2,10 +2,8 @@
 import React, { useState } from "react";
 
 import Image from "next/image";
-import { IoIosMenu } from "react-icons/io";
-import { Gem, Menu, Text } from "lucide-react";
+import { Gem, Menu } from "lucide-react";
 import { SubjectType } from "@/types";
-import { Badge } from "@/components/ui/badge";
 import { ResourcesStructure } from "./ResourcesStructure";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn, createImageUrlFromWebViewLink } from "@/utils/utils";
@@ -48,8 +46,6 @@ export const Sidebar = ({
           isCollapsed && "md:w-16 lg:w-16"
         )}
       >
-        {/* <Resizer /> */}
-
         <ScrollArea className="h-full">
           <section
             aria-label="Subject Information"
@@ -77,7 +73,7 @@ export const Sidebar = ({
                         {subject.name}
                       </h1>
 
-                      <div className="w-full flex justify-end gap-4">
+                      {/* <div className="w-full flex justify-end gap-4">
                         <Badge
                           variant={"outline"}
                           className="text-xs text-zinc-200 font-medium rounded-lg "
@@ -90,7 +86,7 @@ export const Sidebar = ({
                         >
                           Semester {subject.semester}
                         </Badge>
-                      </div>
+                      </div> */}
                     </div>
                   </m.div>
                 </LazyMotion>
@@ -103,27 +99,29 @@ export const Sidebar = ({
             className="py-8 flex flex-col gap-6"
           >
             <div className="px-3 flex items-center gap-6">
-              <TooltipProvider>
-                <Tooltip delayDuration={150}>
-                  <TooltipTrigger asChild>
-                    <Button
-                      size={"icon"}
-                      variant={"ghost"}
-                      onClick={() => setisCollapsed((prev) => !prev)}
-                      className=" rounded-full hover:bg-[#DED8C4] p-2.5 duration-200"
-                    >
-                      <Menu className="w-5 h-5 text-primary" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <div className="p-0.5 rounded-md">
-                      <p className="text-xs text-black">
-                        {isCollapsed ? "Open Menu" : "Collapse Menu"}
-                      </p>
-                    </div>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              {isCollapsible && (
+                <TooltipProvider>
+                  <Tooltip delayDuration={150}>
+                    <TooltipTrigger asChild>
+                      <Button
+                        size={"icon"}
+                        variant={"ghost"}
+                        onClick={() => setisCollapsed((prev) => !prev)}
+                        className=" rounded-full hover:bg-[#DED8C4] p-2.5 duration-200"
+                      >
+                        <Menu className="w-5 h-5 text-primary" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <div className="p-0.5 rounded-md">
+                        <p className="text-xs text-black">
+                          {isCollapsed ? "Open Menu" : "Collapse Menu"}
+                        </p>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
 
               {!isCollapsed && (
                 <h2 className="text-zinc-800 text-lg font-medium">Resources</h2>

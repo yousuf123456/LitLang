@@ -36,7 +36,7 @@ export default async function SubjectPage({
   return (
     <PaddingTopWrapper>
       <Suspense key={params.subjectId} fallback={<Loading />}>
-        <div className="md:max-h-[calc(100vh-89px)] max-h-[calc(100vh-73px)] md:min-h-[calc(100vh-89px)] min-h-[calc(100vh-73px)] flex">
+        <div className="max-h-[calc(100vh-73px)] min-h-[calc(100vh-73px)] flex">
           <Sidebar subject={subject} />
 
           <section
@@ -61,7 +61,7 @@ export default async function SubjectPage({
             </Breadcrumb>
 
             <section className="flex flex-col w-full flex-1 items-center justify-center gap-5">
-              <article className="w-full max-w-[420px] rounded-xl bg-zinc-50 hover:bg-white transition-colors border border-zinc-200 p-1.5 flex flex-col gap-2 group cursor-pointer z-20">
+              <article className="w-full max-w-96 rounded-xl bg-zinc-50 hover:bg-white transition-colors border border-zinc-200 p-1.5 flex flex-col gap-2 group cursor-pointer z-20">
                 <header className="w-full bg-white border border-zinc-200 rounded-xl p-1.5">
                   <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8">
                     <Image
@@ -78,14 +78,14 @@ export default async function SubjectPage({
                     {subject.name}
                   </p>
 
-                  <footer className="flex items-center gap-3">
+                  {/* <footer className="flex items-center gap-3">
                     <Badge className="bg-white text-sm text-zinc-600 font-medium border border-zinc-200 rounded-lg hover:bg-white">
                       {subject.universityShort}
                     </Badge>
                     <Badge className="bg-white text-sm text-zinc-600 font-medium border border-zinc-200 rounded-lg hover:bg-white">
                       Semester {subject.semester}
                     </Badge>
-                  </footer>
+                  </footer> */}
                 </div>
               </article>
 
