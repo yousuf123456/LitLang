@@ -76,7 +76,8 @@ export async function POST(request: Request) {
     );
 
     const limitedMessagesHistory = allOldMessages
-      .filter((msg, i) => !msg.gotRejected && i < MAX_HISTORY_MESSAGES)
+      .filter((msg) => !msg.gotRejected)
+      .slice(0, MAX_HISTORY_MESSAGES)
       .reverse();
 
     const pineconeIndex = PineconeClient.index("litlang-1");

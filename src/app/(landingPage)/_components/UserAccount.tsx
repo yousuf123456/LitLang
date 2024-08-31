@@ -71,7 +71,7 @@ export const UserAccount = ({ imageTheme }: { imageTheme: boolean | null }) => {
             "flex items-center lg:w-[182px] justify-end flex-shrink-0"
           )}
         >
-          <Button onClick={test}>Test</Button>
+          {/* <Button onClick={test}>Test</Button> */}
           <UserMenu />
         </div>
       ) : (

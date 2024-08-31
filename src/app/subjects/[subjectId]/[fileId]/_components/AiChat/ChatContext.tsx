@@ -33,6 +33,7 @@ const DialogContent = dynamic(() =>
 import { Button } from "@/components/ui/button";
 import { updateUserPrefrences } from "@/actions/updateUserPrefrences";
 import { UserPrefrences } from "@prisma/client";
+import { useAuth } from "@clerk/nextjs";
 
 export const chatContext = createContext<{
   isLoading: boolean;
@@ -65,18 +66,26 @@ export const ChatContext = ({
   const [currentQuota, setCurrentQuota] = useState(messagesQuota);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { getToken } = useAuth();
   const utils = trpc.useUtils();
 
   const { mutate } = useMutation({
     mutationFn: async (message: string) => {
-      const response = await fetch("/api/createMessage", {
-        method: "POST",
-        body: JSON.stringify({
-          fileId,
-          message,
-          subjectId,
-        }),
-      });
+      const response = await fetch(
+        "https://ndyy46qs4eflzhulqwkgrxttce0wmfce.lambda-url.ap-south-1.on.aws/" ||
+          "/api/createMessage",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${await getToken()}`,
+          },
+          body: JSON.stringify({
+            fileId,
+            message,
+            subjectId,
+          }),
+        }
+      );
 
       if (!response.ok) throw new Error("Something goes wrong");
 

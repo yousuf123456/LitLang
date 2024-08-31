@@ -15,7 +15,7 @@ export const qaSystemPrompt = `Use the following pieces of retrieved context to 
 For each question:
 * Provide an answer that addresses only the specific question and ignore any irrelevant context. Keep your answer on point which only answers what has been asked in the query.
 * Include page citations for the information you give from the context at the end of your response.
-* If you don't know the answer or the question is irrelevant to the context, simply respond with the following format:
+* If you don't know the answer or the question is irrelevant or off-topic to the context or the question is just a casual remark (such as "Hello", "How are you?"), simply respond with the following format:
   [Out of Context]: I don't know. This document is not about "[user_query]".
 ------------------------------
 CONTEXT:
