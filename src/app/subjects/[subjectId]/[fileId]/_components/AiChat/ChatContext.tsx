@@ -134,6 +134,7 @@ export const ChatContext = ({
       setIsLoading(true);
     },
     onSuccess: async (response) => {
+      console.log("Response: ", response);
       if (!response.body)
         return toast.error(
           "There was some error sending your message. Try again later."
