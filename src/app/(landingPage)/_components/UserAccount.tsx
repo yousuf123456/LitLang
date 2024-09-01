@@ -26,6 +26,9 @@ export const UserAccount = ({ imageTheme }: { imageTheme: boolean | null }) => {
         Authorization: `Bearer ${await getToken()}`,
         sessionId: sessionId || "",
       },
+      body: JSON.stringify({
+        hello: "bro",
+      }),
     });
 
     console.log(response);

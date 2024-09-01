@@ -32,7 +32,7 @@ export const Messages = () => {
     return (
       <div className="flex-1 flex justify-center items-center pb-32">
         <Image
-          className=" animate-write"
+          className="animate-write"
           src={"/ai_logo.png"}
           alt="Chat AI Logo"
           height={75}

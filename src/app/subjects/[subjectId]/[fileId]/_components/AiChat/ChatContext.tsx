@@ -72,6 +72,7 @@ export const ChatContext = ({
   const { mutate } = useMutation({
     mutationFn: async (message: string) => {
       const response = await fetch(
+        // "http://localhost:4000/" ||
         "https://ndyy46qs4eflzhulqwkgrxttce0wmfce.lambda-url.ap-south-1.on.aws/" ||
           "/api/createMessage",
         {
@@ -79,15 +80,14 @@ export const ChatContext = ({
           headers: {
             Authorization: `Bearer ${await getToken()}`,
           },
-          body: JSON.stringify({
-            fileId,
-            message,
-            subjectId,
-          }),
+          body: JSON.stringify({ fileId, message, subjectId }),
         }
       );
 
-      if (!response.ok) throw new Error("Something goes wrong");
+      if (!response.ok) {
+        console.log("Error: ", response);
+        throw new Error("Something goes wrong");
+      }
 
       return response;
     },
@@ -204,6 +204,8 @@ export const ChatContext = ({
           };
         }
       );
+
+      console.log(e);
 
       if (e.message === "Messages Quota Reached") {
         toast.error("You have used all of your messages.");
