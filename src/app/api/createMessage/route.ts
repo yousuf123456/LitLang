@@ -272,7 +272,7 @@ export async function POST(request: Request) {
 
     const headers = new Headers({
       "Content-Type": "text/plain",
-      "X-JSON-Data": JSON.stringify({
+      "X-Json-Data": JSON.stringify({
         messagesUsedCount,
         queries,
       }),
