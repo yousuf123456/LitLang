@@ -1,10 +1,12 @@
 import React from "react";
 import { Blogs } from "./_components/Blogs";
 
-export default function BlogsPage({
+export default async function BlogsPage({
   searchParams,
 }: {
   searchParams: { userId: string | null };
 }) {
-  return <Blogs isUserSpecificBlogs={!!searchParams.userId} />;
+  const { userId } = await searchParams;
+
+  return <Blogs isUserSpecificBlogs={!!userId} />;
 }

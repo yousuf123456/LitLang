@@ -26,7 +26,9 @@ export default async function FilePage({
   searchParams: { type?: "Viewer" | "Chat" | "Both" };
   params: { subjectId: string; fileId: string };
 }) {
-  const { userId } = auth();
+  const { userId } = await auth();
+  const { type } = await searchParams;
+  const { subjectId, fileId } = await params;
 
   const dbUser = await prisma.user.findUnique({
     where: {
@@ -38,14 +40,14 @@ export default async function FilePage({
 
   const maxMessagesQuotaLimit = dbUser?.maxMessagesQuotaLimit || 500;
 
-  if (searchParams.type === undefined)
-    redirect(`/subjects/${params.subjectId}/${params.fileId}?type=Viewer`);
+  if (type === undefined)
+    redirect(`/subjects/${subjectId}/${fileId}?type=Viewer`);
 
   return (
     <PaddingTopWrapper>
       <div className="max-h-[calc(100dvh-72.5px)] min-h-[calc(100dvh-72.5px)] flex">
         <Suspense
-          key={`${params.subjectId} ${params.fileId} sidebar`}
+          key={`${subjectId} ${fileId} sidebar`}
           fallback={
             <Skeleton
               aria-busy
@@ -54,28 +56,28 @@ export default async function FilePage({
             />
           }
         >
-          <FileNavigation fileId={params.fileId} subjectId={params.subjectId} />
+          <FileNavigation fileId={fileId} subjectId={subjectId} />
         </Suspense>
 
         <div
           className={cn(
             "flex-1 grid grid-cols-1",
-            searchParams.type === "Both" && "grid-cols-7"
+            type === "Both" && "grid-cols-7"
           )}
         >
-          {(searchParams.type === "Both" || searchParams.type === "Chat") && (
+          {(type === "Both" || type === "Chat") && (
             <ChatContext
               userPrefrences={
                 dbUser?.prefrences || { showMultipleQuotaUsageModal: true }
               }
               messagesQuota={messagesQuota}
-              subjectId={params.subjectId}
-              fileId={params.fileId}
+              subjectId={subjectId}
+              fileId={fileId}
             >
               <ChatHeader
-                type={searchParams.type}
-                fileId={params.fileId}
-                subjectId={params.subjectId}
+                type={type}
+                fileId={fileId}
+                subjectId={subjectId}
                 maxQuotaLimit={maxMessagesQuotaLimit}
               />
 
@@ -85,9 +87,9 @@ export default async function FilePage({
             </ChatContext>
           )}
 
-          {(searchParams.type === "Both" || searchParams.type === "Viewer") && (
+          {(type === "Both" || type === "Viewer") && (
             <Suspense
-              key={`${params.subjectId} ${params.fileId} content`}
+              key={`${subjectId} ${fileId} content`}
               fallback={
                 <div
                   aria-busy
@@ -99,7 +101,7 @@ export default async function FilePage({
                 </div>
               }
             >
-              <File fileId={params.fileId} subjectId={params.subjectId} />
+              <File fileId={fileId} subjectId={subjectId} />
             </Suspense>
           )}
         </div>

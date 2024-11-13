@@ -24,9 +24,11 @@ export default async function BlogEditorPage({
 }: {
   searchParams: { draftId?: string };
 }) {
-  const draft = searchParams.draftId
+  const { draftId } = await searchParams;
+
+  const draft = draftId
     ? await prisma.blogs.findUnique({
-        where: { id: searchParams.draftId },
+        where: { id: draftId },
       })
     : null;
 

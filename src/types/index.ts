@@ -31,3 +31,11 @@ export type ExtendedMessageType = Omit<Message, "createdAt"> & {
   isAiWriting?: boolean;
   isAiThinking?: boolean;
 };
+
+export type PaginationSearchParams = {
+  paginationToken?: string;
+  sortBy?: string;
+  query?: string;
+  going?: string;
+  page?: string;
+};

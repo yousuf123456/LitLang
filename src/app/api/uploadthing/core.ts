@@ -5,7 +5,7 @@ import { createUploadthing, type FileRouter } from "uploadthing/next";
 const f = createUploadthing();
 
 const uploadThingAuth = async (req: Request) => {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   return userId ? { id: userId } : null;
 };

@@ -10,6 +10,7 @@ import { SubjectsListPageSize } from "@/pagination";
 import { getSortbyDirection, transformRawResultsToPrisma } from "@/utils/utils";
 
 export const subjectsRouter = router({
+  // Using a server function for this
   get: publicProcedure
     .input(
       z.object({
@@ -96,7 +97,6 @@ export const subjectsRouter = router({
             university: 1,
             universityShort: 1,
             metadata: "$$SEARCH_META",
-
             paginationToken: { $meta: "searchSequenceToken" },
           },
         },

@@ -13,71 +13,78 @@ import { SubjectCard } from "./SubjectCard";
 import { SubjectsListPageSize } from "@/pagination";
 import { sortSearchParamType, SubjectType } from "@/types";
 import { PaginationControls } from "@/components/PaginationControls";
+import { useAuth } from "@clerk/nextjs";
 
 const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
 
-export const SubjectsList = () => {
-  const searchParams = useSearchParams();
-  const currentPage = parseInt(searchParams.get("page") || "1");
+export const SubjectsList = ({
+  subjects,
+  totalCount,
+}: {
+  subjects: SubjectType[];
+  totalCount: number;
+}) => {
+  // const searchParams = useSearchParams();
+  // const currentPage = parseInt(searchParams.get("page") || "1");
 
-  const { data, isFetching, error, isError } = trpc.subjects.get.useQuery({
-    sortBy: searchParams.get("sortBy") as sortSearchParamType | null,
-    paginationToken: searchParams.get("paginationToken"),
-    going: searchParams.get("going"),
-    query: searchParams.get("query"),
-    page: currentPage,
-  });
+  // const { data, isFetching, error, isError } = trpc.subjects.get.useQuery({
+  //   sortBy: searchParams.get("sortBy") as sortSearchParamType | null,
+  //   paginationToken: searchParams.get("paginationToken"),
+  //   going: searchParams.get("going"),
+  //   query: searchParams.get("query"),
+  //   page: currentPage,
+  // });
 
-  useEffect(() => {
-    if (isError) console.log(error);
-  }, [isError, error]);
+  // useEffect(() => {
+  //   if (isError) console.log(error);
+  // }, [isError, error]);
 
   const [hoveredIndex, setHoveredIndex] = useState<null | number>(null);
 
-  if (isFetching || !data) {
-    return (
-      <div
-        aria-live="polite"
-        aria-atomic
-        className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6"
-      >
-        <div className="relative p-1.5 sm:p-3 lg:p-4 block">
-          <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5">
-            <div className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-1.5 flex flex-col gap-4">
-              <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8"></div>
-            </div>
+  // if (isFetching || !data) {
+  //   return (
+  //     <div
+  //       aria-live="polite"
+  //       aria-atomic
+  //       className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6"
+  //     >
+  //       <div className="relative p-1.5 sm:p-3 lg:p-4 block">
+  //         <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5">
+  //           <div className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-1.5 flex flex-col gap-4">
+  //             <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8"></div>
+  //           </div>
 
-            <div className="p-2 flex flex-col items-end gap-2">
-              <div className="h-14" />
+  //           <div className="p-2 flex flex-col items-end gap-2">
+  //             <div className="h-14" />
 
-              {/* <div className="w-full flex items-center">
-                <div className="h-7" />
-              </div> */}
-            </div>
-          </Skeleton>
-        </div>
+  //             {/* <div className="w-full flex items-center">
+  //               <div className="h-7" />
+  //             </div> */}
+  //           </div>
+  //         </Skeleton>
+  //       </div>
 
-        <div className="relative p-1.5 sm:p-3 lg:p-4 block">
-          <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5 flex flex-col gap-4">
-            <div className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-1.5">
-              <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8"></div>
-            </div>
+  //       <div className="relative p-1.5 sm:p-3 lg:p-4 block">
+  //         <Skeleton className="w-full h-full rounded-xl border border-zinc-200 p-1.5 flex flex-col gap-4">
+  //           <div className="w-full bg-zinc-50 border border-zinc-200 rounded-xl p-1.5">
+  //             <div className="rounded-xl relative w-full h-full overflow-hidden aspect-w-16 aspect-h-8"></div>
+  //           </div>
 
-            <div className="p-2 flex flex-col items-end gap-2">
-              <div className="h-14" />
+  //           <div className="p-2 flex flex-col items-end gap-2">
+  //             <div className="h-14" />
 
-              {/* <div className="w-full flex items-center">
-                <div className="h-7" />
-              </div> */}
-            </div>
-          </Skeleton>
-        </div>
-      </div>
-    );
-  }
+  //             {/* <div className="w-full flex items-center">
+  //               <div className="h-7" />
+  //             </div> */}
+  //           </div>
+  //         </Skeleton>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
-  if (data.subjects.length === 0) {
+  if (subjects.length === 0) {
     return (
       <div
         aria-label="No subjects available"
@@ -87,7 +94,7 @@ export const SubjectsList = () => {
           aria-label="No data illustration"
           className="w-[180px] md:w-[250px] aspect-1 h-auto relative"
         >
-          <Image alt="No Data Illustration" src={"/noData.svg"} fill />
+          <Image alt="No Data Illustration" src={"/nosvg"} fill />
         </div>
 
         <h2 className="text-xl md:text-2xl font-medium text-zinc-500 text-center">
@@ -100,7 +107,7 @@ export const SubjectsList = () => {
   return (
     <div className="w-full flex flex-col gap-8">
       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
-        {data.subjects.map((subject, i) => (
+        {subjects.map((subject, i) => (
           <li key={i}>
             <Link
               href={`/subjects/${subject.id}`}
@@ -135,12 +142,10 @@ export const SubjectsList = () => {
       </ul>
 
       <PaginationControls
-        nextPaginationToken={
-          data.subjects[data.subjects.length - 1]?.paginationToken
-        }
-        prevPaginationToken={data.subjects[0]?.paginationToken}
+        nextPaginationToken={subjects[subjects.length - 1]?.paginationToken}
+        prevPaginationToken={subjects[0]?.paginationToken}
         itemsPerPage={SubjectsListPageSize}
-        totalCount={data.totalCount}
+        totalCount={totalCount}
       />
     </div>
   );

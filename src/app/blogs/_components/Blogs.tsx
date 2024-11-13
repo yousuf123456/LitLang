@@ -17,12 +17,12 @@ import {
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
 
-export const Blogs = ({
+export const Blogs = async ({
   isUserSpecificBlogs,
 }: {
   isUserSpecificBlogs: boolean;
 }) => {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (isUserSpecificBlogs && !userId) return <p>Unauthorized</p>;
 

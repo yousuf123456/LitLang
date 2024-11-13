@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs/server";
 import { UserPrefrences } from "@prisma/client";
 
 export const updateUserPrefrences = async (userPrefrences: UserPrefrences) => {
-  const { userId } = auth();
+  const { userId } = await auth();
   if (!userId) return "Unauthorized";
 
   await prisma.user.update({

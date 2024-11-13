@@ -134,7 +134,6 @@ export const ChatContext = ({
       setIsLoading(true);
     },
     onSuccess: async (response) => {
-      console.log("Response: ", response);
       if (!response.body)
         return toast.error(
           "There was some error sending your message. Try again later."
@@ -220,7 +219,7 @@ export const ChatContext = ({
 
       if (!response?.ok || !response.body) return;
 
-      const jsonData = JSON.parse(response.headers.get("X-Json-Data") || "");
+      const jsonData = JSON.parse(response.headers.get("X-Json-Data") || "{}");
 
       let queries = jsonData.queries || [];
       let messagesUsedCount = jsonData.messagesUsedCount || 1;
