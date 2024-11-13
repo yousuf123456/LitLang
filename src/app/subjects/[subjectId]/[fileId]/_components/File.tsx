@@ -9,8 +9,8 @@ import { findFileById } from "@/utils/utils";
 
 import dynamic from "next/dynamic";
 const AudioPlayer = dynamic(
-  () => import("./AudioPlayer").then((mod) => mod.AudioPlayer),
-  { ssr: false }
+  () => import("./AudioPlayer").then((mod) => mod.AudioPlayer)
+  // { ssr: false }
 );
 
 export const File = async ({
