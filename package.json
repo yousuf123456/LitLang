@@ -37,6 +37,7 @@
     "@trpc/server": "^10.45.2",
     "@uploadthing/react": "^6.7.2",
     "bson-objectid": "^2.0.4",
+    "canvas": "^2.11.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
