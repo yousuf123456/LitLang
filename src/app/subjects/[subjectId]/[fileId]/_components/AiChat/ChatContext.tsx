@@ -73,6 +73,7 @@ export const ChatContext = ({
     mutationFn: async (message: string) => {
       const response = await fetch(
         // "http://localhost:4000/" ||
+        //@ts-ignore
         "https://ndyy46qs4eflzhulqwkgrxttce0wmfce.lambda-url.ap-south-1.on.aws/" ||
           "/api/createMessage",
         {
@@ -182,7 +183,7 @@ export const ChatContext = ({
         );
       }
     },
-    onError: (e) => {
+    onError: (e: any) => {
       utils.chat.getMessagePages.setInfiniteData(
         { fileId, limit: 1 },
         (oldData) => {
@@ -204,8 +205,6 @@ export const ChatContext = ({
           };
         }
       );
-
-      console.log(e);
 
       if (e.message === "Messages Quota Reached") {
         toast.error("You have used all of your messages.");

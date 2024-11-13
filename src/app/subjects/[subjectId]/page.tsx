@@ -27,15 +27,16 @@ export const revalidate = 3600;
 export default async function SubjectPage({
   params,
 }: {
-  params: { subjectId: string };
+  params: Promise<{ subjectId: string }>;
 }) {
-  const subject = await getSubject(params.subjectId);
+  const { subjectId } = await params;
+  const subject = await getSubject(subjectId);
 
   if (!subject) redirect("/subjects");
 
   return (
     <PaddingTopWrapper>
-      <Suspense key={params.subjectId} fallback={<Loading />}>
+      <Suspense key={subjectId} fallback={<Loading />}>
         <div className="max-h-[calc(100vh-73px)] min-h-[calc(100vh-73px)] flex">
           <Sidebar subject={subject} />
 

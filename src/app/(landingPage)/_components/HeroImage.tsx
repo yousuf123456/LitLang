@@ -55,7 +55,7 @@ export const HeroImage = ({
         {images.mobiles && <source media={tabMedia} srcSet={tab} />}
 
         {/* <Image alt="Hero Image" {...rest} priority fill /> */}
-        <img alt={"Hero Image"} className="bg-brown-900/80" {...rest} />
+        <img className="bg-brown-900/80" {...rest} />
       </picture>
     </>
   );

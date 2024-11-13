@@ -5,7 +5,7 @@ import { StandaloneFileType } from "@prisma/client";
 export default async function BooksListingPage({
   searchParams,
 }: {
-  searchParams: { type: StandaloneFileType };
+  searchParams: Promise<{ type: StandaloneFileType }>;
 }) {
   const { type } = await searchParams;
 

@@ -44,7 +44,7 @@ export const ChatHeader = ({
   const { messagesQuota } = useContext(chatContext);
 
   const utils = trpc.useUtils();
-  const { mutateAsync: clearChat, isPending: isClearingChat } =
+  const { mutateAsync: clearChat, isLoading: isClearingChat } =
     trpc.chat.clear.useMutation();
 
   const onClearChat = () => {

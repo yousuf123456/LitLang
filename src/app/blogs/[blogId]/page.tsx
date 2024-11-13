@@ -2,7 +2,6 @@ import React from "react";
 
 import prisma from "@/app/utils/prismadb";
 import { Blog } from "./_components/Blog";
-import { redirect } from "next/navigation";
 import { clerkClient } from "@clerk/nextjs/server";
 import { PaddingTopWrapper } from "@/components/PaddingTopWrapper";
 
@@ -11,7 +10,7 @@ const getBlogAndWriter = async (blogId: string) => {
 
   if (!blog) return null;
 
-  const writer = await clerkClient.users.getUser(blog.userId);
+  const writer = await (await clerkClient()).users.getUser(blog.userId);
 
   return { blog, writer };
 };
@@ -19,9 +18,10 @@ const getBlogAndWriter = async (blogId: string) => {
 export default async function BlogPage({
   params,
 }: {
-  params: { blogId: string };
+  params: Promise<{ blogId: string }>;
 }) {
-  const blogData = await getBlogAndWriter(params.blogId);
+  const { blogId } = await params;
+  const blogData = await getBlogAndWriter(blogId);
 
   if (!blogData || !blogData.writer) return <p>Hello</p>;
 
