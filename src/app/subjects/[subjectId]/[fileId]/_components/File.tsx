@@ -3,15 +3,10 @@ import React from "react";
 import { redirect } from "next/navigation";
 
 import { PDFViewer } from "./PDFViewer";
+import { AudioPlayer } from "./AudioPlayer";
 
 import { getSubject } from "@/actions/getSubject";
 import { findFileById } from "@/utils/utils";
-
-import dynamic from "next/dynamic";
-const AudioPlayer = dynamic(
-  () => import("./AudioPlayer").then((mod) => mod.AudioPlayer)
-  // { ssr: false }
-);
 
 export const File = async ({
   fileId,

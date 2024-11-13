@@ -20,7 +20,17 @@ import { toast } from "sonner";
 
 import { useResizeDetector } from "react-resize-detector";
 
-import { Document, Page, pdfjs } from "react-pdf";
+import { pdfjs } from "react-pdf";
+
+import dynamic from "next/dynamic";
+const Document = dynamic(
+  () => import("react-pdf").then((mod) => mod.Document),
+  { ssr: false }
+);
+const Page = dynamic(() => import("react-pdf").then((mod) => mod.Page), {
+  ssr: false,
+});
+// const pdfjs = dynamic(()=> import("react-pdf").then((mod)=> mod.pdfjs))
 
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
