@@ -30,7 +30,10 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
   );
 
   return (
-    <ClerkProvider appearance={{ variables: { colorPrimary: "#934E29" } }}>
+    <ClerkProvider
+      appearance={{ variables: { colorPrimary: "#934E29" } }}
+      dynamic
+    >
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
           <Toaster />

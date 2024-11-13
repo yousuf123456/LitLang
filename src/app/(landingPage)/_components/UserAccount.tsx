@@ -17,23 +17,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 export const UserAccount = ({ imageTheme }: { imageTheme: boolean | null }) => {
   const { user, isLoaded } = useUser();
 
-  const { getToken, sessionId } = useAuth();
-
-  const test = async () => {
-    const response = await fetch("http://localhost:4000/", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${await getToken()}`,
-        sessionId: sessionId || "",
-      },
-      body: JSON.stringify({
-        hello: "bro",
-      }),
-    });
-
-    console.log(response);
-  };
-
   if (!isLoaded)
     return (
       <div className="flex items-center lg:w-[182px] justify-center flex-shrink-0">
