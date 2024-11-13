@@ -4,16 +4,17 @@ import { StandaloneFile } from "./_StandaloneFile";
 import { Loader } from "lucide-react";
 import { PaddingTopWrapper } from "@/components/PaddingTopWrapper";
 
-export default function BookFilePage({
+export default async function BookFilePage({
   params,
 }: {
-  params: { standaloneId: string };
+  params: Promise<{ standaloneId: string }>;
 }) {
+  const { standaloneId } = await params;
   return (
     <PaddingTopWrapper>
       <div className="max-h-[calc(100dvh-73px)] min-h-[calc(100dvh-73px)] flex">
         <Suspense
-          key={`${params.standaloneId}`}
+          key={`${standaloneId}`}
           fallback={
             <div
               aria-busy
@@ -25,7 +26,7 @@ export default function BookFilePage({
             </div>
           }
         >
-          <StandaloneFile standaloneId={params.standaloneId} />
+          <StandaloneFile standaloneId={standaloneId} />
         </Suspense>
       </div>
     </PaddingTopWrapper>

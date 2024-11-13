@@ -22,7 +22,7 @@ const Loading = () => {
 export default async function BlogEditorPage({
   searchParams,
 }: {
-  searchParams: { draftId?: string };
+  searchParams: Promise<{ draftId?: string }>;
 }) {
   const { draftId } = await searchParams;
 

@@ -8,7 +8,7 @@ import { LoadingState } from "./_components/LoadingState";
 export default async function SubjectsListPage({
   searchParams,
 }: {
-  searchParams: PaginationSearchParams;
+  searchParams: Promise<PaginationSearchParams>;
 }) {
   const { query, page, ...remSearchParams } = await searchParams;
 

@@ -23,8 +23,8 @@ export default async function FilePage({
   params,
   searchParams,
 }: {
-  searchParams: { type?: "Viewer" | "Chat" | "Both" };
-  params: { subjectId: string; fileId: string };
+  searchParams: Promise<{ type?: "Viewer" | "Chat" | "Both" }>;
+  params: Promise<{ subjectId: string; fileId: string }>;
 }) {
   const { userId } = await auth();
   const { type } = await searchParams;

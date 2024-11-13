@@ -34,7 +34,7 @@ export default function BlogEditorContext({ draft }: { draft: blogs | null }) {
   const router = useRouter();
   const draftId = useSearchParams().get("draftId");
 
-  const { mutateAsync, isPending } = trpc.blogs.updateOrCreate.useMutation();
+  const { mutateAsync, isLoading } = trpc.blogs.updateOrCreate.useMutation();
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -128,7 +128,7 @@ export default function BlogEditorContext({ draft }: { draft: blogs | null }) {
         setCoverImage,
         unsavedChanges,
         updateOrCreateDraft,
-        isSavingDraft: isPending,
+        isSavingDraft: isLoading,
       }}
     >
       <div className="w-full h-full min-h-screen flex flex-col md:gap-8 pb-12">

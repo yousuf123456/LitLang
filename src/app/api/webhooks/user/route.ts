@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   }
 
   // Get the headers
-  const headerPayload = headers();
+  const headerPayload = await headers();
   const svix_id = headerPayload.get("svix-id");
   const svix_timestamp = headerPayload.get("svix-timestamp");
   const svix_signature = headerPayload.get("svix-signature");
@@ -54,8 +54,10 @@ export async function POST(req: Request) {
   const { id } = evt.data as UserJSON;
   const eventType = evt.type;
 
+  const client = await clerkClient();
+
   if (eventType === "user.created") {
-    const user = await clerkClient.users.getUser(id!);
+    const user = await client.users.getUser(id!);
 
     await prisma.user.create({
       data: {
@@ -69,7 +71,7 @@ export async function POST(req: Request) {
   }
 
   if (eventType === "user.updated") {
-    const user = await clerkClient.users.getUser(id!);
+    const user = await client.users.getUser(id!);
 
     await prisma.user.update({
       where: {
