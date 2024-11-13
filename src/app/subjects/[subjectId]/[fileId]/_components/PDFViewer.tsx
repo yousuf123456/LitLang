@@ -20,7 +20,7 @@ import { toast } from "sonner";
 
 import { useResizeDetector } from "react-resize-detector";
 
-import { pdfjs } from "react-pdf";
+// import { pdfjs } from "react-pdf";
 
 import dynamic from "next/dynamic";
 const Document = dynamic(
