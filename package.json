@@ -12,6 +12,9 @@
   "overrides": {
     "@tanstack/react-query": {
       "react": "$react"
+    },
+    "@trpc/next@11.0.0-rc.421": {
+      "react": "$react"
     }
   },
   "dependencies": {
