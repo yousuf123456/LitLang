@@ -8,8 +8,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 import { Toaster } from "./ui/sonner";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(
@@ -31,8 +31,8 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ClerkProvider
+      dynamic={false}
       appearance={{ variables: { colorPrimary: "#934E29" } }}
-      dynamic
     >
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>

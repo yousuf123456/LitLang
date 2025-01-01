@@ -42,6 +42,7 @@ import { PiNewspaperClipping } from "react-icons/pi";
 
 import { Button } from "./ui/button";
 import { getSearchParamsArray } from "@/utils/utils";
+import { test } from "@/actions/test";
 
 export const UserMenu = () => {
   const [open, setOpen] = useState(false);

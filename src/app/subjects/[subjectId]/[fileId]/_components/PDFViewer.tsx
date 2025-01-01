@@ -20,16 +20,16 @@ import { toast } from "sonner";
 
 import { useResizeDetector } from "react-resize-detector";
 
-// import { pdfjs } from "react-pdf";
+import { pdfjs, Document, Page } from "react-pdf";
 
-import dynamic from "next/dynamic";
-const Document = dynamic(
-  () => import("react-pdf").then((mod) => mod.Document),
-  { ssr: false }
-);
-const Page = dynamic(() => import("react-pdf").then((mod) => mod.Page), {
-  ssr: false,
-});
+// import dynamic from "next/dynamic";
+// const Document = dynamic(
+//   () => import("react-pdf").then((mod) => mod.Document),
+//   { ssr: false }
+// );
+// const Page = dynamic(() => import("react-pdf").then((mod) => mod.Page), {
+//   ssr: false,
+// });
 // const pdfjs = dynamic(()=> import("react-pdf").then((mod)=> mod.pdfjs))
 
 import "react-pdf/dist/Page/TextLayer.css";
@@ -62,7 +62,7 @@ import { useParams, useSearchParams } from "next/navigation";
 // import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
 
 // pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${"3.11.174"}/pdf.worker.js`;
 
 // pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 

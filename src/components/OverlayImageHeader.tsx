@@ -57,10 +57,10 @@ export const OverlayImageHeader = ({
                   if (i === 0) return headingPart;
                   else
                     return (
-                      <>
+                      <React.Fragment key={i}>
                         <br />
                         {headingPart}
-                      </>
+                      </React.Fragment>
                     );
                 })}
           </Heading>
