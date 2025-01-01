@@ -2,12 +2,11 @@ import React from "react";
 
 import { redirect } from "next/navigation";
 
-// import { PDFViewer } from "./PDFViewer";
+import { PDFViewer } from "./PDFViewer";
 import { AudioPlayer } from "./AudioPlayer";
 
-import { getSubject } from "@/actions/getSubject";
 import { findFileById } from "@/utils/utils";
-import { PDF } from "./PDF";
+import { getSubject } from "@/actions/getSubject";
 
 export const File = async ({
   fileId,
@@ -35,7 +34,7 @@ export const File = async ({
   return (
     <>
       {file.type === "PDF" ? (
-        <PDF
+        <PDFViewer
           aiChatAvailable={!file.isHandwritten}
           backUrl={`/subjects/${subjectId}`}
           name={file.name}

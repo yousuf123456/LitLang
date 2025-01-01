@@ -72,6 +72,7 @@ export const blogsRouter = router({
       return updatedDraft.id;
     }),
 
+  // Getting from server fn
   get: publicProcedure
     .input(
       z.object({

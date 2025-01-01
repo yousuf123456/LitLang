@@ -10,6 +10,7 @@ import { getSortbyDirection, transformRawResultsToPrisma } from "@/utils/utils";
 import { FullStandaloneFileType } from "@/types";
 
 export const standaloneFileRouter = router({
+  // Getting from server fn
   get: publicProcedure
     .input(
       z.object({
