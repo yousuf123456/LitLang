@@ -62,6 +62,7 @@ import { useParams, useSearchParams } from "next/navigation";
 // import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
 
 // pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+// Hardcoded the version value to fix the (pdfjs not defined) error in production env
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${"3.11.174"}/pdf.worker.js`;
 
 // pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
