@@ -14,11 +14,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-type PlanInfo {
-  client_secret String
-  subscriptionPlanId String
-}
-
 type UserPrefrences {
   showMultipleQuotaUsageModal Boolean @default(true)
 }
@@ -32,7 +27,6 @@ model user {
   maxMessagesQuotaLimit Int @default(500)
 
   prefrences UserPrefrences
-  planInfo PlanInfo?
 }
 
 model blogs {

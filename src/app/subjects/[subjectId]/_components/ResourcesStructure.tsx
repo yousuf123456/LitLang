@@ -28,6 +28,8 @@ export const ResourcesStructure = ({
   subjectId: string;
   open: boolean;
 }) => {
+  const isPremiumUser = false;
+
   return (
     <LazyMotion features={loadFeatures} strict>
       <m.ul
@@ -54,13 +56,13 @@ export const ResourcesStructure = ({
                 paddingLeft={paddingLeft}
               />
             );
-          else if (resource.type === "PDF")
-            return resource.isPremium ? (
+          else if (resource.type === "PDF" || "Audio")
+            return resource.isPremium && !isPremiumUser ? (
               <File
                 isPremium={!!resource.isPremium}
                 paddingLeft={paddingLeft}
                 name={resource.name}
-                Icon={AiFillFilePdf}
+                Icon={resource.type === "PDF" ? AiFillFilePdf : FaMicrophone}
                 setOpen={setOpen}
                 open={open}
                 key={i}
@@ -70,26 +72,16 @@ export const ResourcesStructure = ({
                 <File
                   isPremium={!!resource.isPremium}
                   paddingLeft={paddingLeft}
-                  Icon={AiOutlineFilePdf}
+                  Icon={
+                    resource.type === "PDF" ? AiOutlineFilePdf : FaMicrophone
+                  }
                   name={resource.name}
                   setOpen={setOpen}
                   open={open}
                 />
               </Link>
             );
-          else if (resource.type === "Audio") {
-            return (
-              <File
-                paddingLeft={paddingLeft}
-                name={resource.name}
-                Icon={FaMicrophone}
-                setOpen={setOpen}
-                open={open}
-                isPremium
-                key={i}
-              />
-            );
-          } else return null;
+          else return null;
         })}
       </m.ul>
     </LazyMotion>

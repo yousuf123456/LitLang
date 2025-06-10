@@ -184,13 +184,16 @@ export const PDFViewer = ({
           <div className="flex items-center gap-1.5">
             <Input
               type="number"
-              value={inputPageNumber}
+              value={Number.isNaN(inputPageNumber) ? "" : inputPageNumber}
               disabled={numPages === 0}
               onBlur={() => {
                 if (Number.isNaN(inputPageNumber))
                   setInputPageNumber(pageNumber);
               }}
-              onChange={(e) => setInputPageNumber(parseInt(e.target.value))}
+              onChange={(e) => {
+                let number = parseInt(e.target.value);
+                setInputPageNumber(number);
+              }}
               className="w-8 h-6 p-0 text-center font-medium text-black [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent border-black/70"
             />
             <p className="text-xs sm:text-sm text-black font-medium">
@@ -323,10 +326,7 @@ export const PDFViewer = ({
 
       <ScrollArea role="document" aria-label={`PDF document: ${name}`}>
         <Document
-          file={
-            // "https://s3.amazonaws.com/pdftron/downloads/pl/2gb-sample-file.pdf" ||
-            pdfUrl
-          }
+          file={pdfUrl}
           options={options}
           onLoadError={onLoadError}
           loading={PDFLoadingState}

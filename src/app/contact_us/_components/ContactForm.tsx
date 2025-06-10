@@ -9,7 +9,13 @@ import { FaEnvelopeCircleCheck } from "react-icons/fa6";
 import { sendEmail } from "@/actions/sendEmail";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
-import { Dialog, DialogClose, DialogContent } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export const ContactForm = () => {
   const [success, setSuccess] = useState(false);
@@ -80,8 +86,13 @@ export const ContactForm = () => {
             {isLoading && <Loader2 className="ml-4 w-4 h-4 animate-spin" />}
           </Button>
         </form>
+
         <Dialog open={success} onOpenChange={setSuccess}>
           <DialogContent className="flex flex-col gap-8">
+            <DialogHeader className="sr-only">
+              <DialogTitle>Email Recieved Confirmation Dialog</DialogTitle>
+            </DialogHeader>
+
             <div className="w-full flex justify-center">
               <FaEnvelopeCircleCheck className="w-12 h-12 text-primary" />
             </div>

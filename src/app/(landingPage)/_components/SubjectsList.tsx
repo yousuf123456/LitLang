@@ -13,8 +13,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
-import { Button } from "@/components/ui/button";
 
 export const SubjectsList = ({ subjects }: { subjects: SubjectType[] }) => {
   const [hoveredIndex, setHoveredIndex] = useState<null | number>(null);

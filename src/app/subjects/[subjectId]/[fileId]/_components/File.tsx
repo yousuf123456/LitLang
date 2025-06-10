@@ -23,13 +23,11 @@ export const File = async ({
 
   if (!file) redirect(`/subjects/${subjectId}`);
 
-  // https://drwjw5urvo0gp.cloudfront.net
-  // const pdfUrl = `https://drwjw5urvo0gp.cloudfront.net/${file.key}?bg=shhshshs`;
-  const pdfUrl = `https://litlang2.s3.amazonaws.com/${file.key}`;
-  const audioUrl = `https://drwjw5urvo0gp.cloudfront.net/${file.key}`;
+  // const pdfUrl = `https://litlang2.s3.amazonaws.com/${file.key}`;
+  const fileUrl = `https://drwjw5urvo0gp.cloudfront.net/${file.key}`;
 
   // Check for subscription
-  if (file.isPremium && false) redirect(`/subjects/${subjectId}`);
+  if (file.isPremium) redirect(`/subjects/${subjectId}`);
 
   return (
     <>
@@ -38,13 +36,13 @@ export const File = async ({
           aiChatAvailable={!file.isHandwritten}
           backUrl={`/subjects/${subjectId}`}
           name={file.name}
-          pdfUrl={pdfUrl}
+          pdfUrl={fileUrl}
         />
       ) : (
         <AudioPlayer
           subjectId={subjectId}
           name={file.name}
-          audioUrl={audioUrl}
+          audioUrl={fileUrl}
         />
       )}
     </>

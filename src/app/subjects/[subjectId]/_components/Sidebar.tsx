@@ -8,7 +8,13 @@ import { ResourcesStructure } from "./ResourcesStructure";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn, createImageUrlFromWebViewLink } from "@/utils/utils";
 
-import { DialogContent, Dialog, DialogClose } from "@/components/ui/dialog";
+import {
+  DialogContent,
+  Dialog,
+  DialogClose,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -72,21 +78,6 @@ export const Sidebar = ({
                       <h1 className="line-clamp-2 text-lg font-medium text-white">
                         {subject.name}
                       </h1>
-
-                      {/* <div className="w-full flex justify-end gap-4">
-                        <Badge
-                          variant={"outline"}
-                          className="text-xs text-zinc-200 font-medium rounded-lg "
-                        >
-                          {subject.universityShort}
-                        </Badge>
-                        <Badge
-                          variant={"outline"}
-                          className="text-xs text-zinc-200 font-medium rounded-lg "
-                        >
-                          Semester {subject.semester}
-                        </Badge>
-                      </div> */}
                     </div>
                   </m.div>
                 </LazyMotion>
@@ -150,6 +141,9 @@ export const Sidebar = ({
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="flex flex-col gap-5">
+          <DialogHeader className="sr-only">
+            <DialogTitle>Premium Subscription Required</DialogTitle>
+          </DialogHeader>
           <div className="w-full flex justify-center">
             <div className="p-2.5 from-gray-900 bg-gradient-to-br to-primary hover:bg-gray-900/90 rounded-md">
               <Gem className="w-7 h-7 text-gray-100" />

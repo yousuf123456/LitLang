@@ -42,7 +42,9 @@ export async function POST(request: Request) {
       },
     });
 
-    if (!user || !dbUser) {
+    const isAuthenticated = !!(user && dbUser);
+
+    if (!isAuthenticated) {
       return new NextResponse("Unauthorized", { status: 404 });
     }
 
@@ -280,6 +282,7 @@ export async function POST(request: Request) {
 
     return new NextResponse(aiMsg, { headers, status: 200 });
   } catch (e) {
+    console.log("Error when running RAG", e);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

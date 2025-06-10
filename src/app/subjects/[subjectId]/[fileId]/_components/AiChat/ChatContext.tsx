@@ -72,10 +72,9 @@ export const ChatContext = ({
   const { mutate } = useMutation({
     mutationFn: async (message: string) => {
       const response = await fetch(
-        // "http://localhost:4000/" ||
         //@ts-ignore
-        "https://ndyy46qs4eflzhulqwkgrxttce0wmfce.lambda-url.ap-south-1.on.aws/" ||
-          "/api/createMessage",
+        // "https://ndyy46qs4eflzhulqwkgrxttce0wmfce.lambda-url.ap-south-1.on.aws/" || Lambda Function Url
+        "/api/createMessage",
         {
           method: "POST",
           headers: {

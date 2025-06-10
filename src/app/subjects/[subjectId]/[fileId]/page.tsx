@@ -54,7 +54,7 @@ export default async function FilePage({
               <Skeleton
                 aria-busy
                 aria-live="polite"
-                className="hidden md:16 lg:w-16 rounded-none md:block"
+                className="hidden lg:w-16 rounded-none md:block"
               />
             }
           >
