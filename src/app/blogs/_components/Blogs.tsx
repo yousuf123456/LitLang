@@ -23,23 +23,17 @@ export const Blogs = async ({
   page,
   going,
   query,
-  userId,
   sortBy,
+  isOnlyMyBlogs,
   paginationToken,
-  isUserSpecificBlogs,
 }: {
-  userId?: string;
-  isUserSpecificBlogs: boolean;
+  isOnlyMyBlogs: boolean;
 } & PaginationSearchParams) => {
-  const { userId: authUserId } = await auth();
-
-  if (isUserSpecificBlogs && !authUserId) return <p>Unauthorized</p>;
-
   const { blogs, totalCount } = await getBlogs({
     query,
     going,
     sortBy,
-    userId,
+    isOnlyMyBlogs,
     paginationToken,
     page: parseInt(page || "1"),
   });

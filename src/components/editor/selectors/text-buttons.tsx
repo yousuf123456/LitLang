@@ -6,7 +6,6 @@ import {
   UnderlineIcon,
   StrikethroughIcon,
   CodeIcon,
-  Book,
 } from "lucide-react";
 import type { SelectorItem } from "./node-selector";
 import { Button } from "@/components/ui/button";
@@ -20,7 +19,6 @@ export const TextButtons = () => {
       name: "bold",
       isActive: (editor) => editor.isActive("bold"),
       command: (editor) => editor.chain().focus().toggleBold().run(),
-
       icon: BoldIcon,
     },
     {
@@ -58,7 +56,12 @@ export const TextButtons = () => {
             item.command(editor);
           }}
         >
-          <Button size="sm" className="rounded-none" variant="ghost">
+          <Button
+            type="button"
+            size="sm"
+            className="rounded-none"
+            variant="ghost"
+          >
             <item.icon
               className={cn("h-4 w-4", {
                 "text-blue-500": item.isActive(editor),

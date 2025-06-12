@@ -100,8 +100,10 @@ const Editor = ({ initialValue, onChange }: EditorProp) => {
 
           <LinkSelector open={openLink} onOpenChange={setOpenLink} />
           <Separator orientation="vertical" />
+
           <TextButtons />
           <Separator orientation="vertical" />
+
           <ColorSelector open={openColor} onOpenChange={setOpenColor} />
         </EditorBubble>
       </EditorContent>

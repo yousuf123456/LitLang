@@ -42,7 +42,6 @@ import { PiNewspaperClipping } from "react-icons/pi";
 
 import { Button } from "./ui/button";
 import { getSearchParamsArray } from "@/utils/utils";
-import { test } from "@/actions/test";
 
 export const UserMenu = () => {
   const [open, setOpen] = useState(false);
@@ -190,7 +189,7 @@ export const UserMenu = () => {
             )}
 
             {user && (
-              <Link href={`/blogs?userId=${user.id}`}>
+              <Link href={`/blogs?myBlogs=true`}>
                 <DropdownMenuItem>
                   <Newspaper className="mr-4 h-4 w-4 text-zinc-700" />
                   <span>My Blogs</span>

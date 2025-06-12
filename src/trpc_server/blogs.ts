@@ -217,11 +217,13 @@ export const blogsRouter = router({
   getBlogsAutocompletes: publicProcedure
     .input(
       z.object({
+        isMyBlogs: z.boolean(),
         query: z.optional(z.string()),
+        userId: z.optional(z.string()),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const { query } = input;
+      const { query, userId, isMyBlogs } = input;
 
       if (!query || query.length === 0) return [];
 
@@ -229,10 +231,42 @@ export const blogsRouter = router({
         {
           $search: {
             index: "search",
-            autocomplete: {
-              query,
-              path: "title",
-              fuzzy: {},
+            compound: {
+              must: [
+                {
+                  autocomplete: {
+                    query,
+                    path: "title",
+                    fuzzy: {},
+                  },
+                },
+              ],
+
+              ...(isMyBlogs
+                ? {
+                    filter: [
+                      {
+                        text: {
+                          path: "userId",
+                          query: userId,
+                        },
+                      },
+                    ],
+                  }
+                : {}),
+
+              ...(!isMyBlogs
+                ? {
+                    filter: [
+                      {
+                        equals: {
+                          path: "isPublished",
+                          value: true,
+                        },
+                      },
+                    ],
+                  }
+                : {}),
             },
           },
         },

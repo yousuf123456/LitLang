@@ -3,18 +3,24 @@ import prisma from "@/app/utils/prismadb";
 import { blogType } from "@/types";
 import { BlogsListPageSize } from "@/pagination";
 import { getSortbyDirection, transformRawResultsToPrisma } from "@/utils/utils";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 interface ParamsType {
   paginationToken: string | undefined;
   sortBy: string | undefined;
-  userId: string | undefined;
   query: string | undefined;
   going: string | undefined;
+  isOnlyMyBlogs: boolean;
   page: number;
 }
 
 export const getBlogs = async (params: ParamsType) => {
-  const { query, sortBy, page, paginationToken, going, userId } = params;
+  const { query, sortBy, page, paginationToken, going, isOnlyMyBlogs } = params;
+
+  const { userId, sessionId } = await auth();
+
+  if (isOnlyMyBlogs && (!userId || !sessionId)) redirect("/sign-in");
 
   const toSkip = (page - 1) * BlogsListPageSize;
 
@@ -33,7 +39,7 @@ export const getBlogs = async (params: ParamsType) => {
             },
           ],
 
-          ...(userId
+          ...(isOnlyMyBlogs
             ? {
                 filter: [
                   {
@@ -46,7 +52,7 @@ export const getBlogs = async (params: ParamsType) => {
               }
             : {}),
 
-          ...(!userId
+          ...(!isOnlyMyBlogs
             ? {
                 filter: [
                   {
@@ -98,8 +104,8 @@ export const getBlogs = async (params: ParamsType) => {
   const pipeline_noSearch = [
     {
       $match: {
-        ...(!userId ? { isPublished: true } : {}),
-        ...(userId ? { userId } : {}),
+        ...(!isOnlyMyBlogs ? { isPublished: true } : {}), // Get all users blogs but only the published ones
+        ...(isOnlyMyBlogs ? { userId } : {}), // Get all the blogs of a specific user
       },
     },
     {

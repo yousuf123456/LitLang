@@ -16,43 +16,10 @@ export default function FeatureCard({
   description: string;
   featureNumber: number;
 }) {
-  // const varianst = {
-  //   initial: {
-  //     y: 28,
-
-  //     opacity: 0.1,
-  //   },
-  //   animate: {
-  //     y: 0,
-
-  //     opacity: 1,
-  //   },
-  // };
-
-  // const { inView, ref } = useInView({ rootMargin: "0px 0px -48px 0px" });
-  // const controls = useAnimation();
-
-  // useEffect(() => {
-  //   if (!inView) return;
-
-  //   controls.start("animate");
-  // }, [inView]);
-
   return (
     <Link href={href}>
-      {/* <LazyMotion features={loadFeatures} strict> */}
-      <article
-      // ref={ref}
-      // initial="initial"
-      // animate={controls}
-      // variants={varianst}
-      // transition={{
-      //   type: "keyframes",
-      //   duration: 0.4,
-      //   ease: "easeInOut",
-      // }}
-      >
-        <div className="p-7 rounded-xl border border-themeSecondary/60 flex flex-col gap-4 relative overflow-hidden group cursor-pointer hover:shadow-md hover:shadow-themeSecondary/30 transition-shadow">
+      <article>
+        <div className="p-7 rounded-xl border border-themeSecondary/60 flex flex-col gap-4 relative overflow-hidden group cursor-pointer hover:shadow-lg hover:shadow-themeSecondary/30 transition-shadow">
           <div className="pointer-events-none" aria-hidden>
             <div className="absolute inset-0 rounded-2xl">
               <svg
@@ -97,11 +64,6 @@ export default function FeatureCard({
             </div>
           </div>
 
-          {/* <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 bg-gradient-to-r from-brown-500/10 to-brown-800/10 z-20 transition-colors"
-          /> */}
-
           <Icon
             className="w-7 h-7 text-themeSecondary z-20"
             aria-label={iconLabel}
@@ -114,7 +76,6 @@ export default function FeatureCard({
           <p className="text-white/70 tracking-tight z-20">{description}</p>
         </div>
       </article>
-      {/* </LazyMotion> */}
     </Link>
   );
 }

@@ -36,7 +36,7 @@ export const BlogsList = ({
           aria-label="No data illustration"
           className="w-[180px] md:w-[250px] aspect-1 h-auto relative"
         >
-          <Image alt="No Data Illustration" src={"/nosvg"} fill />
+          <Image alt="No Data Illustration" src={"/noData.svg"} fill />
         </div>
 
         <h2 className="text-xl md:text-2xl font-medium text-zinc-500 text-center">
@@ -46,11 +46,13 @@ export const BlogsList = ({
     );
   }
 
+  const isMyBlogs = searchParams.get("myBlogs") === "true";
+
   return (
     <div className="w-full flex flex-col gap-8">
       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-0 mt-6">
         {blogs.map((blog, i) => (
-          <li key={i}>
+          <li key={i} className="relative">
             <Link
               href={`/blogs/${blog.id}`}
               className="relative p-1.5 sm:p-3 lg:p-4 block"
@@ -100,20 +102,6 @@ export const BlogsList = ({
                   </p>
 
                   <div className="w-full flex items-center">
-                    {searchParams.get("userId") && (
-                      <Link
-                        href={`/blogEditor?draftId=${blog.id}`}
-                        className={buttonVariants({
-                          size: "sm",
-                          variant: "outline",
-                          className: "bg-white text-xs",
-                        })}
-                      >
-                        Edit{" "}
-                        <Edit className="w-[14px] h-[14px] ml-2 text-zinc-600" />
-                      </Link>
-                    )}
-
                     <div className="flex-1 flex justify-end">
                       <Badge className="bg-white text-zinc-600 border border-zinc-200 rounded-lg hover:bg-white pr-4">
                         Read Blog{" "}
@@ -124,6 +112,20 @@ export const BlogsList = ({
                 </div>
               </article>
             </Link>
+
+            {isMyBlogs && (
+              <Link
+                href={`/blogEditor?draftId=${blog.id}`}
+                className={buttonVariants({
+                  size: "sm",
+                  variant: "outline",
+                  className:
+                    "bg-white text-xs absolute lg:bottom-7 lg:left-7 md:bottom-6 md:left-6 bottom-4 left-4",
+                })}
+              >
+                Edit <Edit className="w-[14px] h-[14px] ml-2 text-zinc-600" />
+              </Link>
+            )}
           </li>
         ))}
       </ul>

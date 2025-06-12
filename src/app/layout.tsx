@@ -2,7 +2,7 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 
-import { Inter, Roboto } from "next/font/google";
+import { Roboto } from "next/font/google";
 import localfont from "next/font/local";
 import { Providers } from "@/components/Providers";
 import { Navbar } from "./(landingPage)/_components/Navbar";

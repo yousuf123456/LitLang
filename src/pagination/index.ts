@@ -1,4 +1,4 @@
-export const BlogsListPageSize = 15;
+export const BlogsListPageSize = 8;
 
 export const SubjectsListPageSize = 8;
 

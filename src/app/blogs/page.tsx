@@ -5,6 +5,7 @@ import { LoadingState } from "./_components/LoadingState";
 import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
 import { Search_SortInputs } from "./_components/Search_SortInputs";
 import { OverlayImageHeader } from "@/components/OverlayImageHeader";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -18,27 +19,27 @@ import Link from "next/link";
 export default async function BlogsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ userId?: string } & PaginationSearchParams>;
+  searchParams: Promise<{ myBlogs?: string } & PaginationSearchParams>;
 }) {
-  const { userId, page, query, ...allSearchParams } = await searchParams;
-  const isUserSpecificBlogs = !!userId;
+  const { myBlogs, page, query, ...allSearchParams } = await searchParams;
+  const myBlogsBoolean = myBlogs === "true";
 
   return (
     <div className="flex flex-col gap-6">
       <OverlayImageHeader
-        buttonLabel={isUserSpecificBlogs ? "See My Blogs" : "Explore Blogs"}
-        heading={isUserSpecificBlogs ? "My Blogs" : "Our Blogs"}
+        buttonLabel={myBlogsBoolean ? "See My Blogs" : "Explore Blogs"}
+        heading={myBlogsBoolean ? "My Blogs" : "Our Blogs"}
         overlayImages={{
           desktop: "/desktop_blogs.jpg",
           mobiles: "/mobiles_blogs.jpg",
         }}
         subHeading={
-          !isUserSpecificBlogs
+          !myBlogsBoolean
             ? "Explore expert opinions in our diverse range of engaging blogs where knowledge meets inspiration!"
             : "View or Edit all of your published / unpublished blogs."
         }
       >
-        {isUserSpecificBlogs && (
+        {myBlogsBoolean && (
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -75,10 +76,10 @@ export default async function BlogsPage({
         <MaxWidthWrapper className="px-3 sm:px-8 w-full">
           <Suspense fallback={<LoadingState />} key={`${query} ${page}`}>
             <Blogs
-              isUserSpecificBlogs={!!userId}
               page={page}
               query={query}
               {...allSearchParams}
+              isOnlyMyBlogs={myBlogsBoolean}
             />
           </Suspense>
         </MaxWidthWrapper>

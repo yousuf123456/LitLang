@@ -1,13 +1,7 @@
 "use client";
 import React from "react";
 
-import {
-  SignInButton,
-  SignUpButton,
-  SignedOut,
-  useAuth,
-  useUser,
-} from "@clerk/nextjs";
+import { SignInButton, SignUpButton, SignedOut, useUser } from "@clerk/nextjs";
 
 import { cn } from "@/utils/utils";
 import { Button } from "@/components/ui/button";
@@ -57,7 +51,6 @@ export const UserAccount = ({ imageTheme }: { imageTheme: boolean | null }) => {
             "flex items-center lg:w-[182px] justify-end flex-shrink-0"
           )}
         >
-          {/* <Button onClick={test}>Test</Button> */}
           <UserMenu />
         </div>
       ) : (

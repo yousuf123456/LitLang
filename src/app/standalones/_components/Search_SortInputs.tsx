@@ -6,6 +6,7 @@ import { SortbySelector } from "@/components/SortbySelector";
 import { useSearchParams } from "next/navigation";
 import { trpc } from "@/app/_trpc/client";
 import { StandaloneFileType } from "@prisma/client";
+import { useAuth } from "@clerk/nextjs";
 
 export const Search_SortInputs = () => {
   const searchParams = useSearchParams();
