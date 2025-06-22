@@ -71,15 +71,17 @@ export const DraftActions = ({
                 draftId,
                 content,
                 coverImage,
-                isPublished: false,
-                pendingForApproval: true,
+                isPublished: true,
+                pendingForApproval: false,
                 asAnUncompletedDraft: false,
               })
             }
           >
             {initialDraft?.pendingForApproval
               ? "Waiting For Approval"
-              : "Publish"}
+              : initialDraft?.isPublished
+              ? "Recent Published"
+              : "Publish Changes"}
           </Button>
         </div>
       </div>

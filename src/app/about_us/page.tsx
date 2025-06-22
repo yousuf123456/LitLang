@@ -7,12 +7,12 @@ const loadFeatures = () =>
   import("@/app/utils/features").then((res) => res.default);
 
 import Image from "next/image";
-import { MaxWidthWrapper } from "@/components/MaxWidthWrapper";
 
 import { BsLinkedin, BsTwitter } from "react-icons/bs";
 import { useScroll } from "framer-motion";
 import { AnimatedLetters } from "@/components/ui/animated-letters";
 import { OverlayImageHeader } from "@/components/OverlayImageHeader";
+import Link from "next/link";
 
 const FounderCard = ({
   image,
@@ -42,8 +42,12 @@ const FounderCard = ({
           {post}
         </p>
         <div className="flex items-center gap-4">
-          <BsLinkedin className="w-5 h-5" />
-          <BsTwitter className="w-5 h-5" />
+          <Link
+            href={"https://www.linkedin.com/in/muhammad-yousuf-dev/"}
+            target="_blank"
+          >
+            <BsLinkedin className="w-5 h-5" />
+          </Link>
         </div>
       </div>
     </article>
@@ -117,7 +121,7 @@ export default function AboutUsPage() {
               <m.div style={{ x: leftX, opacity: scrollYProgress }}>
                 <FounderCard
                   image="https://images.unsplash.com/photo-1475669913832-fd187510b578?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWVufGVufDB8fDB8fHww"
-                  name="Syed Yaseen"
+                  name="M.Yousuf"
                   post="Founder"
                 />
               </m.div>
@@ -125,7 +129,7 @@ export default function AboutUsPage() {
               <m.div style={{ x: rightX, opacity: scrollYProgress }}>
                 <FounderCard
                   image="https://images.unsplash.com/photo-1496346236646-50e985b31ea4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bWVufGVufDB8fDB8fHww"
-                  name="Mujtaba"
+                  name="M.Yousuf"
                   post="Co Founder"
                 />
               </m.div>
