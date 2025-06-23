@@ -16,6 +16,7 @@
 [![Unlicense License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
+[![Product Name Screen Shot][product-screenshot2]](https://example.com)
 
 <!-- PROJECT LOGO -->
 <br />
@@ -49,6 +50,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
+        <li><a a="#Features">Features</a></li>
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
@@ -64,7 +66,6 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -73,7 +74,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot1]](https://example.com)
 
 LitLang is a web platform designed for students, readers, and writers who want to explore educational content and share their thoughts.
 
@@ -120,38 +121,65 @@ Writers can log in, use the easy editor to write blogs, and publish them in only
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To get started and have the project running on your own local machine, follow the instructions mentioned below;
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+This is a list of tools you must have installed in your machine before proceeding:
+
+- [git (Version Control)](https://git-scm.com)
+- [Node.js (Javascript running environment)](https://nodejs.org/en)
+- [npm (Node Package Manager)](https://www.npmjs.com)
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+Follow these steps to install the project and its dependencies in your machine:
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/yousuf123456/Litlang.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+3. Get your technologies credentials by creating an account on the following platforms:
+   - [MongoDB](https://www.mongodb.com/)
+   - [Clerk.js](https://clerk.com/)
+   - [Brevo](https://www.brevo.com/)
+   - [AWS-S3](https://aws.amazon.com/s3)
+   - [UploadThings](https://uploadthing.com/)
+   - [Voyage](https://www.voyageai.com/)
+   - [Pinecone](https://www.pinecone.io/)
+   - [Cohere](https://cohere.com/)
+4. Add your obtained credentials in your `.env.local` file as.
    ```
-5. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin github_username/repo_name
-   git remote -v # confirm the changes
+   DATABASE_URL=mongo_database_url;
+
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_publishable_key;
+   WEBHOOK_SECRET_KEY=webhook_secret_key;
+   CLERK_SECRET_KEY=clerk_secret_key;
+   NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in;
+   NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up;
+
+   UPLOADTHING_SECRET=uploadthings_secret_key;
+   UPLOADTHING_APP_ID=your_app_id;
+
+   BREVO_API_KEY=brevo_api_key;
+
+   S3_ACCESS_KEY=access_key;
+   S3_SECRET_ACCESS_KEY=s3_secret_key;
+
+   COHERE_API_KEY=cohere_api_key;
+   VOYAGE_API_KEY=voyage_api_key;
+   PINECONE_API_KEY=pinecone_api_key;
+   ```
+5. Create a webhook in Clerk Dashboard to sync user data with our mongo database.
+   - Visit [Clerk.js Webhook Guide](https://clerk.com/blog/webhooks-getting-started) and follow the instructions.
+   - Make sure to add your's hosted domain or ngrok forwarding url (for testing in local development) as webhook endpoint.
+7. Run the local server.
+   ```
+   npm run dev
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -172,13 +200,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+- [ ] Make Litera Ai also answer on audio files.
+- [ ] Add support for video files.
 
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
@@ -191,7 +214,7 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+💡 Got ideas or improvements? Your contributions are welcome that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
@@ -199,11 +222,14 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
+6. 
 ### Top contributors:
 
-<a href="https://github.com/othneildrew/Best-README-Template/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=othneildrew/Best-README-Template" alt="contrib.rocks image" />
+Currently, I have solely worked on this web app.
+Be the first one to join me in shaping this project better😊.
+
+<a href="https://github.com/yousuf123456/Litlang/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=yousuf123456/Litlang" alt="contrib.rocks image" />
 </a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -222,30 +248,9 @@ Distributed under the Unlicense License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Muhammad Yousuf - [Linkedin](www.linkedin.com/in/muhammad-yousuf-dev) - m.yousuf.developer@gmail.com
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
@@ -262,7 +267,8 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: https://psiatxsp7k.ufs.sh/f/IJ6jQX6fzbj8vpgm7x1kQ0fx5o4P6RE1OUe2pwanbvzCjc3r
+[product-screenshot1]: https://psiatxsp7k.ufs.sh/f/IJ6jQX6fzbj8vpgm7x1kQ0fx5o4P6RE1OUe2pwanbvzCjc3r
+[product-screenshot2]: https://psiatxsp7k.ufs.sh/f/IJ6jQX6fzbj8d5LI8KoprzQCLIK7MbtoW8TyAwlUDNuhnpYS
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
