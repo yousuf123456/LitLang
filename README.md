@@ -189,10 +189,45 @@ Follow these steps to install the project and its dependencies in your machine:
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Usage Guide: For **Readers :notebook:** | **Writers :black_nib:** | **Admins :open_file_folder:**
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+### For Readers :notebook:
+1. **Explore Contents**
+   - Browse Subjects → Click any PDF/Audio → Read/listen directly in your browser.
+     
+   - Browse Books, Articles, Texts, Book Reviews → Click to open in the browser.
+     
+   - Browse blogs → Click to read through the blog.
+          
+2. **Ask Litera AI About Your PDF (Only for "Subjects" PDFs)**
+   - Open a PDF → Click the Litera Ai button
+     
+   - Ask questions like:
+     - "Summarize page 10"
+       
+     - "Explain the key concepts in this chapter"
+       
+     - "Find all mentions of 'climate change' in this document"
+<br />
 
+###  For Blog Writers :black_nib:
+1. Log in → Go to "Write Blog"
+   
+2. Write using our Notion-style editor (rich formatting, embeds)
+  
+3. Hit "Publish" or save as a draft.
+   
+4. If not published immediatly, wait for the Blog to be approved by Admin.
+
+### For Admins :open_file_folder:
+1. **Uploading Content**
+   
+2. **Syncing Content**
+   
+3. **Ai Processing of PDFs**
+   
+4. **Folder Structure of Project**
+   
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
