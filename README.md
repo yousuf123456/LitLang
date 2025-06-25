@@ -220,13 +220,56 @@ Usage Guide: For **Readers :notebook:** | **Writers :black_nib:** | **Admins :op
 4. If not published immediatly, wait for the Blog to be approved by Admin.
 
 ### For Admins :open_file_folder:
-1. **Uploading Content**
+
+#### Uploading Content
+Follow this folder blueprint to upload your files in s3 bucket so content shows up correctly in the website:
+```markdown
+# Subjects Files
+
+litlang-bucket/
+├── Subjects/
+│   ├── [Subject Name]/
+│   │   ├── cover.jpg → [Displays as subject thumbnail on UI]
+│   │   ├── chapter1.pdf
+│   │   └── Lectures/ → [Nested folders allowed in subjects]
+│   │       └── lecture1.mp3
+
+
+# Books, Articles, Texts
+
+litlang-bucket/
+├── [Books/Articles/Texts]/
+│   ├── [Book/Article/Text Name]/
+│   │   ├── cover.jpg → [Displays as content thumbnail on UI]
+│   │   ├── content.pdf
+
+
+# Already Uploaded Books' Reviews
+
+litlang-bucket/
+├── Books/
+│   ├── [Book Name]/
+│   │   ├── cover.jpg 
+│   │   ├── content.pdf
+│   │   └── Book Reviews/
+│   │       ├── [Book Review Title]/
+│   │       │   ├── cover.jpg → [Displays as review thumbnail on UI]
+│   │       │   └── review.pdf
+
+
+# Not Uploaded Books' Reviews
+
+litlang-bucket/
+├── Outside Book Reviews/
+│   ├── [Book Review Name]/
+│   │   ├── cover.jpg → [Displays as review thumbnail on UI]
+│   │   ├── review.pdf
+```
+3. **Syncing Content**
    
-2. **Syncing Content**
+4. **Ai Processing of PDFs**
    
-3. **Ai Processing of PDFs**
-   
-4. **Folder Structure of Project**
+5. **Folder Structure of Project**
    
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -257,7 +300,7 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-6. 
+
 ### Top contributors:
 
 Currently, I have solely worked on this web app.
