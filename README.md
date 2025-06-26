@@ -89,6 +89,7 @@ Writers can log in, use the easy editor to write blogs, and publish them in only
 ### Features
 
 - Smart PDF assistant (Litera AI) to interact with study material in real time
+  
 - Fuzzy search to quickly find books, articles, and study content
 - Notion-style blog editor for smooth writing and publishing experience
 - Clean, modern interface with responsive design for better usability
@@ -139,10 +140,12 @@ Follow these steps to install the project and its dependencies in your machine:
    ```sh
    git clone https://github.com/yousuf123456/Litlang.git
    ```
+
 2. Install NPM packages
    ```sh
    npm install
    ```
+
 3. Get your technologies credentials by creating an account on the following platforms:
    - [MongoDB](https://www.mongodb.com/)
    - [Clerk.js](https://clerk.com/)
@@ -152,6 +155,7 @@ Follow these steps to install the project and its dependencies in your machine:
    - [Voyage](https://www.voyageai.com/)
    - [Pinecone](https://www.pinecone.io/)
    - [Cohere](https://cohere.com/)
+
 4. Add your obtained credentials in your `.env.local` file as.
    ```
    DATABASE_URL=mongo_database_url;
@@ -174,10 +178,12 @@ Follow these steps to install the project and its dependencies in your machine:
    VOYAGE_API_KEY=voyage_api_key;
    PINECONE_API_KEY=pinecone_api_key;
    ```
+
 5. Create a webhook in Clerk Dashboard to sync user data with our mongo database.
    - Visit [Clerk.js Webhook Guide](https://clerk.com/blog/webhooks-getting-started) and follow the instructions.
    - Make sure to add your's hosted domain or ngrok forwarding url (for testing in local development) as webhook endpoint.
-7. Run the local server.
+
+6. Run the local server.
    ```
    npm run dev
    ```
@@ -220,7 +226,6 @@ Usage Guide: For **Readers :notebook:** | **Writers :black_nib:** | **Admins :op
 4. If not published immediatly, wait for the Blog to be approved by Admin.
 
 ### For Admins :open_file_folder:
-
 #### Uploading Content
 Follow this folder blueprint to upload your files in s3 bucket so content shows up correctly in the website:
 ```markdown
@@ -265,14 +270,30 @@ litlang-bucket/
 │   │   ├── cover.jpg → [Displays as review thumbnail on UI]
 │   │   ├── review.pdf
 ```
-3. **Syncing Content**
-   
-4. **Ai Processing of PDFs**
-   
-5. **Folder Structure of Project**
+
+#### Syncing Content
+Once files are uploaded to S3, run sync scripts to store all files metadata on MongoDB database, enabling easy and type-safe listing on the website via Prisma. Visit repository for syncing scripts and their documentation.
+
+#### Setting up CloudFront
+  1. Create a CloudFront distribution pointing to your S3 bucket (`your-bucket.s3.amazonaws.com`)
+     
+  2. Enable **Origin Access Control (OAC)**
+  3. Apply the auto-generated policy to your S3 bucket permissions
+  4. Wait ~15 minutes for deployment
+  5. Test access via: `https://[distribution-id].cloudfront.net/file-path`
+> For detailed steps, see [AWS CloudFront documentation](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/GettingStarted.html).
+
+#### Ai Processing of PDFs
+Embeddings of PDF content needs to be generated for Litera Ai. Run the ```generateEmbeddings.ts``` script (available in the litlang-sync repository) to process and embed PDF content.
+
+### Common Issues ⚠️
+- PDF or Audio not loading: Make sure you have provided get access to the website domain from cloudfront.
+  
+- Blog not showing:	Ensure it’s published (not draft/pending approval)
+- Incorrect answers or errors using Litera Ai: Make sure embeddings for PDF are connectly generated.
+- Issues running sync scripts:	Verify the S3 folder structure matches the blueprint above. Make sure to update sync scripts to match your folders location.
    
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- ROADMAP -->
