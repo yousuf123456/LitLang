@@ -61,7 +61,23 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li>
+      <a href="#usage">Usage</a>
+      <ul>
+        <li>
+          <a a="#for-readers-notebook">For Readers</a>
+        </li>
+        <li>
+          <a a="#for-blog-writers-black_nib">For Blog Writers</a>
+        </li>
+        <li>
+          <a a="#for-admins-open_file_folder">For Admins</a>
+        </li>
+        <li>
+          <a a="#common-issues">Common Issues</a>
+        </li>
+      </ul>
+    </li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -286,7 +302,7 @@ Once files are uploaded to S3, run sync scripts to store all files metadata on M
 #### Ai Processing of PDFs
 Embeddings of PDF content needs to be generated for Litera Ai. Run the ```generateEmbeddings.ts``` script (available in the litlang-sync repository) to process and embed PDF content.
 
-### Common Issues ⚠️
+### Common Issues
 - PDF or Audio not loading: Make sure you have provided get access to the website domain from cloudfront.
   
 - Blog not showing:	Ensure it’s published (not draft/pending approval)
