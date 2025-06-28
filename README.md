@@ -50,7 +50,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a a="#Features">Features</a></li>
+        <li><a href="#Features">Features</a></li>
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
@@ -65,16 +65,16 @@
       <a href="#usage">Usage</a>
       <ul>
         <li>
-          <a a="#for-readers-notebook">For Readers</a>
+          <a href="#for-readers-notebook">For Readers</a>
         </li>
         <li>
-          <a a="#for-blog-writers-black_nib">For Blog Writers</a>
+          <a href="#for-blog-writers-black_nib">For Blog Writers</a>
         </li>
         <li>
-          <a a="#for-admins-open_file_folder">For Admins</a>
+          <a href="#for-admins-open_file_folder">For Admins</a>
         </li>
         <li>
-          <a a="#common-issues">Common Issues</a>
+          <a href="#common-issues">Common Issues</a>
         </li>
       </ul>
     </li>
