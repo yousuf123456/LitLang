@@ -30,14 +30,14 @@
   <p align="center">
     A platform to access study material, read content, and write blogs.
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/yousuf123456/Litlang"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://lit-lang.vercel.app/">View Demo</a>
     &middot;
-    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/yousuf123456/Litlang/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
-    <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/yousuf123456/Litlang/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
@@ -354,7 +354,7 @@ Be the first one to join me in shaping this project better😊.
 <!-- LICENSE -->
 ## License
 
-Distributed under the Unlicense License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -370,18 +370,18 @@ Muhammad Yousuf - [Linkedin](www.linkedin.com/in/muhammad-yousuf-dev) - m.yousuf
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/yousuf123456/Litlang.svg?style=for-the-badge
+[contributors-url]: https://github.com/yousuf123456/Litlang/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/yousuf123456/Litlang.svg?style=for-the-badge
+[forks-url]: https://github.com/yousuf123456/Litlang/network/members
+[stars-shield]: https://img.shields.io/github/stars/yousuf123456/Litlang.svg?style=for-the-badge
+[stars-url]: https://github.com/yousuf123456/Litlang/stargazers
+[issues-shield]: https://img.shields.io/github/issues/yousuf123456/Litlang.svg?style=for-the-badge
+[issues-url]: https://github.com/yousuf123456/Litlang/issues
+[license-shield]: https://img.shields.io/github/license/yousuf123456/Litlang.svg?style=for-the-badge
+[license-url]: https://github.com/yousuf123456/Litlang/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[linkedin-url]: https://linkedin.com/in/muhammad-yousuf-dev
 [product-screenshot1]: https://psiatxsp7k.ufs.sh/f/IJ6jQX6fzbj8vpgm7x1kQ0fx5o4P6RE1OUe2pwanbvzCjc3r
 [product-screenshot2]: https://psiatxsp7k.ufs.sh/f/IJ6jQX6fzbj8d5LI8KoprzQCLIK7MbtoW8TyAwlUDNuhnpYS
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
