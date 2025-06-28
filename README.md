@@ -288,7 +288,7 @@ litlang-bucket/
 ```
 
 #### Syncing Content
-Once files are uploaded to S3, run sync scripts to store all files metadata on MongoDB database, enabling easy and type-safe listing on the website via Prisma. Visit repository for syncing scripts and their documentation.
+Once files are uploaded to S3, run sync scripts to store all files metadata on MongoDB database, enabling easy and type-safe listing on the website via Prisma. Visit [Litlang-Sync](https://github.com/yousuf123456/litlang-sync) for syncing scripts and their documentation.
 
 #### Setting up CloudFront
   1. Create a CloudFront distribution pointing to your S3 bucket (`your-bucket.s3.amazonaws.com`)
@@ -300,7 +300,7 @@ Once files are uploaded to S3, run sync scripts to store all files metadata on M
 > For detailed steps, see [AWS CloudFront documentation](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/GettingStarted.html).
 
 #### Ai Processing of PDFs
-Embeddings of PDF content needs to be generated for Litera Ai. Run the ```generateEmbeddings.ts``` script (available in the litlang-sync repository) to process and embed PDF content.
+Embeddings of PDF content needs to be generated for Litera Ai. Run the ```generateEmbeddings.ts``` script (available in the [Litlang-Sync](https://github.com/yousuf123456/litlang-sync) repository) to process and embed PDF content.
 
 ### Common Issues
 - PDF or Audio not loading: Make sure you have provided get access to the website domain from cloudfront.
