@@ -33,7 +33,7 @@ export const SubjectsList = ({
           aria-label="No data illustration"
           className="w-[180px] md:w-[250px] aspect-1 h-auto relative"
         >
-          <Image alt="No Data Illustration" src={"/nosvg"} fill />
+          <Image alt="No Data Illustration" src={"/noData.svg"} fill />
         </div>
 
         <h2 className="text-xl md:text-2xl font-medium text-zinc-500 text-center">

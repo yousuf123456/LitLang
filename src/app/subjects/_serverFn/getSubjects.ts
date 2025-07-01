@@ -21,29 +21,34 @@ export const getSubjects = async (params: ParamsType) => {
     {
       $search: {
         index: "search",
-        compound: {
-          should: [
-            {
-              text: {
-                query,
-                fuzzy: {},
-                path: "name",
-              },
-            },
-            {
-              text: {
-                query,
-                path: "university",
-              },
-            },
-            {
-              text: {
-                query,
-                path: "universityShort",
-              },
-            },
-          ],
-          minimumShouldMatch: 1,
+        // compound: {
+        //   should: [
+        //     {
+        //       text: {
+        //         query,
+        //         fuzzy: {},
+        //         path: "name",
+        //       },
+        //     },
+        //     {
+        //       text: {
+        //         query,
+        //         path: "university",
+        //       },
+        //     },
+        //     {
+        //       text: {
+        //         query,
+        //         path: "universityShort",
+        //       },
+        //     },
+        //   ],
+        //   minimumShouldMatch: 1,
+        // },
+        text: {
+          query,
+          fuzzy: {},
+          path: "name",
         },
         count: {
           type: "total",

@@ -219,7 +219,7 @@ export const blogsRouter = router({
       z.object({
         isMyBlogs: z.boolean(),
         query: z.optional(z.string()),
-        userId: z.optional(z.string()),
+        userId: z.nullable(z.string()),
       })
     )
     .mutation(async ({ ctx, input }) => {

@@ -30,41 +30,34 @@ export const subjectsRouter = router({
         {
           $search: {
             index: "search",
-            compound: {
-              should: [
-                {
-                  text: {
-                    query,
-                    fuzzy: {},
-                    path: "name",
-                  },
-                },
-                {
-                  text: {
-                    query,
-                    path: "university",
-                  },
-                },
-                {
-                  text: {
-                    query,
-                    path: "universityShort",
-                  },
-                },
-              ],
-              minimumShouldMatch: 1,
-              // ...(university
-              //   ? {
-              //       filter: [
-              //         {
-              //           text: {
-              //             path: "universityShort",
-              //             query: university,
-              //           },
-              //         },
-              //       ],
-              //     }
-              //   : {}),
+            // compound: {
+            //   should: [
+            //     {
+            //       text: {
+            //         query,
+            //         fuzzy: {},
+            //         path: "name",
+            //       },
+            //     },
+            //     {
+            //       text: {
+            //         query,
+            //         path: "university",
+            //       },
+            //     },
+            //     {
+            //       text: {
+            //         query,
+            //         path: "universityShort",
+            //       },
+            //     },
+            //   ],
+            //   minimumShouldMatch: 1,
+            // },
+            text: {
+              query,
+              fuzzy: {},
+              path: "name",
             },
             count: {
               type: "total",

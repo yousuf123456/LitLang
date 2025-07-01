@@ -47,8 +47,12 @@ export const Searchbar = ({
   );
 
   useEffect(() => {
+    if (debouncedQueryValue.length === 0) return;
+
     getAutocompletes({ query: debouncedQueryValue, ...autocompleteProps }).then(
-      (res: any) => setAutocompletes(res)
+      (res: any) => {
+        setAutocompletes(res);
+      }
     );
   }, [debouncedQueryValue]);
 
