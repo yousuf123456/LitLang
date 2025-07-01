@@ -13,13 +13,14 @@ export const StandaloneFile = async ({
 
   if (!standalone) return redirect("/standalones?type=Book");
 
-  // const url = `https://litlang2.s3.amazonaws.com/${standalone.pdfKey}`;
   const url = `https://drwjw5urvo0gp.cloudfront.net/${standalone.pdfKey}`;
 
   return (
     <PDFViewer
       type={standalone.type}
-      bookId={standalone.bookId}
+      name={standalone.name}
+      reviewedBookId={standalone.bookId}
+      bookReviewsIds={standalone.bookReviewIds}
       pdfUrl={url}
       backUrl={
         standalone.type === "Book"
@@ -28,7 +29,6 @@ export const StandaloneFile = async ({
           ? `/standalones?type=Article`
           : `/standalones?type=Text`
       }
-      name={standalone.name}
     />
   );
 };

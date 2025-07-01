@@ -69,15 +69,17 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 export const PDFViewer = ({
   aiChatAvailable,
+  reviewedBookId,
+  bookReviewsIds,
   backUrl,
-  bookId,
   pdfUrl,
   name,
   type,
 }: {
+  bookReviewsIds?: string[] | null;
+  reviewedBookId?: string | null;
   aiChatAvailable?: boolean;
   type?: StandaloneFileType;
-  bookId?: string | null;
   backUrl: string;
   pdfUrl: string;
   name: string;
@@ -300,16 +302,41 @@ export const PDFViewer = ({
                 <p className=" line-clamp-2 text-sm text-zinc-700">{name}</p>
               </DropdownMenuLabel>
 
-              {type === "BookReview" && bookId && <DropdownMenuSeparator />}
+              {type === "BookReview" && reviewedBookId && (
+                <>
+                  <DropdownMenuSeparator />
 
-              {type === "BookReview" && bookId && (
-                <Link href={`/standalones/${bookId}`}>
-                  <DropdownMenuItem>
-                    <IoBookOutline className="mr-4 h-4 w-4 text-zinc-700" />
-                    <span>Read Actual Book</span>
-                  </DropdownMenuItem>
-                </Link>
+                  <Link href={`/standalones/${reviewedBookId}`}>
+                    <DropdownMenuItem>
+                      <IoBookOutline className="mr-4 h-4 w-4 text-zinc-700" />
+                      <span>Read Actual Book</span>
+                    </DropdownMenuItem>
+                  </Link>
+                </>
               )}
+
+              {type === "Book" &&
+                bookReviewsIds &&
+                bookReviewsIds.length > 0 && (
+                  <>
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuLabel className="py-3" asChild>
+                      <p className=" line-clamp-2 text-sm text-zinc-700">
+                        Book Reviews
+                      </p>
+                    </DropdownMenuLabel>
+
+                    {bookReviewsIds.map((reviewId, i) => (
+                      <Link key={i} href={`/standalones/${reviewId}`}>
+                        <DropdownMenuItem>
+                          <IoBookOutline className="mr-4 h-4 w-4 text-zinc-700" />
+                          <span>{`Book Review ${i + 1}`}</span>
+                        </DropdownMenuItem>
+                      </Link>
+                    ))}
+                  </>
+                )}
 
               <DropdownMenuSeparator />
 
