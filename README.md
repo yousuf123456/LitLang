@@ -16,12 +16,12 @@
 [![Unlicense License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-[![Product Name Screen Shot][product-screenshot2]](https://example.com)
+[![Product Name Screen Shot][product-screenshot2]](https://lit-lang.vercel.app/)
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/yousuf123456/LitLang">
     <img src="public/logo.png" alt="Logo" width="100" height="100">
   </a>
 
@@ -90,7 +90,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot1]](https://example.com)
+[![Product Name Screen Shot][product-screenshot1]](https://lit-lang.vercel.app/)
 
 LitLang is a web platform designed for students, readers, and writers who want to explore educational content and share their thoughts.
 
@@ -318,7 +318,7 @@ Embeddings of PDF content needs to be generated for Litera Ai. Run the ```genera
 - [ ] Make Litera Ai also answer on audio files.
 - [ ] Add support for video files.
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/yousuf123456/LitLang/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
